@@ -4,7 +4,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import {HttpModule} from '@angular/http';
 import { AppComponent } from './app.component';
 import { RichTextComponent } from './rich-text/rich-text.component';
+import { FontEndModule } from './font-end/font-end.module';
+import { BackEndModule } from './back-end/back-end.module';
+import { Routes, RouterModule } from '@angular/router';
 
+const ROUTES: Routes = [];
 
 @NgModule({
   declarations: [
@@ -15,7 +19,10 @@ import { RichTextComponent } from './rich-text/rich-text.component';
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     HttpModule,
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(ROUTES),
+    FontEndModule,
+    BackEndModule
   ],
   providers: [],
   bootstrap: [AppComponent]
