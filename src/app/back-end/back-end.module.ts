@@ -10,7 +10,25 @@ import { RichTextComponent } from './rich-text/rich-text.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import {Routes, RouterModule} from '@angular/router';
 
-const ROUTES: Routes = [];
+const ROUTES: Routes = [
+  {
+    path: '', component: BackEndComponent, resolve: {},
+    children: [
+      {
+        path: 'home', component: HomeManageComponent
+      },
+      {
+        path: 'title', component: TitleManageComponent
+      },
+      {
+        path: 'article', component: ArticleManageComponent
+      },
+      {
+        path: 'foot', component: FootManageComponent
+      }
+    ]
+  }
+];
 
 @NgModule({
   imports: [

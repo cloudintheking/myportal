@@ -194,6 +194,13 @@
     semver "^5.3.0"
     semver-intersect "^1.1.2"
 
+"@types/bootstrap@^4.1.2":
+  version "4.1.2"
+  resolved "http://registry.npm.taobao.org/@types/bootstrap/download/@types/bootstrap-4.1.2.tgz#3d6a3ea111e88ca926803a0e02b1f3d4c9913a5b"
+  dependencies:
+    "@types/jquery" "*"
+    popper.js "^1.14.1"
+
 "@types/jasmine@*", "@types/jasmine@~2.8.3":
   version "2.8.8"
   resolved "http://registry.npm.taobao.org/@types/jasmine/download/@types/jasmine-2.8.8.tgz#bf53a7d193ea8b03867a38bfdb4fbb0e0bf066c9"
@@ -203,6 +210,10 @@
   resolved "http://registry.npm.taobao.org/@types/jasminewd2/download/@types/jasminewd2-2.0.3.tgz#0d2886b0cbdae4c0eeba55e30792f584bf040a95"
   dependencies:
     "@types/jasmine" "*"
+
+"@types/jquery@*":
+  version "3.3.4"
+  resolved "http://registry.npm.taobao.org/@types/jquery/download/@types/jquery-3.3.4.tgz#f1850fb9a70041a14ace4f81a7ed782db8548317"
 
 "@types/jquery@^2.0.40":
   version "2.0.49"
@@ -780,6 +791,10 @@ boom@2.x.x:
   resolved "http://registry.npm.taobao.org/boom/download/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
   dependencies:
     hoek "2.x.x"
+
+bootstrap@^3.3.7:
+  version "3.3.7"
+  resolved "http://registry.npm.taobao.org/bootstrap/download/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -4692,6 +4707,10 @@ pkg-dir@^2.0.0:
   resolved "http://registry.npm.taobao.org/pkg-dir/download/pkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"
   dependencies:
     find-up "^2.1.0"
+
+popper.js@^1.14.1:
+  version "1.14.3"
+  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
 
 portfinder@^1.0.9, portfinder@~1.0.12:
   version "1.0.13"

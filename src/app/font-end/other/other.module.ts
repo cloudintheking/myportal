@@ -7,7 +7,22 @@ import { ArticleList2Component } from './article-list2/article-list2.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { Routes, RouterModule } from '@angular/router';
 
-const ROUTES: Routes = [];
+const ROUTES: Routes = [
+  {
+    path: '', component: OtherComponent, children: [
+      {
+        path: 'style1/:sid', component: ArticleList1Component
+      },
+      {
+        path: 'style2/:sid', component: ArticleList2Component
+      },
+      {
+        path: 'detail', component: ArticleDetailComponent
+      }
+    ],
+    resolve: {}
+  }
+];
 
 @NgModule({
   imports: [
