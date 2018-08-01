@@ -27,9 +27,27 @@
     "@ngtools/json-schema" "^1.1.0"
     rxjs "^5.5.6"
 
+"@angular/animations@>=5.1.0":
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/@angular/animations/download/@angular/animations-6.1.0.tgz#498d3a5bbfe4c89b044c1073007913199b9b98b9"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/animations@^5.2.0":
   version "5.2.11"
   resolved "http://registry.npm.taobao.org/@angular/animations/download/@angular/animations-5.2.11.tgz#2bd3fe9e72916ca28de9bfaaddf0cb936565a0b8"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/cdk@>=5.1.0":
+  version "6.4.2"
+  resolved "http://registry.npm.taobao.org/@angular/cdk/download/@angular/cdk-6.4.2.tgz#e623cdbbe6258980b0fa93beafce0ea7c4e2c17b"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/cdk@^5.2.4":
+  version "5.2.5"
+  resolved "http://registry.npm.taobao.org/@angular/cdk/download/@angular/cdk-5.2.5.tgz#cae2b12e1990a692dd267a73fdb1d49db37f9604"
   dependencies:
     tslib "^1.7.1"
 
@@ -98,6 +116,12 @@
   optionalDependencies:
     node-sass "^4.7.2"
 
+"@angular/common@>=5.1.0":
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/@angular/common/download/@angular/common-6.1.0.tgz#7666c385409cd8d313cc66eade2f8a7410a12256"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/common@^5.2.0":
   version "5.2.11"
   resolved "http://registry.npm.taobao.org/@angular/common/download/@angular/common-5.2.11.tgz#ee7520b02510a2868f30b1f91897102d48324edf"
@@ -113,17 +137,41 @@
     reflect-metadata "^0.1.2"
     tsickle "^0.27.2"
 
+"@angular/compiler@>=5.1.0":
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/@angular/compiler/download/@angular/compiler-6.1.0.tgz#b945439fb3cf6a33d297fcb9a08e487f196de901"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/compiler@^5.2.0":
   version "5.2.11"
   resolved "http://registry.npm.taobao.org/@angular/compiler/download/@angular/compiler-5.2.11.tgz#ca2c38cda6ddde52b5948b8cff6551ff19d5e9de"
   dependencies:
     tslib "^1.7.1"
 
+"@angular/core@>=5.1.0":
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/@angular/core/download/@angular/core-6.1.0.tgz#d591a97c42cb5efd1ece0f1542cb30c7894d3661"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/core@^5.2.0":
   version "5.2.11"
   resolved "http://registry.npm.taobao.org/@angular/core/download/@angular/core-5.2.11.tgz#0e38fdf4fa038a3c168c72952682f2ee3721f1a3"
   dependencies:
     tslib "^1.7.1"
+
+"@angular/flex-layout@5.0.0-beta.15":
+  version "5.0.0-beta.15"
+  resolved "http://registry.npm.taobao.org/@angular/flex-layout/download/@angular/flex-layout-5.0.0-beta.15.tgz#ae1aeac30d0370190ec6af0ac1fa5633c6547409"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/forms@>=5.1.0":
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/@angular/forms/download/@angular/forms-6.1.0.tgz#7e62913b07b67d002ebddf735725d2839a6c3a63"
+  dependencies:
+    tslib "^1.9.0"
 
 "@angular/forms@^5.2.0":
   version "5.2.11"
@@ -141,11 +189,37 @@
   version "5.2.11"
   resolved "http://registry.npm.taobao.org/@angular/language-service/download/@angular/language-service-5.2.11.tgz#6e119ada2c0271a65d9b8fae61fcdd5f1938766b"
 
+"@angular/material@>=5.1.0":
+  version "6.4.2"
+  resolved "http://registry.npm.taobao.org/@angular/material/download/@angular/material-6.4.2.tgz#f39529d56bad97f0470b886c3f30591b9d3a7d05"
+  dependencies:
+    tslib "^1.7.1"
+  optionalDependencies:
+    parse5 "^5.0.0"
+
+"@angular/material@^5.2.4":
+  version "5.2.5"
+  resolved "http://registry.npm.taobao.org/@angular/material/download/@angular/material-5.2.5.tgz#287af95d234e0644244d9db565f7a05c10b737f8"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/platform-browser-dynamic@>=5.1.0":
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/@angular/platform-browser-dynamic/download/@angular/platform-browser-dynamic-6.1.0.tgz#b9341c774aacfe7180ceb1bc82c2acb3ab093018"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/platform-browser-dynamic@^5.2.0":
   version "5.2.11"
   resolved "http://registry.npm.taobao.org/@angular/platform-browser-dynamic/download/@angular/platform-browser-dynamic-5.2.11.tgz#1b2a9de4af207bee7040400f61c01a44e929c308"
   dependencies:
     tslib "^1.7.1"
+
+"@angular/platform-browser@>=5.1.0":
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/@angular/platform-browser/download/@angular/platform-browser-6.1.0.tgz#8beb2feb4f072e925b6fbeb8259887335f4a98be"
+  dependencies:
+    tslib "^1.9.0"
 
 "@angular/platform-browser@^5.2.0":
   version "5.2.11"
@@ -350,6 +424,23 @@ angular-froala-wysiwyg@^2.8.4:
   dependencies:
     "@types/jquery" "^2.0.40"
     froala-editor "2.8.4"
+
+angular-material-fileupload@0.0.11:
+  version "0.0.11"
+  resolved "http://registry.npm.taobao.org/angular-material-fileupload/download/angular-material-fileupload-0.0.11.tgz#3f732735d252dc530ca2435a6412b0c059a43f4e"
+  dependencies:
+    "@angular/animations" ">=5.1.0"
+    "@angular/cdk" ">=5.1.0"
+    "@angular/common" ">=5.1.0"
+    "@angular/compiler" ">=5.1.0"
+    "@angular/core" ">=5.1.0"
+    "@angular/forms" ">=5.1.0"
+    "@angular/material" ">=5.1.0"
+    "@angular/platform-browser" ">=5.1.0"
+    "@angular/platform-browser-dynamic" ">=5.1.0"
+    core-js "^2.4.1"
+    rxjs "^5.5.0"
+    zone.js "^0.8.4"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -2631,6 +2722,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "http://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "http://registry.npm.taobao.org/hammerjs/download/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+
 handle-thing@^1.2.5:
   version "1.2.5"
   resolved "http://registry.npm.taobao.org/handle-thing/download/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
@@ -4582,6 +4677,10 @@ parse-passwd@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/parse-passwd/download/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
 
+parse5@^5.0.0:
+  version "5.0.0"
+  resolved "http://registry.npm.taobao.org/parse5/download/parse5-5.0.0.tgz#4d02710d44f3c3846197a11e205d4ef17842b81a"
+
 parseqs@0.0.5:
   version "0.0.5"
   resolved "http://registry.npm.taobao.org/parseqs/download/parseqs-0.0.5.tgz#d5208a3738e46766e291ba2ea173684921a8b89d"
@@ -5339,7 +5438,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs@^5.5.6:
+rxjs@^5.5.0, rxjs@^5.5.6:
   version "5.5.11"
   resolved "http://registry.npm.taobao.org/rxjs/download/rxjs-5.5.11.tgz#f733027ca43e3bec6b994473be4ab98ad43ced87"
   dependencies:
@@ -6223,7 +6322,7 @@ tsickle@^0.27.2:
     source-map "^0.6.0"
     source-map-support "^0.5.0"
 
-tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1:
+tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"
   resolved "http://registry.npm.taobao.org/tslib/download/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 
@@ -6532,6 +6631,10 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   resolved "http://registry.npm.taobao.org/wbuf/download/wbuf-1.7.3.tgz#c1d8d149316d3ea852848895cb6a0bfe887b87df"
   dependencies:
     minimalistic-assert "^1.0.0"
+
+web-animations-js@^2.3.1:
+  version "2.3.1"
+  resolved "http://registry.npm.taobao.org/web-animations-js/download/web-animations-js-2.3.1.tgz#3a6d9bc15196377a90f8e2803fa5262165b04510"
 
 webdriver-js-extender@^1.0.0:
   version "1.0.0"
@@ -6887,6 +6990,6 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/yn/download/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-zone.js@^0.8.19:
+zone.js@^0.8.19, zone.js@^0.8.4:
   version "0.8.26"
   resolved "http://registry.npm.taobao.org/zone.js/download/zone.js-0.8.26.tgz#7bdd72f7668c5a7ad6b118148b4ea39c59d08d2d"

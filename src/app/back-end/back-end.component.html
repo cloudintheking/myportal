@@ -1,3 +1,22 @@
-<p>
-  back-end works!
-</p>
+
+  <mat-toolbar color="primary" class="back-header" >
+    <button mat-icon-button (click)="sideNav.toggle()">
+      <mat-icon>{{sideNav.opened ? 'close' : 'menu'}}</mat-icon>
+    </button>
+    <span>xxx公司后台管理系统</span>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="back-container" >
+    <mat-sidenav #sideNav class="back-sidenav" mode="push" >
+      <app-manage></app-manage>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+
+
+

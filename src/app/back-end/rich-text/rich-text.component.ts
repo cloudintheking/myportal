@@ -1,6 +1,6 @@
 import { Http } from '@angular/http';
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-
+declare var $: any;
 @Component({
   selector: 'app-rich-text',
   templateUrl: './rich-text.component.html',
@@ -10,7 +10,6 @@ export class RichTextComponent implements OnInit {
 
   @Input()
   contents: String = ''; // 富文本内容
-
   options: Object = {};
   // 监听键盘按下事件
   @HostListener('document:keydown', ['$event'])
@@ -19,7 +18,6 @@ export class RichTextComponent implements OnInit {
     console.log(keyCode);
   }
   constructor(private http: Http) {
-
     this.options = { // 配置信息
       placeholder: 'Edit Me',
       imageUploadURL: '/upload_image',

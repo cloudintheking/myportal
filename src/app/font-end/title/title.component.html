@@ -1,3 +1,25 @@
-<p>
-  title works!
-</p>
+<nav class="navbar navbar-index ">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        <li><a [routerLink]="['./home']" >网站首页</a></li>
+        <li><a [routerLink]="['./other/1']">公司介绍</a></li>
+        <li><a [routerLink]="['./other/2']">企业文化</a></li>
+        <li><a [routerLink]="['./other/3']">行业动态</a></li>
+        <li><a [routerLink]="['./other/4']">项目展示</a></li>
+        <li><a [routerLink]="['./other/5']">专题专栏</a></li>
+        <li><a [routerLink]="['./other/6']">规章制度</a></li>
+        <li><a [routerLink]="['./other/7']">联系我们</a></li>
+        <li><a [routerLink]="['/login']">后台登陆</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

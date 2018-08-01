@@ -1,0 +1,21 @@
+.bottom {
+  /*width: 1170px;*/
+  margin: 0 auto;
+}
+
+.bottom span {
+  text-align: center;
+  line-height: 30px;
+  margin-top: 20px;
+  width: 100%;
+  float: left;
+}
+
+.footer {
+  /*width: 100%;*/
+  margin: 25px 0 0 0;
+}
+
+select {
+  margin: 4px 0;
+}

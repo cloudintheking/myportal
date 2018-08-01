@@ -1,24 +1,33 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FontEndComponent } from './font-end.component';
-import { LogoComponent } from './logo/logo.component';
-import { TitleComponent } from './title/title.component';
-import { OtherModule } from './other/other.module';
-import { LoginComponent } from './login/login.component';
-import { FootComponent } from './foot/foot.component';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import {Zone1Component} from './home/zone1/zone1.component';
+import {Zone3Component} from './home/zone3/zone3.component';
+import {Zone2Component} from './home/zone2/zone2.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FontEndComponent} from './font-end.component';
+import {LogoComponent} from './logo/logo.component';
+import {TitleComponent} from './title/title.component';
+import {LoginComponent} from './login/login.component';
+import {FootComponent} from './foot/foot.component';
+import {Routes, RouterModule} from '@angular/router';
+import {HomeComponent} from './home/home.component';
+import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
+import {SharedMaterialModule} from '../shared-material/shared-material.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 const ROUTES: Routes = [
   {
-    path : '', redirectTo: 'home'
-  },
-  {
-    path: 'home', component: HomeComponent, resolve: {}
-  },
-  {
-    path: 'other/:fid', loadChildren: './other/other.module#OtherModule'
+    path: '', component: FontEndComponent,
+    children: [
+      {
+        path: '', redirectTo: 'home'
+      },
+      {
+        path: 'home', component: HomeComponent
+      },
+      {
+        path: 'other/:fid', loadChildren: './other/other.module#OtherModule'
+      }
+    ]
   }
 ];
 
@@ -26,10 +35,15 @@ const ROUTES: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(ROUTES),
-    FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
-    OtherModule
+    FlexLayoutModule,
+    SharedMaterialModule
   ],
-  declarations: [FontEndComponent, LogoComponent, TitleComponent, HomeComponent, LoginComponent, FootComponent]
+  exports: [
+    FontEndComponent
+  ],
+  declarations: [FontEndComponent, LogoComponent, TitleComponent, HomeComponent,
+    LoginComponent, FootComponent, Zone1Component, Zone2Component, Zone3Component]
 })
-export class FontEndModule { }
+export class FontEndModule {
+}

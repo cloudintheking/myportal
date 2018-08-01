@@ -1,0 +1,51 @@
+.content_list ul{
+  width: 96%;
+  margin: 2%;
+}
+.content_list ul li{
+  float: left;
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+.content_list ul li img{
+  width: 22%;
+  float: left;
+  margin: 0 10px 0 0;
+  padding: 10px;
+  border: 1px #f2f2f2 solid;
+}
+.content_list ul li span{
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 60%;
+  font-size: 16px;
+  line-height: 36px;
+}
+.content_list ul li b{
+  float: right;
+  line-height: 36px;
+  font-weight: normal;
+  font-size: 16px;
+}
+.content_list ul li i{
+  float: left;
+  line-height: 24px;
+  font-size: 14px;
+  width: 75%;
+  font-style: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.content_list ul li a{
+  float: right;
+  font-size: 14px;
+  background: #0c7dd8;
+  padding: 10px 20px;
+  color: #fff;
+  margin: 10px;
+}

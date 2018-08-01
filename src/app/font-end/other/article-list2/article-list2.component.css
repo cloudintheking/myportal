@@ -1,0 +1,44 @@
+/*pro*/
+
+.content_pro {
+  width: 100%;
+}
+
+.content_pro ul {
+  width: 96%;
+  margin: 2%;
+}
+
+.content_pro ul li {
+  width: 29%;
+  float: left;
+  margin: 1% 2%;
+}
+
+.content_pro ul li img {
+  float: left;
+  width: 96%;
+  padding: 2%;
+  border: 1px #f2f2f2 solid;
+}
+
+.content_pro ul li span {
+  width: 100%;
+  float: left;
+  font-size: 16px;
+  line-height: 36px;
+}
+
+.content_pro ul li i {
+  font-style: normal;
+  font-size: 14px;
+  float: left;
+  width: 98%;
+  line-height: 24px;
+  font-style: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #4d4d4d;
+}

@@ -1,0 +1,41 @@
+
+.tab-content {
+  border: 1px solid #ddd;
+  float: left;
+  border-top: none;
+}
+
+.index_new_list1 li {
+  width: 31%;
+  float: left;
+  margin: 1%;
+}
+
+.index_new_list1 li b {
+  font-size: 16px;
+  color: #676767;
+  width: 100%;
+  float: left;
+  padding: 10px;
+  font-weight: 500;
+}
+
+.index_new_list1 li span {
+  font-size: 14px;
+  color: #676767;
+  width: 100%;
+  float: left;
+  padding: 10px;
+  line-height: 24px;
+}
+
+.index_new_list1 li a {
+  color: #fff;
+  background: #2797d8;
+  width: 40%;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+  float: left;
+  margin: 0 10px;
+}

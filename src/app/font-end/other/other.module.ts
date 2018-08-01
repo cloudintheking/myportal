@@ -29,6 +29,7 @@ const ROUTES: Routes = [
     CommonModule,
     RouterModule.forChild(ROUTES)
   ],
+  exports: [RouterModule],
   declarations: [OtherComponent, MenuComponent, ArticleList1Component, ArticleList2Component, ArticleDetailComponent]
 })
 export class OtherModule { }
