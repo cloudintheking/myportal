@@ -1,3 +1,40 @@
-<p>
-  logo-manage works!
-</p>
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center "
+  fxLayoutGap="15px"
+  fxLayout.xs="column"
+  fxLayoutAlign.xs="space-between"
+
+  style="height: auto;"
+>
+
+  <mat-card  fxFlex="30" >
+    <mat-card-header>
+      <mat-card-title>
+        <div style="overflow: hidden;vertical-align:middle;position:relative;">
+          <button mat-raised-button color="primary">logo上传</button>
+          <input  id="file1" accept="image/png" type="file" (change)="onchangeSelectFile($event)"
+                 style="position:absolute;top:0;left:0;font-size:34px; opacity:0">
+          <span id="filename1" style="vertical-align: middle">格式:20*20</span>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="logoImg">
+  </mat-card>
+
+  <mat-card fxFlex="60">
+    <mat-card-header>
+      <mat-card-title>
+        <div style="overflow: hidden;vertical-align:middle;position:relative;">
+          <button mat-raised-button color="primary">背景上传</button>
+          <input id="file2" accept="image/*" type="file" (change)="onchangeSelectFile($event)"
+                 style="position:absolute;top:0;left:0;font-size:34px; opacity:0">
+          <span id="filename2" style="vertical-align: middle">格式:1920*290</span>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="backImg">
+  </mat-card>
+
+</div>
+

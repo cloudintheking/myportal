@@ -3,3 +3,188 @@
   /*vertical-align: middle;*/
   text-align: center;
 }
+.scrollbox {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.scrollbox .time {
+  display: block;
+  float: left;
+  color: #fff;
+  text-align: center;
+  width: 11%;
+  margin-right: 2%;
+}
+
+.scrollbox .time h4 {
+  display: block;
+  width: 100%;
+  height: 36px;
+  margin: 0px;
+  background: #2797d8;
+  font-size: 17px;
+  line-height: 36px;
+}
+
+.scrollbox .time h5 {
+  width: 100%;
+  height: 45px;
+  display: block;
+  font-size: 24px;
+  margin: 0px;
+  color: #767676;
+  background: #ebebeb;
+  font-weight: bold;
+  line-height: 45px;
+}
+
+.scrollbox .nnei {
+  float: left;
+  width: 84%;
+}
+.nnei h3 a:hover{
+  color: #ff312e !important;
+}
+.scrollDiv {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+/*这里的高度和超出隐藏是必须的*/
+
+.scrollDiv li {
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+  vertical-align: bottom;
+  zoom: 1;
+  border-bottom: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+.scrollDiv li h3 {
+  height: 36px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #161616;
+  line-height: 36px;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scrollDiv li h3 a {
+  color: #353535;
+  text-decoration: none
+}
+
+.scrollDiv li h3 a:hover {
+  color: #005cd9
+}
+
+.scrollDiv li div.neirong {
+  height: 40px;
+  width: 100%;
+  color: #929292;
+  line-height: 22px;
+  font-size: 12px;
+  overflow: hidden
+}
+
+.scrollDiv li div.neirong a {
+  color: #929292;
+  text-decoration: none
+}
+
+.scroltit {
+  height: 26px;
+  line-height: 26px;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+.scroltit .updown {
+  float: right;
+  width: 38px;
+  height: 26px;
+}
+
+.but_up {
+  margin-left: -1px;
+  background: url(../../../../assets/img/up.gif) no-repeat 0 0;
+  text-indent: -9999px
+}
+
+.but_down {
+  background: url(../../../../assets/img/down.gif) no-repeat 0 0;
+  text-indent: -9999px
+}
+
+.lanmu_names {
+  width: 100%;
+}
+
+.lanmu_names .lanmu_names_tou {
+  display: inline-block;
+  float: left;
+  width: 100%;
+}
+
+.lanmu_names .lanmu_names_tou h3 {
+  display: inline-block;
+  font-size: 26px;
+  color: #161616;
+  margin: 0px;
+}
+
+.lanmu_names .lanmu_names_tou h4 {
+  display: inline-block;
+  font-size: 26px;
+  color: #c2c2c2;
+  margin-left: 5px;
+}
+
+.lanmu_names span {
+  display: block;
+  font-size: 12px;
+  color: #161616;
+  float: left;
+  line-height: 20px;
+}
+
+.lanmu_names span b {
+  width: 43px;
+  height: 3px;
+  display: block;
+  background: #d90000;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.land {
+  background: url("../../../../assets/img/b1.jpg") repeat;
+  width: 100%;
+  float: left;
+}
+
+.name {
+  line-height: 36px;
+  width: 90%;
+  float: left;
+  margin: 7% 0 2% 5%;
+  border-radius: 5px;
+  border: 1px #d6d6d6 solid;
+  padding: 3px;
+  color: #5f5f5f;
+}
+
+.btn_index {
+  width: 90%;
+  float: left;
+  margin: 10% 5% 16% 5% !important;
+}

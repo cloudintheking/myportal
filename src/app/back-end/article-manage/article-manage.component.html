@@ -10,7 +10,7 @@
     <!--<mat-option [value]="undefined">无</mat-option>-->
     <!--<mat-option  *ngFor="let item of interest;let index = index" [value]="item.id">{{item.name}}</mat-option>-->
     <!--</mat-select>-->
-    <mat-select placeholder="栏目">
+    <mat-select placeholder="栏目" [value]="selected">
       <mat-option [value]="0">顶级栏目</mat-option>
       <mat-optgroup *ngFor="let parent of parents" [label]="parent.name">
         <mat-option *ngFor="let child of parent.childs" [value]="child.id">{{child.name}}</mat-option>

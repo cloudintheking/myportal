@@ -1,6 +1,5 @@
 
 .tab-content {
-  border: 1px solid #ddd;
   float: left;
   border-top: none;
 }
@@ -25,8 +24,12 @@
   color: #676767;
   width: 100%;
   float: left;
-  padding: 10px;
+  margin: 10px;
   line-height: 24px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
 }
 
 .index_new_list1 li a {
@@ -38,4 +41,9 @@
   text-align: center;
   float: left;
   margin: 0 10px;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #3883ad;
 }

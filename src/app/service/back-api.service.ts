@@ -1,11 +1,13 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+/**
+ * @author hl
+ * @date 2018/8/2
+ * @Description: 后台管理API
+*/
 @Injectable()
 export class BackApiService {
-  test: EventEmitter<any> = new EventEmitter<any>();
-
   articleIdEmitter: EventEmitter<number> = new EventEmitter<number>(); // 文章id分发器
   constructor(private  http: HttpClient) {
   }
@@ -28,10 +30,18 @@ export class BackApiService {
    * 获取栏目列表信息
    * @returns {Observable<any>}
    */
-  getTitles(): Observable<any> {
+  getTitles(params: HttpParams): Observable<any> {
     return this.http.get('');
   }
 
+  /**
+   * 根据id删除对应title信息
+   * @param {number} id
+   * @returns {Observable<any>}
+   */
+  deleteTitleById(id: number): Observable<any> {
+    return this.http.get('');
+  }
   /**********************首页模块管理api******************************/
 
   /**********************文章管理api******************************/

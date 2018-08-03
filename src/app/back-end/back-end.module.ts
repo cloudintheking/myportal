@@ -10,11 +10,13 @@ import {RichTextComponent} from './rich-text/rich-text.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {Routes, RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { LogoManageComponent } from './logo-manage/logo-manage.component';
-import { AddArticleDialogComponent } from './article-manage/add-article-dialog/add-article-dialog.component';
+import {LogoManageComponent} from './logo-manage/logo-manage.component';
+import {AddArticleDialogComponent} from './article-manage/add-article-dialog/add-article-dialog.component';
 import {SharedMaterialModule} from '../shared-material/shared-material.module';
 import {AddConfirmDialogComponent} from '../common-components/add-confirm-dialog/add-confirm-dialog.component';
-import { LogoMangeComponent } from './logo-mange/logo-mange.component';
+import {AddTitleDialogComponent} from './title-manage/add-title-dialog/add-title-dialog.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 const ROUTES: Routes = [
   {
@@ -43,16 +45,18 @@ const ROUTES: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    FontAwesomeModule,
     ReactiveFormsModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
+    FlexLayoutModule,
     RouterModule.forChild(ROUTES),
     SharedMaterialModule
   ],
-  entryComponents: [AddArticleDialogComponent, AddConfirmDialogComponent],
+  entryComponents: [AddArticleDialogComponent, AddConfirmDialogComponent, AddTitleDialogComponent],
   declarations: [
     BackEndComponent, ManageComponent, TitleManageComponent, HomeManageComponent, AddConfirmDialogComponent,
-    ArticleManageComponent, FootManageComponent, RichTextComponent, LogoManageComponent, AddArticleDialogComponent, LogoMangeComponent]
+    ArticleManageComponent, FootManageComponent, RichTextComponent, LogoManageComponent, AddArticleDialogComponent, AddTitleDialogComponent]
 })
 export class BackEndModule {
 }

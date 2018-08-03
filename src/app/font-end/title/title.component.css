@@ -1,0 +1,28 @@
+.navbar-index {
+  background: #0c7dd8;
+  margin-bottom: 20px;
+}
+
+.navbar-index a {
+  color: #fff;
+  font-size: 18px;
+}
+.navbar-nav>li>a{
+  line-height: normal !important;
+}
+.nav > li > a {
+  padding: 10px 25px !important;
+}
+
+.navbar-toggle .icon-bar {
+  background: #fff;
+}
+.navbar{
+  min-height: auto;
+}
+.nav>li>a:focus, .nav>li>a:hover{
+  background-color:unset;
+}
+.hvr-shutter-out-horizontal{
+  background: inherit;
+}

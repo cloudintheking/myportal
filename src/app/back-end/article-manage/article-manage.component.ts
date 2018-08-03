@@ -22,7 +22,7 @@ export class ArticleManageComponent implements OnInit {
     {name: 'c', id: 1},
     {name: 'd', id: 1}
   ];
-
+  selected: Number = 1;
   parents: any[] = [
     {
       name: '球类',

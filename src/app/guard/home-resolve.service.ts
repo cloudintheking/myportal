@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HomeApiService} from './home-api.service';
+import {HomeApiService} from '../service/home-api.service';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 
 @Injectable()
