@@ -1,3 +1,7 @@
 /*.toolbar-seprator {*/
   /*flex: 1 1 auto;*/
 /*}*/
+.mat-header-cell{
+  text-align: center;
+}
+

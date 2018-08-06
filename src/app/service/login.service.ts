@@ -9,7 +9,10 @@ import {HttpClient, HttpParams} from '@angular/common/http';
  */
 @Injectable()
 export class LoginService {
-  private userData: any; // 全局用户信息
+  userlocal: Storage = localStorage;
+  userData: object = {
+    state: false
+  }; // 全局用户信息
   constructor(private http: HttpClient) {
   }
 

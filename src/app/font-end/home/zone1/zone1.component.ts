@@ -8,10 +8,39 @@ import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from 
 export class Zone1Component implements OnInit, AfterViewInit ,OnChanges {
 
   @Input()
-  scrollid: string;
-
-  butupId: string;
-  butdownId: string;
+  scrollid: string; // 滚动界面元素id
+  butupId: string; // 向上按钮元素id
+  butdownId: string; // 向下按钮元素id
+  articleTemp: any[] = [
+    {
+      month: 10,
+      day: 25,
+      title: '市委常委、组织部部长钟关华调研宁波市委党',
+      sub: '1月8日下午，褚银良副而未建、建而不快”问题。城投公司总经理周宏伟陪同督查...',
+      route: '/frontend/other/1/detail'
+    },
+    {
+      month: 10,
+      day: 25,
+      title: '市委常委、组织部部长钟关华调研宁波市委党',
+      sub: '1月8日下午，褚银良副而未建、建而不快”问题。城投公司总经理周宏伟陪同督查...',
+      route: '/frontend/other/1/detail'
+    },
+    {
+      month: 10,
+      day: 25,
+      title: '市委常委、组织部部长钟关华调研宁波市委党',
+      sub: '1月8日下午，褚银良副而未建、建而不快”问题。城投公司总经理周宏伟陪同督查...',
+      route: '/frontend/other/1/detail'
+    },
+    {
+      month: 10,
+      day: 25,
+      title: '市委常委、组织部部长钟关华调研宁波市委党',
+      sub: '1月8日下午，褚银良副而未建、建而不快”问题。城投公司总经理周宏伟陪同督查...',
+      route: '/frontend/other/1/detail'
+    }
+  ];
   constructor() {
   }
 

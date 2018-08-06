@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // );
     console.log(user);
     if (user.username === 'admin' && user.password === '123') {
-      this.loginApi.User = user;
+      this.loginApi.userlocal.setItem('state', 'ff');
     }
-
-    this.router.navigate(['/backend/logo']);
-    // window.location.href = 'http://112.16.169.54:8025/neibu.html';
+    // localStorage.removeItem('state');
+    // this.router.navigate(['/backend/logo']);
+     window.location.href = 'http://112.16.169.54:8025/neibu.html';
   }
 
 }

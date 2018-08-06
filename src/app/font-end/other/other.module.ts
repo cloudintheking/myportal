@@ -11,10 +11,10 @@ const ROUTES: Routes = [
   {
     path: '', component: OtherComponent, children: [
       {
-        path: 'style1/:sid', component: ArticleList1Component
+        path: 'style1', component: ArticleList1Component
       },
       {
-        path: 'style2/:sid', component: ArticleList2Component
+        path: 'style2', component: ArticleList2Component
       },
       {
         path: 'detail', component: ArticleDetailComponent

@@ -28,18 +28,20 @@
   <button mat-raised-button color="accent"  (click)="showArticleDialog()"> 新增</button>
   <mat-table [dataSource]="articles" matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
     <ng-container matColumnDef="user">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>寄件人</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>模块名</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.user.login}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>标题</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>展示栏目</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="created_at">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>日期</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.created_at }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>状态</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-slide-toggle [disableRipple]="true" [checked]="true"></mat-slide-toggle>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="management">
@@ -47,7 +49,7 @@
         <u>管理</u>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button color="primary" (click)="reply(row)">回复</button>
+        <button mat-button color="primary" (click)="reply(row)">编辑</button>
         <button mat-button color="warn" (click)="delete(row)">删除</button>
       </mat-cell>
     </ng-container>

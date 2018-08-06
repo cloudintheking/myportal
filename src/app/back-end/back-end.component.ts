@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import { faHandPointRight } from '@fortawesome/free-regular-svg-icons';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {faHandPointRight} from '@fortawesome/free-regular-svg-icons';
+import {LoginService} from '../service/login.service';
+
 /**
  * @author hl
  * @date 2018/8/3
@@ -10,10 +12,11 @@ import { faHandPointRight } from '@fortawesome/free-regular-svg-icons';
   templateUrl: './back-end.component.html',
   styleUrls: ['./back-end.component.css']
 })
-export class BackEndComponent implements OnInit {
+export class BackEndComponent implements OnInit, OnDestroy {
   menuItem: String = 'logo管理';
   faHandPointRight = faHandPointRight;
-  constructor() {
+
+  constructor(private loginApi: LoginService ) {
   }
 
   ngOnInit() {
@@ -21,5 +24,9 @@ export class BackEndComponent implements OnInit {
 
   showMenuItem(event) {
     this.menuItem = event;
+  }
+
+  ngOnDestroy(): void {
+  // localStorage.removeItem('state');
   }
 }

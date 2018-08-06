@@ -28,7 +28,7 @@
   <button mat-raised-button color="accent"  (click)="showArticleDialog()"> 新增</button>
   <mat-table [dataSource]="articles" matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
     <ng-container matColumnDef="user">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>寄件人</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>发布人</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.user.login}}</mat-cell>
     </ng-container>
 
@@ -47,7 +47,7 @@
         <u>管理</u>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button color="primary" (click)="reply(row)">回复</button>
+        <button mat-button color="primary" (click)="reply(row)">编辑</button>
         <button mat-button color="warn" (click)="delete(row)">删除</button>
       </mat-cell>
     </ng-container>

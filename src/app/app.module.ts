@@ -18,10 +18,10 @@ import {OtherResolveService} from './guard/other-resolve.service';
 
 const ROUTES: Routes = [
   {
-    path: '', redirectTo: 'fontend', pathMatch: 'full'
+    path: '', redirectTo: 'frontend', pathMatch: 'full'
   },
   {
-    path: 'fontend',
+    path: 'frontend',
     loadChildren: './font-end/font-end.module#FontEndModule'
   },
   {
