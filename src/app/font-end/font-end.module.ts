@@ -25,7 +25,7 @@ const ROUTES: Routes = [
         path: 'home', component: HomeComponent
       },
       {
-        path: 'other/:fid', loadChildren: './other/other.module#OtherModule'
+        path: 'other', loadChildren: './other/other.module#OtherModule'
       }
     ]
   }

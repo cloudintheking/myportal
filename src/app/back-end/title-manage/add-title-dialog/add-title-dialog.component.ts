@@ -1,9 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {BackApiService} from '../../../service/back-api.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {AddConfirmDialogComponent} from '../../../common-components/add-confirm-dialog/add-confirm-dialog.component';
 import {DomSanitizer} from '@angular/platform-browser';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-add-title-dialog',
@@ -13,106 +14,93 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class AddTitleDialogComponent implements OnInit {
   status: Boolean = true; // 状态 0:禁用, 1:启用
   statusMess: String = '启用'; // 状态提示信息
-  titleList: any[] = [
-    {id: 1, name: '企业文化'},
-    {id: 2, name: '企业动态'},
-    {id: 3, name: '企业信息'}
-  ];
-  options: object;
+  titleList: Observable<any>;
   formModel: FormGroup; // 表单数据
-
+  doConfirm: EventEmitter<any> = new EventEmitter<any>(); // 确认信号
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private  dialog: MatDialog,
-              private sanitizer: DomSanitizer, private  articleApi: BackApiService) {
-    const fb: FormBuilder = new FormBuilder();
-    this.formModel = fb.group({
+              private sanitizer: DomSanitizer, private  titleApi: BackApiService) {
+    this.formModel = new FormBuilder().group({
+      id: [],
       name: [],
-      level: []
+      pid: [],
+      inNavBar: [],
+      displayStyle: [],
+      route: []
     });
-    if (null) {
-      this.status = true;
-    } else {
-      this.status = false;
-    }
-    // 富文本配置信息
-    this.options = {
-      placeholder: 'Edit Me',
-      videoMaxSize: 1024 * 1024 * 400,
-      imageUploadURL: '/upload_image',
-      fileUploadURL: '/upload_file',
-      videoUploadURL: '/upload_video',
-      events: {
-        'froalaEditor.focus': function (e, editor) {
-          console.log(editor.html.get());
-        },
-        'froalaEditor.image.removed': function (e, editor, img) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_image',
-            data: {
-              src: img.attr('src')
-            }
-          })
-            .done((data11) => {
-              console.log('image was deleted');
-            })
-            .fail((err) => {
-              console.log('image delete problem: ' + JSON.stringify(err));
-            });
-        },
-        'froalaEditor.file.unlink': function (e, editor, link) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_file',
-            data: {
-              src: link.getAttribute('href')
-            }
-          })
-            .done(function (data1) {
-              console.log('file was deleted');
-            })
-            .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
-            });
-        },
-        'froalaEditor.video.removed': function (e, editor, video) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_video',
-            data: {
-              src: video.getAttribute('src')
-            }
-          })
-            .done(function (data2) {
-              console.log('file was deleted');
-            })
-            .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
-            });
-        }
-      }
-    };
   }
 
   ngOnInit() {
-    // 根据id获取对应文章信息
-    // this.articleApi.getArticleById(this.data.id).subscribe(
-    //   result => {
-    //   }
-    // );
+    this.titleList = this.titleApi.getTitlesByLevel('1').map(res => res.data);
+    if (this.data.id) { // 传id时
+      this.titleApi.getTitleById(this.data.id).subscribe(
+        result => {
+          console.log('title', result);
+          if (1 === result.status) {
+            this.formModel = new FormBuilder().group({
+              id: [result.data.id],
+              name: [result.data.name],
+              pid: [result.data.pid ? result.data.pid : '0'],
+              inNavBar: [result.data.inNavigationBar],
+              displayStyle: [result.data.displayStyle]
+            });
+          } else if (result.status === 0) {
+            this.dialog.open(AddConfirmDialogComponent, {
+              width: '50%',
+              data: {
+                message: result.message
+              }
+            });
+          }
+        },
+        err => {
+        }
+      );
+    } else { // 不传id时
+
+    }
   }
 
   /**
    * 提交数据
    */
-  doPost() {
-    const confirmDialogRef = this.dialog.open(AddConfirmDialogComponent);
-    confirmDialogRef.componentInstance.doConfirm.subscribe(() => {
-      // dosomething
-      // 上传栏目数据
-      this.articleApi.addArticle(null);
-    });
+  doPost(value) {
+    switch (value.displayStyle) {
+      case '1':
+        value.route = '/frontend/other/style1';
+        break;
+      case '2':
+        value.route = '/frontend/other/style2';
+        break;
+      default:
+        break;
+    }
+    console.log('title表单', value);
+    if (this.data.id) { // 更新操作
+      this.titleApi.updateTitle(value).subscribe(
+        result => {
+          console.log('更新成功');
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: result.message
+            }
+          });
+        });
+    } else { // 新增操作
+      this.titleApi.addTitle(value).subscribe(
+        result => {
+          console.log('新增成功');
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: result.message
+            }
+          });
+          this.doConfirm.emit(); // 分发确认信号
+        });
+    }
+    this.dialog.closeAll();
   }
-
 
   /**
    * 文章状态更改

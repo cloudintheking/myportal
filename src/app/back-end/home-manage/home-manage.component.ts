@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {BackApiService} from '../../service/back-api.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {AddArticleDialogComponent} from '../article-manage/add-article-dialog/add-article-dialog.component';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AddHomeDialogComponent} from './add-home-dialog/add-home-dialog.component';
 
 @Component({
   selector: 'app-home-manage',
@@ -11,37 +13,12 @@ import {AddArticleDialogComponent} from '../article-manage/add-article-dialog/ad
 export class HomeManageComponent implements OnInit {
 
   articles: MatTableDataSource<any> = new MatTableDataSource<any>(); // 文章列表数据源
-  @ViewChild('paginator') paginator: MatPaginator;
-  @ViewChild(MatSort) sortTable: MatSort;
-  totalCount: number;
-  currentPage: PageEvent;
-  currentSort: Sort;
-
-  interest: any[] = [
-    {name: 'a', id: 1},
-    {name: 'b', id: 1},
-    {name: 'c', id: 1},
-    {name: 'd', id: 1}
-  ];
-
-  parents: any[] = [
-    {
-      name: '球类',
-      childs: [
-        {name: '桌球', id: 1},
-        {name: '足球', id: 2},
-        {name: '篮球', id: 3}
-      ]
-    },
-    {
-      name: '其他',
-      childs: [
-        {name: '游泳', id: 4},
-        {name: '跑步', id: 5},
-        {name: '拳击', id: 6}
-      ]
-    }
-  ];
+  @ViewChild('paginator') paginator: MatPaginator; // 分页
+  @ViewChild(MatSort) sortTable: MatSort; // 排序
+  totalCount: number; // 总数
+  currentPage: PageEvent; // 当前分页信息
+  currentSort: Sort; // 当前排序信息
+  params: FormGroup;
 
   constructor(private articleApi: BackApiService, private dialog: MatDialog) {
     this.currentPage = {
@@ -54,6 +31,13 @@ export class HomeManageComponent implements OnInit {
       active: '',
       direction: ''
     };
+
+    this.params = new FormBuilder().group({
+      type: [],
+      status: [],
+      pageIndex: [],
+      pageSize: []
+    });
   }
 
   ngOnInit() {
@@ -91,9 +75,9 @@ export class HomeManageComponent implements OnInit {
   }
 
   showArticleDialog() {
-    this.dialog.open(AddArticleDialogComponent, {
-      width: '80%',
-      data: {id: 1 }
+    this.dialog.open(AddHomeDialogComponent, {
+      width: '50%',
+      data: {id: 1}
     });
   }
 

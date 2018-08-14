@@ -9,8 +9,10 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 export class AddConfirmDialogComponent implements OnInit {
   @Output()
   doConfirm = new EventEmitter<any>();
+  message: string; // 提示信息
 
   constructor(private  dialog: MatDialog, @Inject(MAT_DIALOG_DATA) private date: any) {
+    this.message = this.date.message;
   }
 
   ngOnInit() {

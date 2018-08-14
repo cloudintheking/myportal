@@ -5,28 +5,62 @@
       <mat-icon style="vertical-align: middle">link</mat-icon>
     </ng-template>
     <div style="margin: 5% 5%;">
+      <mat-form-field style="width: 100%">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
+            {{tag.name}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <input placeholder="组标签" [matChipInputFor]="chipList" matChipInputAddOnBlur="true"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="addTag($event)"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="组名">
+          <mat-option [value]="1">js</mat-option>
+          <mat-option [value]="2">python</mat-option>
+          <mat-option [value]="3">c++</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" (click)="update(1)">新增</button>
+      </div>
+
       <mat-table [dataSource]="linkDataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="group">
+          <mat-header-cell *matHeaderCellDef>组名</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.group}}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef>链接名</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
         </ng-container>
+
         <ng-container matColumnDef="address">
           <mat-header-cell *matHeaderCellDef>链接地址</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.address}}</mat-cell>
         </ng-container>
+
         <ng-container matColumnDef="updateBy">
           <mat-header-cell *matHeaderCellDef>维护人</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.updateBy}}</mat-cell>
         </ng-container>
+
         <ng-container matColumnDef="management">
-          <mat-header-cell *matHeaderCellDef>管理</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef style="text-align: center">
+          <span >管理</span>
+          </mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <button mat-button color="primary">编辑</button>
+            <button mat-button color="primary" (click)="update(row.id)">编辑</button>
             <button mat-button color="warn" [disabled]="!row.auth">删除</button>
           </mat-cell>
         </ng-container>
-        <mat-header-row *matHeaderRowDef="['name', 'address', 'updateBy', 'management']"></mat-header-row>
-        <mat-row *matRowDef="let linkRow; columns: ['name', 'address', 'updateBy', 'management']"></mat-row>
+
+        <mat-header-row *matHeaderRowDef="['group','name','address', 'updateBy', 'management']"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: ['group','name','address', 'updateBy', 'management']"></mat-row>
       </mat-table>
     </div>
   </mat-tab>
@@ -36,7 +70,7 @@
       copyright
       <mat-icon style="vertical-align: middle">copyright</mat-icon>
     </ng-template>
-    <mat-form-field>
+    <mat-form-field class="mycopyright">
       <textarea matInput [froalaEditor]="options"></textarea>
     </mat-form-field>
   </mat-tab>

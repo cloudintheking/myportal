@@ -17,6 +17,9 @@ import {AddConfirmDialogComponent} from '../common-components/add-confirm-dialog
 import {AddTitleDialogComponent} from './title-manage/add-title-dialog/add-title-dialog.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AddHomeDialogComponent} from './home-manage/add-home-dialog/add-home-dialog.component';
+import {AddLinkDialogComponent} from './foot-manage/add-link-dialog/add-link-dialog.component';
+import {DeleteTitleDialogComponent} from './title-manage/delete-title-dialog/delete-title-dialog.component';
 
 const ROUTES: Routes = [
   {
@@ -53,10 +56,12 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     SharedMaterialModule
   ],
-  entryComponents: [AddArticleDialogComponent, AddConfirmDialogComponent, AddTitleDialogComponent],
+  entryComponents: [AddArticleDialogComponent, AddConfirmDialogComponent,
+    AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent, DeleteTitleDialogComponent],
   declarations: [
     BackEndComponent, ManageComponent, TitleManageComponent, HomeManageComponent, AddConfirmDialogComponent,
-    ArticleManageComponent, FootManageComponent, RichTextComponent, LogoManageComponent, AddArticleDialogComponent, AddTitleDialogComponent]
+    ArticleManageComponent, FootManageComponent, RichTextComponent, LogoManageComponent, AddArticleDialogComponent,
+    AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent, DeleteTitleDialogComponent]
 })
 export class BackEndModule {
 }

@@ -42,8 +42,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.loginApi.userlocal.setItem('state', 'ff');
     }
     // localStorage.removeItem('state');
-    // this.router.navigate(['/backend/logo']);
-     window.location.href = 'http://112.16.169.54:8025/neibu.html';
+    this.router.navigate(['/backend/logo']);
+    //  window.location.href = 'http://112.16.169.54:8025/neibu.html';
   }
 
 }

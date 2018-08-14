@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatChipInputEvent, MatDialog, MatTableDataSource} from '@angular/material';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {AddLinkDialogComponent} from './add-link-dialog/add-link-dialog.component';
 
 /**
  * @author hl
@@ -14,23 +16,25 @@ import {MatTableDataSource} from '@angular/material';
 export class FootManageComponent implements OnInit {
   options: object; // 富文本配置
   linkDataSource = new MatTableDataSource<any>();
+  separatorKeysCodes = [ENTER, COMMA];
   user: Number = 3;
   testData: any[] = [
     {
-      id: 1, name: 'a', address: 'a', updateBy: 'a'
+      id: 1, name: 'a', address: 'a', updateBy: 'a', group: 'js'
     },
     {
-      id: 2, name: 'b', address: 'b', updateBy: 'b'
+      id: 2, name: 'b', address: 'b', updateBy: 'b', group: 'python'
     },
     {
-      id: 3, name: 'c', address: 'c', updateBy: 'c'
+      id: 3, name: 'c', address: 'c', updateBy: 'c', group: 'c++'
     },
     {
-      id: 4, name: 'd', address: 'd', updateBy: 'd'
+      id: 4, name: 'd', address: 'd', updateBy: 'd', group: 'java'
     }
   ];
+  tags: any[];
 
-  constructor() {
+  constructor(private  dialog: MatDialog) {
     this.options = {
       placeholder: 'Edit Me',
       height: 500,
@@ -90,6 +94,17 @@ export class FootManageComponent implements OnInit {
       }
     };
     this.linkDataSource.data = this.testData;
+    this.tags = [
+      {
+        id: 1, name: 'js'
+      },
+      {
+        id: 2, name: 'python'
+      },
+      {
+        id: 3, name: 'c++'
+      }
+    ];
   }
 
   ngOnInit() {
@@ -103,4 +118,35 @@ export class FootManageComponent implements OnInit {
     });
   }
 
+  /**
+   * 删除组标签
+   * @param tageName
+   */
+  removeTag(removeTage) {
+    this.tags = this.tags.filter(tag => tag.name !== removeTage.name);
+    console.log(this.tags);
+  }
+
+  addTag($event: MatChipInputEvent) {
+    if (($event.value || '').trim()) {
+      const value = $event.value.trim();
+      this.tags.push({
+        id: 5,
+        name: value
+      });
+    }
+  }
+
+  /**
+   * 更新链接
+   * @param value
+   */
+  update(value) {
+    this.dialog.open(AddLinkDialogComponent, {
+      width: '50%',
+      data: {
+        id: value.id
+      }
+    });
+  }
 }

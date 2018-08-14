@@ -2,22 +2,30 @@
   <mat-form-field>
     <input type="text" matInput placeholder="标题"/>
   </mat-form-field>
+
   <mat-form-field>
-    <input type="date" matInput placeholder="生日"/>
-  </mat-form-field>
-  <mat-form-field>
-    <!--<mat-select placeholder="栏目" multiple>-->
-    <!--<mat-option [value]="undefined">无</mat-option>-->
-    <!--<mat-option  *ngFor="let item of interest;let index = index" [value]="item.id">{{item.name}}</mat-option>-->
-    <!--</mat-select>-->
-    <mat-select placeholder="栏目" [value]="selected">
-      <mat-option [value]="0">顶级栏目</mat-option>
+    <mat-select placeholder="栏目">
+      <mat-option [value]="null">無</mat-option>
       <mat-optgroup *ngFor="let parent of parents" [label]="parent.name">
         <mat-option *ngFor="let child of parent.childs" [value]="child.id">{{child.name}}</mat-option>
       </mat-optgroup>
     </mat-select>
   </mat-form-field>
 
+  <mat-form-field>
+    <input type="date" matInput placeholder="起始日期"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="date" matInput placeholder="截止日期"/>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="状态">
+      <mat-option [value]="null">無</mat-option>
+      <mat-option>开启</mat-option>
+      <mat-option>关闭</mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <mat-paginator #paginator
                  [length]="totalCount"
@@ -25,23 +33,31 @@
                  [pageSize]="10"
                  [pageSizeOptions]="[5,10,15]">
   </mat-paginator>
-  <button mat-raised-button color="accent"  (click)="showArticleDialog()"> 新增</button>
-  <mat-table [dataSource]="articles" matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
-    <ng-container matColumnDef="user">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>发布人</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.user.login}}</mat-cell>
-    </ng-container>
+  <button mat-raised-button color="accent" (click)="showArticleDialog()"> 新增</button>
+  <mat-table   matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
 
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header>标题</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="created_at">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>日期</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.created_at }}</mat-cell>
+    <ng-container matColumnDef="pusher">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>发布人</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.user.login}}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="deptment">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>归属部门</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.user.login}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>发布日期</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.created_at }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>状态</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.created_at }}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="management">
       <mat-header-cell *matHeaderCellDef>
         <u>管理</u>
@@ -52,8 +68,8 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="['user','title','created_at','management']"></mat-header-row>
-    <mat-row *matRowDef="let emailRow; columns: ['user', 'title', 'created_at', 'management']"></mat-row>
+    <mat-header-row *matHeaderRowDef="['title','pusher','deptment','created_at','status','management']"></mat-header-row>
+    <mat-row *matRowDef="let emailRow; columns: [ 'title','pusher','deptment', 'created_at','status', 'management']"></mat-row>
   </mat-table>
 
 </section>

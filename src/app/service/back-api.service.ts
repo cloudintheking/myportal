@@ -1,13 +1,16 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from 'environments/environment';
+
 /**
  * @author hl
  * @date 2018/8/2
  * @Description: 后台管理API
-*/
+ */
 @Injectable()
 export class BackApiService {
+  baseUrl = environment.baseUrl;
   articleIdEmitter: EventEmitter<number> = new EventEmitter<number>(); // 文章id分发器
   constructor(private  http: HttpClient) {
   }
@@ -27,21 +30,78 @@ export class BackApiService {
 
   /**********************栏目管理api******************************/
   /**
-   * 获取栏目列表信息
+   * 根据查询参数获取栏目信息
    * @returns {Observable<any>}
    */
-  getTitles(params: HttpParams): Observable<any> {
-    return this.http.get('');
+  getAllTitles(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/type/getBy', params);
   }
 
   /**
-   * 根据id删除对应title信息
-   * @param {number} id
+   * 根据id查询栏目
+   * @param {string} id
+   * @returns {Observable<Object>}
+   */
+  getTitleById(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/cms/article/type/getById', {
+      params: {
+        typeID: id
+      }
+    });
+  }
+
+  /**
+   * 根据分类等级获取栏目
+   * @param {string} level
+   */
+  getTitlesByLevel(level: string): Observable<any> {
+    const header: HttpHeaders = new HttpHeaders();
+    header.append('Access-Control-Allow-Origin', '*');
+    return this.http.get(this.baseUrl + '/japi/cms/article/type/getByLevel', {
+      params: {
+        level: level
+      }
+    });
+  }
+
+  /**
+   * 获取栏目树形结构
+   * @param params
    * @returns {Observable<any>}
    */
-  deleteTitleById(id: number): Observable<any> {
-    return this.http.get('');
+  getTitlesTree(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/cms/article/type/getTree', {
+      params: params
+    });
   }
+
+  /**
+   * 新增栏目
+   * @param {HttpParams} params
+   * @returns {Observable<any>} 返回成功消息、栏目id等
+   */
+  addTitle(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/type/newType', params);
+  }
+
+  /**
+   * 更新栏目信息
+   * @param {HttpParams} params
+   * @returns {Observable<any>}
+   */
+  updateTitle(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/type/update', params);
+  }
+
+  /**
+   * 删除对应栏目信息
+   * @param {any} params{typeID(栏目ID),toID(文章移动栏目ID)}
+   * @returns {Observable<any>}
+   */
+  deleteTitle(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/type/deleteAndMoveTo', params);
+  }
+
   /**********************首页模块管理api******************************/
 
   /**********************文章管理api******************************/

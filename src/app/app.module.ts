@@ -14,6 +14,7 @@ import {LoginService} from './service/login.service';
 import {BackGuard} from './guard/back.guard';
 import {HomeResolveService} from './guard/home-resolve.service';
 import {OtherResolveService} from './guard/other-resolve.service';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
 const ROUTES: Routes = [
@@ -25,8 +26,7 @@ const ROUTES: Routes = [
     loadChildren: './font-end/font-end.module#FontEndModule'
   },
   {
-    path: 'backend', loadChildren: './back-end/back-end.module#BackEndModule',
-    canActivate: [BackGuard]
+    path: 'backend', loadChildren: './back-end/back-end.module#BackEndModule'
   },
   {
     path: 'login', component: LoginComponent
@@ -50,7 +50,8 @@ const ROUTES: Routes = [
     BrowserAnimationsModule,
     SharedMaterialModule
   ],
-  providers: [HomeApiService, BackApiService, LoginService, BackGuard, HomeResolveService, OtherResolveService],
+  providers: [HomeApiService, BackApiService, LoginService, BackGuard, HomeResolveService, OtherResolveService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

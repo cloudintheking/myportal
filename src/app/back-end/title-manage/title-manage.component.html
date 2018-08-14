@@ -1,20 +1,29 @@
 <section style="margin: 5% 5%">
-  <mat-form-field>
-    <input type="text" matInput placeholder="标题"/>
-  </mat-form-field>
-  <mat-form-field>
-    <input type="date" matInput placeholder="生日"/>
-  </mat-form-field>
+  <form [formGroup]="params" >
+    <mat-form-field>
+      <mat-select placeholder="等级" formControlName="typeLevel" (change)="getTitles()">
+        <mat-option [value]="null">無</mat-option>
+        <mat-option [value]="1">1级</mat-option>
+        <mat-option [value]="2">2级</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="栏目">
-      <mat-option [value]="0">顶级栏目</mat-option>
-      <mat-optgroup *ngFor="let parent of parents" [label]="parent.name">
-        <mat-option *ngFor="let child of parent.childs" [value]="child.id">{{child.name}}</mat-option>
-      </mat-optgroup>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="样式" formControlName="displayStyle" (change)="getTitles()">
+        <mat-option [value]="null">無</mat-option>
+        <mat-option [value]="1">列表</mat-option>
+        <mat-option [value]="2">九宫格</mat-option>
+      </mat-select>
+    </mat-form-field>
 
+    <mat-form-field>
+      <mat-select placeholder="状态" formControlName="inNavigationBar" (change)="getTitles()">
+        <mat-option [value]="null">無</mat-option>
+        <mat-option [value]="true">开启</mat-option>
+        <mat-option [value]="false">禁用</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 
   <mat-paginator #paginator
                  [length]="totalCount"
@@ -23,25 +32,28 @@
                  [pageSizeOptions]="[5,10,15]">
   </mat-paginator>
   <button mat-raised-button color="accent" (click)="showTitleDialog()"> 新增</button>
-  <mat-table [dataSource]="titles" matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
+  <mat-table [(dataSource)]="titles" matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>栏目名称</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="level">
+    <ng-container matColumnDef="typeLevel">
       <mat-header-cell *matHeaderCellDef mat-sort-header>等级</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.typeLevel }}级</mat-cell>
     </ng-container>
-
-    <ng-container matColumnDef="updateBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>维护人</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.updateBy }}</mat-cell>
+    <ng-container matColumnDef="displayStyle">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>展示风格</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.displayStyle }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="status">
+    <!--<ng-container matColumnDef="updateBy">-->
+    <!--<mat-header-cell *matHeaderCellDef mat-sort-header>维护人</mat-header-cell>-->
+    <!--<mat-cell *matCellDef="let row">{{ row.updateBy }}</mat-cell>-->
+    <!--</ng-container>-->
+    <ng-container matColumnDef="inNavigationBar">
       <mat-header-cell *matHeaderCellDef mat-sort-header>状态</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-slide-toggle [disableRipple]="true" [checked]="row.status==0?false:true"></mat-slide-toggle>
+        <mat-slide-toggle (change)="updateTitleStatus($event, row)" [checked]="row.inNavigationBar"></mat-slide-toggle>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="management">
@@ -49,13 +61,13 @@
         <u>操作</u>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button color="primary" (click)="showTitleDialog(row)">编辑</button>
-        <button mat-button color="warn" (click)="delete(row)">删除</button>
+        <button mat-button color="primary" (click)="showTitleDialog(row.id)">编辑</button>
+        <button mat-button color="warn" (click)="deleteTitle(row)">删除</button>
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="['name','level','updateBy','status','management']"></mat-header-row>
-    <mat-row *matRowDef="let emailRow; columns: ['name','level','updateBy','status','management']"></mat-row>
+    <mat-header-row *matHeaderRowDef="['name','typeLevel','displayStyle','inNavigationBar','management']"></mat-header-row>
+    <mat-row *matRowDef="let Row; columns: ['name','typeLevel','displayStyle','inNavigationBar','management']"></mat-row>
   </mat-table>
 
 </section>

@@ -12,11 +12,6 @@ import {faShoePrints, faColumns, faCube} from '@fortawesome/free-solid-svg-icons
   styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit {
-  /*********fontawesome************/
-  faAngry = faAngry;
-  faNewspaper = faNewspaper;
-  faShoePrints = faShoePrints;
-  /********************************/
   @Output()
   menuItem: EventEmitter<any> = new EventEmitter<any>(); // 菜单项分发器
   menus: any[] = [
