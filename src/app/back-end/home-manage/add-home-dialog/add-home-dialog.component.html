@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>编辑模块</h2>
+
+<mat-dialog-content class="post-form">
+  <form [formGroup]="homeForm">
+    <mat-form-field required>
+      <input matInput placeholder="模块名" formControlName="name"/>
+    </mat-form-field>
+
+    <mat-form-field required>
+      <mat-select placeholder="展示栏目等级">
+        <mat-option [value]="1">1级</mat-option>
+        <mat-option [value]="2">2级</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field required>
+      <!-- 一级下拉-->
+      <mat-select *ngIf="false" placeholder="所属栏目" formControlName="articleType">
+        <mat-option value="1">
+          a
+        </mat-option>
+      </mat-select>
+      <!--二级下拉-->
+      <mat-select *ngIf="true" placeholder="所属栏目" formControlName="articleType">
+        <mat-optgroup label="b">
+          <mat-option value="2">b+</mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field required>
+      <mat-select placeholder="风格" formControlName="type">
+        <mat-option [value]="1">滚动</mat-option>
+        <mat-option [value]="2">报文</mat-option>
+        <mat-option [value]="3">平铺</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field required >
+      <mat-select placeholder="宽度%"  formControlName="flex">
+        <mat-option value="1">50</mat-option>
+        <mat-option value="2">100</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field required>
+      <input matInput  placeholder="展示顺序" formControlName="pos">
+    </mat-form-field>
+    <div>
+      <mat-label>是否启用</mat-label>
+      <mat-slide-toggle [checked]="true" required formControlName="hide"></mat-slide-toggle>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="doPost()">确定</button>
+  <button mat-button mat-dialog-close color="warn">取消</button>
+</mat-dialog-actions>

@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>删除栏目</h2>
+<mat-dialog-content>
+
+  <!--<mat-radio-group class="example-radio-group" formControlName="deleteType">-->
+  <!--<mat-radio-button class="example-radio-button" [value]="1">仅删除栏目</mat-radio-button>-->
+  <!--<mat-radio-button class="example-radio-button" [value]="2">删除栏目以及所属文章</mat-radio-button>-->
+  <!--</mat-radio-group>-->
+
+  <mat-form-field>
+    <mat-select placeholder="是否移动文章至其他栏目" [(value)]="toID">
+      <mat-option [value]="null">不</mat-option>
+      <mat-optgroup *ngFor="let t of titleList | async" [label]="t.name">
+        <mat-option *ngFor="let c of t.childs" [value]="c.id" [disabled]="c.id === typeFrom">{{c.name}}</mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="doPost()">确定</button>
+  <button mat-button mat-dialog-close color="warn">取消</button>
+</mat-dialog-actions>

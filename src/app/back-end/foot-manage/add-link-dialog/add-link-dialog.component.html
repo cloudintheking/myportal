@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>编辑链接</h2>
+<mat-dialog-content class="post-form">
+  <form [formGroup]="linkForm">
+    <mat-form-field>
+      <mat-select formControlName="group" placeholder="组名">
+        <mat-option [value]="1">js</mat-option>
+        <mat-option [value]="2">python</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="链接名" formControlName="name"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="链接地址" formControlName="address"/>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="doPost()">确定</button>
+  <button mat-button mat-dialog-close color="warn">取消</button>
+</mat-dialog-actions>
