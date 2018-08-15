@@ -103,6 +103,56 @@ export class BackApiService {
   }
 
   /**********************首页模块管理api******************************/
+  /**
+   *多条件查询首页模块信息
+   * @param params
+   * @returns {Observable<any>}
+   */
+  getModules(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/module/getBy', params);
+  }
+
+  /**
+   * 根据id查询首页模块信息
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  getModuleByID(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/cms/module/getById', {
+      params: {
+        id: id
+      }
+    });
+  }
+
+  /**
+   * 新增首页模块
+   * @param params
+   * @returns {Observable<any>}
+   */
+  addModule(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/module/new', params);
+  }
+
+  /**
+   * 更新首页模块
+   * @param params
+   * @returns {Observable<any>}
+   */
+  updateModule(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/module/update', params);
+  }
+
+  /**
+   * 根据id首页模块
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  deleteModule(id: string): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/module/delete', null, {
+      params: {id: id}
+    });
+  }
 
   /**********************文章管理api******************************/
 

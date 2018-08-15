@@ -20,37 +20,10 @@ import {DeleteTitleDialogComponent} from './delete-title-dialog/delete-title-dia
 export class TitleManageComponent implements OnInit {
   titles: MatTableDataSource<any> = new MatTableDataSource<any>(); // 文章列表数据源
   @ViewChild('paginator') paginator: MatPaginator;
-  @ViewChild(MatSort) sortTable: MatSort;
   totalCount: number;
   currentPage: PageEvent;
-  currentSort: any;
+  currentSort: any; // 保存排序信息
   params: FormGroup; // 查询参数
-  interest: any[] = [
-    {name: 'a', id: 1},
-    {name: 'b', id: 1},
-    {name: 'c', id: 1},
-    {name: 'd', id: 1}
-  ];
-
-  parents: any[] = [
-    {
-      name: '球类',
-      childs: [
-        {name: '桌球', id: 1},
-        {name: '足球', id: 2},
-        {name: '篮球', id: 3}
-      ]
-    },
-    {
-      name: '其他',
-      childs: [
-        {name: '游泳', id: 4},
-        {name: '跑步', id: 5},
-        {name: '拳击', id: 6}
-      ]
-    }
-  ];
-
   constructor(private titleApi: BackApiService, private dialog: MatDialog) {
     this.currentPage = {
       pageIndex: 0,
@@ -70,7 +43,7 @@ export class TitleManageComponent implements OnInit {
 
   ngOnInit() {
     this.getTitles();
-    this.titles.sort = this.sortTable;
+    // this.titles.sort = this.sortTable; 本地排序
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
       this.getTitles();
@@ -127,14 +100,12 @@ export class TitleManageComponent implements OnInit {
     this.currentSort.sortField = sortInfo.active;
     this.currentSort.sortOrder = sortInfo.direction;
     this.getTitles();
-    // this.currentSort = sortInfo;
-    // this.getTitles();
   }
 
   /**
    * 打开弹窗
    */
-  showTitleDialog(id?: any) {
+  editTitle(id?: any) {
     console.log(id);
     const currentdialog1 = this.dialog.open(AddTitleDialogComponent, {
       width: '50%',

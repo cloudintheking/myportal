@@ -29,7 +29,8 @@
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "assets/js/jq_scroll.js"
+        "assets/js/jq_scroll.js",
+        "assets/js/jquery.yx_rotaion.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

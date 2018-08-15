@@ -51,7 +51,7 @@ export class RichTextComponent implements OnInit {
             // Request URL.
             url: '/delete_file',
 
-            // Request params.
+            // Request paramsForm.
             data: {
               src: link.getAttribute('href')
             }
@@ -71,7 +71,7 @@ export class RichTextComponent implements OnInit {
             // Request URL.
             url: '/delete_video',
 
-            // Request params.
+            // Request paramsForm.
             data: {
               src: video.getAttribute('src')
             }

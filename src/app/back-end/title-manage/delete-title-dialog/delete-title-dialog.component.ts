@@ -44,9 +44,17 @@ export class DeleteTitleDialogComponent implements OnInit {
             message: result.message
           }
         });
-        this.doConfirm.emit(); // 分发信号
       },
-      err => {
+      error1 => {
+        this.dialog.open(AddConfirmDialogComponent, {
+          width: '50%',
+          data: {
+            message: error1.message
+          }
+        });
+      },
+      () => {
+        this.doConfirm.emit(); // 分发确认信号
       });
     this.dialog.closeAll();
   }

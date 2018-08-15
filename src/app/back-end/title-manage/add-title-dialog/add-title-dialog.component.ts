@@ -43,7 +43,7 @@ export class AddTitleDialogComponent implements OnInit {
               inNavBar: [result.data.inNavigationBar],
               displayStyle: [result.data.displayStyle]
             });
-          } else if (result.status === 0) {
+          } else {
             this.dialog.open(AddConfirmDialogComponent, {
               width: '50%',
               data: {
@@ -52,11 +52,15 @@ export class AddTitleDialogComponent implements OnInit {
             });
           }
         },
-        err => {
+        error1 => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: error1.message
+            }
+          });
         }
       );
-    } else { // 不传id时
-
     }
   }
 
@@ -85,6 +89,17 @@ export class AddTitleDialogComponent implements OnInit {
               message: result.message
             }
           });
+        },
+        error1 => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: error1.message
+            }
+          });
+        },
+        () => {
+          this.doConfirm.emit(); // 分发确认信号
         });
     } else { // 新增操作
       this.titleApi.addTitle(value).subscribe(
@@ -96,6 +111,16 @@ export class AddTitleDialogComponent implements OnInit {
               message: result.message
             }
           });
+        },
+        error1 => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: error1.message
+            }
+          });
+        },
+        () => {
           this.doConfirm.emit(); // 分发确认信号
         });
     }
