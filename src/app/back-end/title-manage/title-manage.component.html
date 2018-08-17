@@ -1,7 +1,7 @@
 <section style="margin: 5% 5%">
-  <form [formGroup]="params" (change)="getTitles()">
+  <form [formGroup]="params" >
     <mat-form-field>
-      <mat-select placeholder="等级" formControlName="typeLevel">
+      <mat-select placeholder="等级" formControlName="typeLevel" (change)="getTitles()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="1">1级</mat-option>
         <mat-option [value]="2">2级</mat-option>
@@ -9,7 +9,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="样式" formControlName="displayStyle">
+      <mat-select placeholder="样式" formControlName="displayStyle" (change)="getTitles()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="1">列表</mat-option>
         <mat-option [value]="2">九宫格</mat-option>
@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="状态" formControlName="inNavigationBar">
+      <mat-select placeholder="状态" formControlName="inNavigationBar" (change)="getTitles()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="true">开启</mat-option>
         <mat-option [value]="false">禁用</mat-option>

@@ -1,39 +1,39 @@
 <h2 mat-dialog-title>编辑文章</h2>
 <mat-dialog-content class="post-form">
-  <mat-form-field required>
-    <mat-select placeholder="栏目">
-      <mat-optgroup *ngFor="let parent of parents" [label]="parent.name">
-        <mat-option *ngFor="let child of parent.childs" [value]="child.id">{{child.name}}</mat-option>
-      </mat-optgroup>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field required>
-    <input matInput placeholder="标题" [(ngModel)]="title"/>
-  </mat-form-field>
-  <mat-form-field required>
-    <textarea matInput placeholder="摘要" [(ngModel)]="summary" matTextareaAutosize></textarea>
-  </mat-form-field>
-  <div class="form-group">
-    <div><label>图片</label></div>
-    <div><img [src]="imgUrl"></div>
-    <div style="overflow: hidden;vertical-align:middle;position:relative;">
-      <button mat-raised-button color="primary">上传</button>
-      <input type="file" id="jobData" (change)="onchangeSelectFile($event)"
-             style="position:absolute;top:0;left:0;font-size:34px; opacity:0">
-      <span id="filename" style="vertical-align: middle">未上传文件</span>
+  <form [formGroup]="articleForm">
+    <mat-form-field>
+      <mat-select placeholder="栏目" required formControlName="articleTypeID">
+        <mat-optgroup *ngFor="let t of titleList | async" [label]="t.name">
+          <mat-option *ngFor="let child of t.childs" [value]="child.id">{{child.name}}</mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="标题" required formControlName="title"/>
+    </mat-form-field>
+    <div class="form-group">
+      <div style="overflow: hidden;vertical-align:middle;position:relative;">
+        <button mat-raised-button color="primary">上传封面</button>
+        <input type="file" id="cover" (change)="onchangeSelectFile($event)"
+               style="position:absolute;top:0;left:0;font-size:34px; opacity:0">
+        <span id="filename" style="vertical-align: middle">未上传文件</span>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label>是否启用:</label>
-    <mat-slide-toggle class="example-margin" color="accent" checked="true" disabled="false"
-                      (change)="statusChange($event)">
-      {{status}}
-    </mat-slide-toggle>
-  </div>
-  <div class="form-group">
-    <label>内容:</label>
-    <textarea matInput [froalaEditor]="options" [(froalaModel)]="content"></textarea>
-  </div>
+    <div class="form-group">
+      <img [src]="imgUrl">
+    </div>
+    <div class="form-group">
+      <label>是否启用:</label>
+      <mat-slide-toggle class="example-margin" color="accent" (change)="statusChange($event)" formControlName="hide">
+        {{statusMessage}}
+      </mat-slide-toggle>
+    </div>
+    <div class="form-group">
+      <label>内容:</label>
+      <textarea matInput [froalaEditor]="options" formControlName="content"></textarea>
+    </div>
+  </form>
+
 </mat-dialog-content>
 
 <mat-dialog-actions>

@@ -1,6 +1,6 @@
 {
   "/japi": {
-    "target": "http://192.168.1.15:8881",
+    "target": "http://192.168.1.15:8879",
     "secure": false
   }
 }

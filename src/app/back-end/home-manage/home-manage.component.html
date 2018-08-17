@@ -1,7 +1,7 @@
 <section style="margin: 5% 5%">
-  <form [formGroup]="paramsForm" (change)="getModules()">
+  <form [formGroup]="paramsForm" >
     <mat-form-field>
-      <mat-select placeholder="风格" formControlName="moduleType">
+      <mat-select placeholder="风格" formControlName="moduleType" (change)="getModules()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="1">滚动</mat-option>
         <mat-option [value]="2">报文</mat-option>
@@ -10,7 +10,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="状态" formControlName="hide">
+      <mat-select placeholder="状态" formControlName="hide" (change)="getModules()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="true">开启</mat-option>
         <mat-option [value]="false">禁用</mat-option>
@@ -19,7 +19,6 @@
   </form>
 
   <mat-paginator #paginator
-                 [length]="totalCount"
                  [pageIndex]="0"
                  [pageSize]="10"
                  [pageSizeOptions]="[5,10,15]">
@@ -34,12 +33,12 @@
     </ng-container>
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef>展示栏目</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.articleType }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.articleTypeVo }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header>风格</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        {{row.type}}
+        {{row.moduleType}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="flex">

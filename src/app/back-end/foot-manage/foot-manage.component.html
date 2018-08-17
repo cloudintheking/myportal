@@ -7,7 +7,7 @@
     <div style="margin: 5% 5%;">
       <mat-form-field style="width: 100%">
         <mat-chip-list #chipList>
-          <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
+          <mat-chip *ngFor="let tag of linkGroup | async" (removed)="removeTag(tag.id)">
             {{tag.name}}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
@@ -51,7 +51,7 @@
 
         <ng-container matColumnDef="management">
           <mat-header-cell *matHeaderCellDef style="text-align: center">
-          <span >管理</span>
+            <span>管理</span>
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
             <button mat-button color="primary" (click)="update(row.id)">编辑</button>

@@ -32,46 +32,53 @@ export class AddHomeDialogComponent implements OnInit {
 
   ngOnInit() {
     this.titleLevel1 = this.homeApi.getTitlesByLevel('1').map(res => res.data);
-    this.titleTree = this.homeApi.getTitlesTree({navBar: true}).map(res => res.data);
+    this.titleTree = this.homeApi.getTitlesTree({navBar: false}).map(res => res.data);
     if (this.data.id) { // 传id时
-      this.homeApi.getModuleByID(this.data.id).subscribe(
-        result => {
-          if (result.status === 1) {
-            this.homeMoudelForm = new FormBuilder().group({
-              id: [result.data.id],
-              name: [result.data.name],
-              articleType: [],
-              moduleType: [result.data.type],
-              flex: [result.data.flex],
-              pos: [result.data.pos],
-              hide: [result.data.hide],
-              showTypeLevel: [result.data.showTypeLevel]
-            });
-            if (result.data.showTypeLevel === 1) {
-              this.levelON_OFF = true;
+      this.homeApi.getModuleByID(this.data.id)
+        .map(res => {
+          if (res.data.articleTypeVo) {
+            res.data.articleTypeVo = res.data.articleTypeVo.id;
+          }
+          return res;
+        })
+        .subscribe(
+          result => {
+            if (result.status === 1) {
+              this.homeMoudelForm = new FormBuilder().group({
+                id: [result.data.id],
+                name: [result.data.name],
+                articleType: [result.data.articleTypeVo],
+                moduleType: [result.data.type],
+                flex: [result.data.flex],
+                pos: [result.data.pos],
+                hide: [result.data.hide],
+                showTypeLevel: [result.data.showTypeLevel]
+              });
+              if (result.data.showTypeLevel === 1) {
+                this.levelON_OFF = true;
+              } else {
+                this.levelON_OFF = false;
+              }
             } else {
-              this.levelON_OFF = false;
+              this.dialog.closeAll();
+              this.dialog.open(AddConfirmDialogComponent, {
+                width: '50%',
+                data: {
+                  message: result.message
+                }
+              });
             }
-          } else {
+          },
+          error1 => {
             this.dialog.closeAll();
             this.dialog.open(AddConfirmDialogComponent, {
               width: '50%',
               data: {
-                message: result.message
+                message: error1.message
               }
             });
           }
-        },
-        error1 => {
-          this.dialog.closeAll();
-          this.dialog.open(AddConfirmDialogComponent, {
-            width: '50%',
-            data: {
-              message: error1.message
-            }
-          });
-        }
-      );
+        );
     }
   }
 

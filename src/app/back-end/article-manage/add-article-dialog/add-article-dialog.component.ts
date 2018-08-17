@@ -1,8 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {AddConfirmDialogComponent} from '../../../common-components/add-confirm-dialog/add-confirm-dialog.component';
+import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {BackApiService} from '../../../service/back-api.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import 'rxjs/add/operator/switchMap';
+import {Observable} from 'rxjs/Observable';
+import {AddConfirmDialogComponent} from '../../../common-components/add-confirm-dialog/add-confirm-dialog.component';
+import {environment} from 'environments/environment';
 
 /**
  * @author hl
@@ -16,123 +20,112 @@ import {BackApiService} from '../../../service/back-api.service';
   styleUrls: ['./add-article-dialog.component.css']
 })
 export class AddArticleDialogComponent implements OnInit {
-  title = ''; // 标题
-  imgUrl: any = 'assets/img/bg.jpg'; // 图片路径
-  summary = ''; // 摘要
-  status = 'sdsd'; // 状态 0:禁用, 1:启用
-  content = ''; // 富文本内容
+  articleForm: FormGroup; // 文章表单数据
+  statusMessage = '启用'; // 状态说明符
   imgData: FormData = new FormData(); // 图片数据
-  parents: any[] = [
-    {
-      name: '球类',
-      childs: [
-        {name: '桌球', id: 1},
-        {name: '足球', id: 2},
-        {name: '篮球', id: 3}
-      ]
-    },
-    {
-      name: '其他',
-      childs: [
-        {name: '游泳', id: 4},
-        {name: '跑步', id: 5},
-        {name: '拳击', id: 6}
-      ]
-    }
-  ];
-  options: object;
-  article: any; // 请求的文章数据
+  imgUrl: any; // 图片请求路径
+  imgID: any; // 图片ID
+  options: object; // 富文本配置
+  titleList: Observable<any>; // 栏目组
+  doConfirm: EventEmitter<any> = new EventEmitter<any>(); // 确认信号分发器
+  fileUrl = environment.fileUrl; // 文件系统域名
+
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private  dialog: MatDialog,
               private sanitizer: DomSanitizer, private  articleApi: BackApiService) {
-    // 富文本配置信息
-    this.options = {
-      placeholder: 'Edit Me',
-      videoMaxSize: 1024 * 1024 * 400,
-      imageUploadURL: '/upload_image',
-      fileUploadURL: '/upload_file',
-      videoUploadURL: '/upload_video',
-      events: {
-        'froalaEditor.focus': function (e, editor) {
-          console.log(editor.html.get());
-        },
-        'froalaEditor.image.removed': function (e, editor, img) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_image',
-            data: {
-              src: img.attr('src')
-            }
-          })
-            .done((data11) => {
-              console.log('image was deleted');
-            })
-            .fail((err) => {
-              console.log('image delete problem: ' + JSON.stringify(err));
-            });
-        },
-        'froalaEditor.file.unlink': function (e, editor, link) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_file',
-            data: {
-              src: link.getAttribute('href')
-            }
-          })
-            .done(function (data1) {
-              console.log('file was deleted');
-            })
-            .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
-            });
-        },
-        'froalaEditor.video.removed': function (e, editor, video) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_video',
-            data: {
-              src: video.getAttribute('src')
-            }
-          })
-            .done(function (data2) {
-              console.log('file was deleted');
-            })
-            .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
-            });
-        }
-      }
-    };
+    this.options = this.articleApi.froalaOptions; // 富文本配置信息
+    this.articleForm = new FormBuilder().group({
+      id: [],
+      articleTypeID: [],
+      title: [],
+      content: [],
+      hide: [],
+      cover: []
+    });
   }
 
   ngOnInit() {
-    // 根据id获取对应文章信息
-    // this.articleApi.getArticleById(this.data.id).subscribe(
-    //   result => {
-    //   }
-    // );
+    // $('#cover').on('click', function (event) {
+    // });
+    this.titleList = this.articleApi.getTitlesTree({navBar: false}).map(res => res.data);
+    if (this.data.id) {  // 传id时
+      this.articleApi.getArticleById(this.data.id).subscribe(
+        result => {
+          this.articleForm = new FormBuilder().group({
+            id: [result.data.id],
+            articleTypeID: [result.data.type],
+            title: [result.data.title],
+            content: [result.data.content],
+            hide: [result.data.hide],
+            cover: [result.data.cover]
+          });
+          this.imgUrl = this.fileUrl + '/japi/filesystem/getFile?id=' + result.data.cover;
+          console.log('初始化imgUrl', this.imgUrl);
+        },
+        error1 => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: error1.message
+            }
+          });
+        }
+      );
+    }
   }
 
   /**
    * 提交数据
    */
   doPost() {
-    const confirmDialogRef = this.dialog.open(AddConfirmDialogComponent);
-    confirmDialogRef.componentInstance.doConfirm.subscribe(() => {
-      // dosomething
-      // 如果文章的图片路径变了，则重新发起文件上传请求
-      // if (this.article.imgUrl !== this.imgUrl) {
-      //   this.articleApi.uploadFile(this.imgData).subscribe(
-      //     data => {
-      //       // 更新文章图片路径
-      //     },
-      //     error => {
-      //       // 错误提示
-      //     }
-      //   );
-      // }
-      // 上传文章数据
-      // this.articleApi.addArticle(null);
-    });
+    if (this.imgID) {
+      this.articleForm.value.cover = this.imgID;
+    }
+    console.log('文章表单数据', this.articleForm.value);
+    if (this.data.id) { // 更新文章
+      this.articleApi.updateArticle(this.articleForm.value).subscribe(
+        success => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: success.message
+            }
+          })
+          ;
+        },
+        error1 => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: error1.message
+          });
+        },
+        () => {
+          this.doConfirm.emit(); // 分发确认信号
+        }
+      );
+    } else { // 新增文章
+      this.articleApi.addArticle(this.articleForm.value).subscribe(
+        success => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: success.message
+            }
+          });
+        },
+        error1 => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: error1.message
+            }
+          });
+        },
+        () => {
+          this.doConfirm.emit();
+        }
+      );
+    }
+    this.dialog.closeAll();
   }
 
   /**
@@ -140,11 +133,34 @@ export class AddArticleDialogComponent implements OnInit {
    * @param event
    */
   onchangeSelectFile(event) {
-    const file = event.target.files[0];
+    const file: File = event.target.files[0];
     this.imgData.append('file', file); // 图片数据保存
-    this.imgUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file)); // 图片数据转换为预览URL
-    $('#filename').html(file.name); // 显示上传图片名
-    console.log(file);
+    $('#filename').html(file.name);
+    const params = { // 上传参数
+      viewByAnon: true,
+      maxFileSize: file.size,
+      longLife: true
+    };
+    this.articleApi.uploadFile(this.imgData, params).subscribe(
+      success => {
+        this.imgID = success.id;
+        this.imgUrl = this.fileUrl + success.link;
+        this.dialog.open(AddConfirmDialogComponent, {
+          width: '50%',
+          data: {
+            message: success.message
+          }
+        });
+      },
+      error1 => {
+        this.dialog.open(AddConfirmDialogComponent, {
+          width: '50%',
+          data: {
+            message: error1.message
+          }
+        });
+      });
+    // this.imgUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file)); // 图片数据转换为预览URL
   }
 
   /**
@@ -153,9 +169,9 @@ export class AddArticleDialogComponent implements OnInit {
    */
   statusChange(event) {
     if (event.checked) {
-      this.status = '启用';
+      this.statusMessage = '启用';
     } else {
-      this.status = '禁用';
+      this.statusMessage = '禁用';
     }
     console.log(event);
   }

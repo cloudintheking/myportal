@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {MatChipInputEvent, MatDialog, MatTableDataSource} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {AddLinkDialogComponent} from './add-link-dialog/add-link-dialog.component';
+import {BackApiService} from '../../service/back-api.service';
+import {Observable} from 'rxjs/Observable';
+import {AddConfirmDialogComponent} from '../../common-components/add-confirm-dialog/add-confirm-dialog.component';
 
 /**
  * @author hl
@@ -17,6 +20,7 @@ export class FootManageComponent implements OnInit {
   options: object; // 富文本配置
   linkDataSource = new MatTableDataSource<any>();
   separatorKeysCodes = [ENTER, COMMA];
+  linkGroup: Observable<any>; // 链接组
   user: Number = 3;
   testData: any[] = [
     {
@@ -34,80 +38,13 @@ export class FootManageComponent implements OnInit {
   ];
   tags: any[];
 
-  constructor(private  dialog: MatDialog) {
-    this.options = {
-      placeholder: 'Edit Me',
-      height: 500,
-      videoMaxSize: 1024 * 1024 * 400,
-      imageUploadURL: '/upload_image',
-      fileUploadURL: '/upload_file',
-      videoUploadURL: '/upload_video',
-      events: {
-        'froalaEditor.focus': function (e, editor) {
-          console.log(editor.html.get());
-        },
-        'froalaEditor.image.removed': function (e, editor, img) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_image',
-            data: {
-              src: img.attr('src')
-            }
-          })
-            .done((data11) => {
-              console.log('image was deleted');
-            })
-            .fail((err) => {
-              console.log('image delete problem: ' + JSON.stringify(err));
-            });
-        },
-        'froalaEditor.file.unlink': function (e, editor, link) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_file',
-            data: {
-              src: link.getAttribute('href')
-            }
-          })
-            .done(function (data1) {
-              console.log('file was deleted');
-            })
-            .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
-            });
-        },
-        'froalaEditor.video.removed': function (e, editor, video) {
-          $.ajax({
-            method: 'POST',
-            url: '/delete_video',
-            data: {
-              src: video.getAttribute('src')
-            }
-          })
-            .done(function (data2) {
-              console.log('file was deleted');
-            })
-            .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
-            });
-        }
-      }
-    };
+  constructor(private  dialog: MatDialog, private  footApi: BackApiService) {
+    this.options = this.footApi.froalaOptions;
     this.linkDataSource.data = this.testData;
-    this.tags = [
-      {
-        id: 1, name: 'js'
-      },
-      {
-        id: 2, name: 'python'
-      },
-      {
-        id: 3, name: 'c++'
-      }
-    ];
   }
 
   ngOnInit() {
+    this.linkGroup = this.footApi.getLinkGroup().map(res => res.data);
     this.testData.map((value, index) => {
       if (value.id !== this.user) {
         value.auth = false;
@@ -127,13 +64,25 @@ export class FootManageComponent implements OnInit {
     console.log(this.tags);
   }
 
+  /**
+   * 新增链接组标签
+   * @param {MatChipInputEvent} $event
+   */
   addTag($event: MatChipInputEvent) {
     if (($event.value || '').trim()) {
-      const value = $event.value.trim();
-      this.tags.push({
-        id: 5,
-        name: value
-      });
+      const params = {
+        name: $event.value.trim()
+      };
+      this.footApi.addLinkGroup(params).subscribe(
+        success => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: success.message
+            }
+          });
+        }
+      );
     }
   }
 

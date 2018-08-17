@@ -24,7 +24,7 @@ export class DeleteTitleDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleList = this.titleApi.getTitlesTree({navBar: true}).map(res => res.data);
+    this.titleList = this.titleApi.getTitlesTree({navBar: false}).map(res => res.data);
   }
 
   /**

@@ -10,20 +10,101 @@ import {environment} from 'environments/environment';
  */
 @Injectable()
 export class BackApiService {
-  baseUrl = environment.baseUrl;
+  baseUrl = environment.baseUrl; // CMS系统接口域名
+  fileUrl = environment.fileUrl; // 文件系统接口域名
   articleIdEmitter: EventEmitter<number> = new EventEmitter<number>(); // 文章id分发器
+  froalaOptions: object; // 富文本配置
+
   constructor(private  http: HttpClient) {
+    this.froalaOptions = {
+      placeholder: 'Edit Me',
+      imageMaxSize: 1024 * 1024 * 3, // 图片限制3M
+      imageUploadURL: this.fileUrl + '/japi/filesystem/upload',
+      imageUploadParams: {
+        viewByAnon: true,
+        longLife: true,
+        maxFileSize: 3145728
+      },
+      fileMaxSize: 1024 * 1024 * 20, // 文件限制20M
+      fileUploadURL: this.fileUrl + '/japi/filesystem/upload',
+      fileUploadParams: {
+        viewByAnon: true,
+        longLife: true,
+        maxFileSize: 20971520
+      },
+      videoMaxSize: 1024 * 1024 * 400, // 视频限制400M
+      videoUploadURL: this.fileUrl + '/japi/filesystem/upload',
+      videoUploadParams: { // 上传参数
+        viewByAnon: true,
+        longLife: true,
+        maxFileSize: 419430400
+      },
+      events: {
+        'froalaEditor.focus': function (e, editor) {
+          console.log(editor.html.get());
+        },
+        'froalaEditor.image.removed': function (e, editor, img) {
+          const src = img.attr('src');
+          const index = src.indexOf('?id='); // 获取文件id
+          const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
+          $.ajax({
+            method: 'POST',
+            url: deleteUrl
+          })
+            .done((data11) => {
+              console.log('image was deleted');
+            })
+            .fail((err) => {
+              console.log('image deleteArticle problem: ' + JSON.stringify(err));
+            });
+        },
+        'froalaEditor.file.unlink': function (e, editor, link) {
+          const src = link.getAttribute('href');
+          const index = src.indexOf('?id='); // 获取文件id
+          const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
+          $.ajax({
+            method: 'POST',
+            url: deleteUrl
+          })
+            .done(function (data1) {
+              console.log('file was deleted');
+            })
+            .fail(function (err) {
+              console.log('file deleteArticle problem: ' + JSON.stringify(err.message));
+            });
+        },
+        'froalaEditor.video.removed': function (e, editor, video) {
+          const src = video.getAttribute('src');
+          const index = src.indexOf('?id='); // 获取文件id
+          const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
+          $.ajax({
+            method: 'POST',
+            url: deleteUrl
+          })
+            .done(function (data2) {
+              console.log('file was deleted');
+            })
+            .fail(function (err) {
+              console.log('file deleteArticle problem: ' + JSON.stringify(err));
+            });
+        }
+      }
+    };
   }
 
   /**
    *  文件上传
-   * @param {FormData} data 文件数据
+   * @param {FormData} file 文件数据
+   * @param {any} params 上传参数
    * @returns {Observable<any[]>} 返回文件路径数组流
    */
-  uploadFile(data: FormData): Observable<any[]> {
+  uploadFile(file: FormData, params: any): Observable<any> {
     const header: HttpHeaders = new HttpHeaders();
     header.append('Content-Type', undefined);
-    return this.http.post<any[]>('', data, {headers: header});
+    return this.http.post(this.fileUrl + '/japi/filesystem/upload', file, {
+      headers: header,
+      params: params
+    });
   }
 
   /**********************logo管理api******************************/
@@ -149,7 +230,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   deleteModule(id: string): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/module/delete', null, {
+    return this.http.post(this.baseUrl + '/japi/cms/module/deleteArticle', null, {
       params: {id: id}
     });
   }
@@ -161,23 +242,8 @@ export class BackApiService {
    * @param params
    * @returns {Observable<any>}
    */
-  getArticles(page: any, sort: any): Observable<any> {
-    const baseUrl = 'https://api.github.com/search/issues?q=repo:angular/material2';
-    let targeUrl = `${baseUrl}&page=${page.pageIndex + 1}&per_page=${page.pageSize}`;
-    if (sort.direction) {
-      targeUrl = `${targeUrl}&sort=${sort.active}&order=${sort.direction}`;
-    }
-    return this.http
-      .get(targeUrl);
-  }
-
-  /**
-   * 更新文章内容
-   * @param data
-   * @returns {Observable<any>}
-   */
-  addArticle(data: any): Observable<any> {
-    return this.http.post('', data);
+  getArticles(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/getBy', params);
   }
 
   /**
@@ -186,11 +252,59 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   getArticleById(id: string): Observable<any> {
-    return this.http.get('', {
-      params: {id: id}
+    return this.http.get(this.baseUrl + '/japi/cms/article/get', {
+      params: {articleID: id}
+    });
+  }
+
+  /**
+   * 新增文章内容
+   * @param data
+   * @returns {Observable<any>}
+   */
+  addArticle(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/new', data);
+  }
+
+  /**
+   * 更新文章内容
+   * @param data
+   * @returns {Observable<any>}
+   */
+  updateArticle(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/update', data);
+  }
+
+  /**
+   * 根据id删除文章
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  deleteArticleByID(id: string): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/article/delete', null, {
+      params: {
+        articleID: id
+      }
     });
   }
 
   /**********************脚注管理api******************************/
+  /**
+   * 查询链接组
+   * @returns {Observable<any>}
+   */
+  getLinkGroup(): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/cms/tailLinkGroup/getAll');
+  }
 
+  /**
+   * 新增链接组标签
+   * @param params
+   * @returns {Observable<any>}
+   */
+  addLinkGroup(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/new', null, {
+      params: params
+    });
+  }
 }

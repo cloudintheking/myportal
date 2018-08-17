@@ -39,7 +39,7 @@ export class RichTextComponent implements OnInit {
               console.log('image was deleted');
             })
             .fail((err) => {
-              console.log('image delete problem: ' + JSON.stringify(err));
+              console.log('image deleteArticle problem: ' + JSON.stringify(err));
             });
 
         },
@@ -60,7 +60,7 @@ export class RichTextComponent implements OnInit {
               console.log('file was deleted');
             })
             .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
+              console.log('file deleteArticle problem: ' + JSON.stringify(err));
             });
         },
         'froalaEditor.video.removed': function (e, editor, video) {
@@ -80,7 +80,7 @@ export class RichTextComponent implements OnInit {
               console.log('file was deleted');
             })
             .fail(function (err) {
-              console.log('file delete problem: ' + JSON.stringify(err));
+              console.log('file deleteArticle problem: ' + JSON.stringify(err));
             });
         }
       }

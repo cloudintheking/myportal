@@ -59,8 +59,8 @@ export class HomeManageComponent implements OnInit {
     this.homeApi.getModules(params)
       .map(res => {
         res.data.list.map(m => {
-          if (m.articleType) {
-            m.articleType = m.articleType.name;
+          if (m.articleTypeVo) {
+            m.articleTypeVo = m.articleTypeVo.name;
           }
           return m;
         });
@@ -73,24 +73,19 @@ export class HomeManageComponent implements OnInit {
   }
 
   /**
-   *更新排序条件,并刷新数据
-   * @param {Sort} sortInfo
-   */
-  changeSort(sortInfo: Sort) {
-    this.currentSort.sortField = sortInfo.active;
-    this.currentSort.sortOrder = sortInfo.direction;
-    this.getModules();
-  }
-
-  /**
    * 编辑首页模块
    * @param {string} id
    */
   editModule(id?: string) {
-    this.dialog.open(AddHomeDialogComponent, {
+    const editDialog = this.dialog.open(AddHomeDialogComponent, {
       width: '50%',
       data: {id: id}
     });
+    editDialog.componentInstance.doConfirm.subscribe(
+      () => {
+        this.getModules(); // 刷新数据
+      }
+    );
   }
 
   /**
@@ -114,9 +109,20 @@ export class HomeManageComponent implements OnInit {
             message: error1.toString()
           }
         });
+      },
+      () => {
+        this.getModules(); // 刷新数据
       }
     );
   }
 
-
+  /**
+   *更新排序条件,并刷新数据
+   * @param {Sort} sortInfo
+   */
+  changeSort(sortInfo: Sort) {
+    this.currentSort.sortField = sortInfo.active;
+    this.currentSort.sortOrder = sortInfo.direction;
+    this.getModules();
+  }
 }
