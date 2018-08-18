@@ -77,6 +77,9 @@ export class AddArticleDialogComponent implements OnInit {
    * 提交数据
    */
   doPost() {
+    if (!this.articleForm.valid) {
+      return;
+    }
     if (this.imgID) {
       this.articleForm.value.cover = this.imgID;
     }
@@ -161,6 +164,7 @@ export class AddArticleDialogComponent implements OnInit {
         });
       });
     // this.imgUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file)); // 图片数据转换为预览URL
+    this.imgData.delete('file'); // 清除imgData
   }
 
   /**

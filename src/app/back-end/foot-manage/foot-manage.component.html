@@ -16,51 +16,58 @@
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                (matChipInputTokenEnd)="addTag($event)"/>
       </mat-form-field>
+      <form [formGroup]="linkParams">
+        <mat-form-field>
+          <mat-select placeholder="组名" formControlName="groupId" (change)="getLinks()">
+            <mat-option [value]="null">無</mat-option>
+            <mat-option *ngFor="let tag of linkGroup | async" [value]="tag.id">{{tag.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
 
-      <mat-form-field>
-        <mat-select placeholder="组名">
-          <mat-option [value]="1">js</mat-option>
-          <mat-option [value]="2">python</mat-option>
-          <mat-option [value]="3">c++</mat-option>
-        </mat-select>
-      </mat-form-field>
       <div>
-        <button mat-raised-button color="primary" (click)="update(1)">新增</button>
+        <button mat-raised-button color="primary" (click)="editLink()">新增</button>
       </div>
-
-      <mat-table [dataSource]="linkDataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="group">
-          <mat-header-cell *matHeaderCellDef>组名</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.group}}</mat-cell>
+      <mat-paginator #paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5,10,15]">
+      </mat-paginator>
+      <mat-table matSort [dataSource]="linkDataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="groupName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>组名</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.groupName}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef>链接名</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>链接名</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="address">
+        <ng-container matColumnDef="url">
           <mat-header-cell *matHeaderCellDef>链接地址</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.address}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{row.url}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="updateBy">
+        <ng-container matColumnDef="creatorUserName">
           <mat-header-cell *matHeaderCellDef>维护人</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.updateBy}}</mat-cell>
+          <mat-cell *matCellDef="let row">{{row.creatorUserName}}</mat-cell>
         </ng-container>
-
+        <ng-container matColumnDef="creatorDeptName">
+          <mat-header-cell *matHeaderCellDef>维护部门</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.creatorDeptName}}</mat-cell>
+        </ng-container>
         <ng-container matColumnDef="management">
           <mat-header-cell *matHeaderCellDef style="text-align: center">
             <span>管理</span>
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <button mat-button color="primary" (click)="update(row.id)">编辑</button>
-            <button mat-button color="warn" [disabled]="!row.auth">删除</button>
+            <button mat-button color="primary" (click)="editLink(row.id)">编辑</button>
+            <button mat-button color="warn"  (click)="deleteLink(row.id)">删除</button>
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="['group','name','address', 'updateBy', 'management']"></mat-header-row>
-        <mat-row *matRowDef="let element; columns: ['group','name','address', 'updateBy', 'management']"></mat-row>
+        <mat-header-row
+          *matHeaderRowDef="['groupName','name','url', 'creatorUserName','creatorDeptName', 'management']"></mat-header-row>
+        <mat-row
+          *matRowDef="let element; columns: ['groupName','name','url', 'creatorUserName','creatorDeptName', 'management']"></mat-row>
       </mat-table>
     </div>
   </mat-tab>

@@ -20,6 +20,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AddHomeDialogComponent} from './home-manage/add-home-dialog/add-home-dialog.component';
 import {AddLinkDialogComponent} from './foot-manage/add-link-dialog/add-link-dialog.component';
 import {DeleteTitleDialogComponent} from './title-manage/delete-title-dialog/delete-title-dialog.component';
+import {DeleteLinkDialogComponent} from './foot-manage/delete-link-dialog/delete-link-dialog.component';
 
 const ROUTES: Routes = [
   {
@@ -57,11 +58,12 @@ const ROUTES: Routes = [
     SharedMaterialModule
   ],
   entryComponents: [AddArticleDialogComponent, AddConfirmDialogComponent,
-    AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent, DeleteTitleDialogComponent],
+    AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent,
+    DeleteTitleDialogComponent, DeleteLinkDialogComponent],
   declarations: [
     BackEndComponent, ManageComponent, TitleManageComponent, HomeManageComponent, AddConfirmDialogComponent,
     ArticleManageComponent, FootManageComponent, RichTextComponent, LogoManageComponent, AddArticleDialogComponent,
-    AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent, DeleteTitleDialogComponent]
+    AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent, DeleteTitleDialogComponent, DeleteLinkDialogComponent]
 })
 export class BackEndModule {
 }

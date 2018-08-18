@@ -86,6 +86,9 @@ export class AddHomeDialogComponent implements OnInit {
    * 提交表单数据
    */
   doPost() {
+    if (!this.homeMoudelForm.valid) {
+      return;
+    }
     console.log('首页模块表单提交数据', this.homeMoudelForm.value);
     if (this.data.id) { // 更新首页模块
       this.homeApi.updateModule(this.homeMoudelForm.value).subscribe(

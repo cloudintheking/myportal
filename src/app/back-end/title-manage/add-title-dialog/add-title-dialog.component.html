@@ -2,27 +2,24 @@
 
 <mat-dialog-content class="post-form">
   <form [formGroup]="formModel">
-    <mat-form-field required>
-      <mat-select placeholder="归属" formControlName="pid">
+    <mat-form-field>
+      <mat-select placeholder="归属" formControlName="pid" required>
         <mat-option value="0">顶级</mat-option>
         <mat-option *ngFor="let t of titleList | async" [value]="t.id">{{t.name}}</mat-option>
       </mat-select>
     </mat-form-field>
-
-    <mat-form-field required>
-      <input matInput placeholder="名称" formControlName="name"/>
-    </mat-form-field>
-
     <mat-form-field>
-      <mat-select placeholder="样式" formControlName="displayStyle"  >
+      <input matInput placeholder="名称" formControlName="name" required/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="样式" formControlName="displayStyle" required>
         <mat-option [value]="'1'">列表</mat-option>
         <mat-option [value]="'2'">九宫格</mat-option>
       </mat-select>
     </mat-form-field>
-
     <div class="form-group">
       <label>是否启用:</label>
-      <mat-slide-toggle formControlName="inNavBar"  class="example-margin" color="accent" disabled="false"
+      <mat-slide-toggle formControlName="inNavBar" class="example-margin" color="accent" disabled="false"
                         (change)="statusChange($event)">
         {{statusMess}}
       </mat-slide-toggle>
@@ -32,6 +29,6 @@
 
 
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="doPost(formModel.value)">确认</button>
+  <button mat-button color="primary" [disabled]="!formModel.valid" (click)="doPost()">确认</button>
   <button mat-button mat-dialog-close color="warn">取消</button>
 </mat-dialog-actions>

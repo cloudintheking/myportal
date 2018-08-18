@@ -108,6 +108,46 @@ export class BackApiService {
   }
 
   /**********************logo管理api******************************/
+  /**
+   * 获取背景图
+   * @returns {Observable<any>}
+   */
+  getHeaderImgs(): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/cms/portal/get');
+  }
+
+  /**
+   * 移除背景图
+   * @param params
+   * @returns {Observable<any>}
+   */
+  deleteHeaderImg(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/portal/removeBanner', null, {
+      params: params
+    });
+  }
+
+  /**
+   * 新增背景图
+   * @param params
+   * @returns {Observable<any>}
+   */
+  addHeaderImg(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/portal/addBanner', null, {
+      params: params
+    });
+  }
+
+  /**
+   * 更新背景图
+   * @param params
+   * @returns {Observable<any>}
+   */
+  updateHeaderImg(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/portal/changeBanner', null, {
+      params: params
+    });
+  }
 
   /**********************栏目管理api******************************/
   /**
@@ -294,7 +334,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   getLinkGroup(): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/tailLinkGroup/getAll');
+    return this.http.get(this.baseUrl + '/japi/cms/tailLinkGroup/getBy');
   }
 
   /**
@@ -305,6 +345,72 @@ export class BackApiService {
   addLinkGroup(params: any): Observable<any> {
     return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/new', null, {
       params: params
+    });
+  }
+
+  /**
+   * 根据id删除链接组
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  deleteLinkGroup(id: string): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/delete', null, {
+      params: {
+        id: id
+      }
+    });
+  }
+
+  /**
+   * 多条件查询链接信息
+   * @param params
+   * @returns {Observable<any>}
+   */
+  getLinks(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/getPage', params);
+  }
+
+  /**
+   * 根据id查询链接信息
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  getLinkByID(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/cms/tailLinkGroup/getLinkById', {
+      params: {
+        id: id
+      }
+    });
+  }
+
+  /**
+   * 新增链接
+   * @param data
+   * @returns {Observable<any>}
+   */
+  addLink(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/addLink', data);
+  }
+
+  /**
+   * 更新链接
+   * @param data
+   * @returns {Observable<any>}
+   */
+  updateLink(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/updateLink', data);
+  }
+
+  /**
+   * 根据id删除链接
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  deleteLinkByID(id?: string): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/deleteLink', null, {
+      params: {
+        id: id
+      }
     });
   }
 }

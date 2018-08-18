@@ -11,7 +11,6 @@ import {AddConfirmDialogComponent} from '../../common-components/add-confirm-dia
   styleUrls: ['./home-manage.component.css']
 })
 export class HomeManageComponent implements OnInit {
-
   homeModules: MatTableDataSource<any> = new MatTableDataSource<any>(); // 文章列表数据源
   @ViewChild('paginator') paginator: MatPaginator; // 分页
   @ViewChild(MatSort) sortTable: MatSort; // 排序
@@ -41,7 +40,9 @@ export class HomeManageComponent implements OnInit {
       this.currentPage = page;
       this.getModules();
     });
-    this.homeModules.sort = this.sortTable;
+    this.sortTable.sortChange.subscribe((sort: Sort) => {
+    });
+    // this.homeModules.sort = this.sortTable; 静态排序
   }
 
   getModules() {

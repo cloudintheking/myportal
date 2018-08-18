@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {MatChipInputEvent, MatDialog, MatTableDataSource} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatChipInputEvent, MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {AddLinkDialogComponent} from './add-link-dialog/add-link-dialog.component';
 import {BackApiService} from '../../service/back-api.service';
 import {Observable} from 'rxjs/Observable';
 import {AddConfirmDialogComponent} from '../../common-components/add-confirm-dialog/add-confirm-dialog.component';
+import {MatSelectChange} from '@angular/material/typings/select/select';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {DeleteLinkDialogComponent} from './delete-link-dialog/delete-link-dialog.component';
 
 /**
  * @author hl
@@ -17,51 +20,51 @@ import {AddConfirmDialogComponent} from '../../common-components/add-confirm-dia
   styleUrls: ['./foot-manage.component.css']
 })
 export class FootManageComponent implements OnInit {
+  @ViewChild('paginator') paginator: MatPaginator; // 分页信息
+  @ViewChild(MatSort) sortTable: MatSort; // 排序信息
   options: object; // 富文本配置
-  linkDataSource = new MatTableDataSource<any>();
+  linkDataSource = new MatTableDataSource<any>(); // 链接数据源
   separatorKeysCodes = [ENTER, COMMA];
   linkGroup: Observable<any>; // 链接组
-  user: Number = 3;
-  testData: any[] = [
-    {
-      id: 1, name: 'a', address: 'a', updateBy: 'a', group: 'js'
-    },
-    {
-      id: 2, name: 'b', address: 'b', updateBy: 'b', group: 'python'
-    },
-    {
-      id: 3, name: 'c', address: 'c', updateBy: 'c', group: 'c++'
-    },
-    {
-      id: 4, name: 'd', address: 'd', updateBy: 'd', group: 'java'
-    }
-  ];
-  tags: any[];
+  linkParams: FormGroup; // 参数表单
 
   constructor(private  dialog: MatDialog, private  footApi: BackApiService) {
     this.options = this.footApi.froalaOptions;
-    this.linkDataSource.data = this.testData;
+    this.linkParams = new FormBuilder().group({
+      groupId: []
+    });
   }
 
   ngOnInit() {
     this.linkGroup = this.footApi.getLinkGroup().map(res => res.data);
-    this.testData.map((value, index) => {
-      if (value.id !== this.user) {
-        value.auth = false;
-      } else {
-        value.auth = true;
+    this.paginator.page.subscribe(
+      (page: PageEvent) => {
+        this.getLinks(); // 分页刷新
       }
-      return value;
+    );
+    this.sortTable.sortChange.subscribe((sort: Sort) => {
+      this.getLinks(); // 排序刷新
     });
+    this.getLinks();
   }
 
   /**
-   * 删除组标签
-   * @param tageName
+   * 获取链接
    */
-  removeTag(removeTage) {
-    this.tags = this.tags.filter(tag => tag.name !== removeTage.name);
-    console.log(this.tags);
+  getLinks() {
+    const params = {
+      groupId: this.linkParams.value.groupId,
+      pageIndex: this.paginator.pageIndex,
+      pageSize: this.paginator.pageSize,
+      sortField: this.sortTable.active,
+      sortOrder: this.sortTable.direction
+    };
+    this.footApi.getLinks(params).subscribe(
+      success => {
+        this.linkDataSource.data = success.data.list;
+        this.paginator.length = success.data.total;
+      }
+    );
   }
 
   /**
@@ -81,21 +84,103 @@ export class FootManageComponent implements OnInit {
               message: success.message
             }
           });
+        },
+        error1 => {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: error1.message
+            }
+          });
+        },
+        () => {
+          this.linkGroup = this.footApi.getLinkGroup().map(res => res.data);
         }
       );
     }
+    $event.input.value = '';
+  }
+
+  /**
+   * 删除组标签
+   * @param tageName
+   */
+  removeTag(id) {
+    const deleteLinkDialog = this.dialog.open(DeleteLinkDialogComponent, {
+      width: '50%',
+      data: {
+        message: '将删除该链接组下所有链接!'
+      }
+    });
+    deleteLinkDialog.componentInstance.doConfirm.subscribe(
+      () => {
+        this.footApi.deleteLinkGroup(id).subscribe(
+          success => {
+            this.dialog.open(AddConfirmDialogComponent, {
+              width: '50%',
+              data: {
+                message: success.message
+              }
+            });
+          },
+          error1 => {
+            this.dialog.open(AddConfirmDialogComponent, {
+              width: '50%',
+              data: {
+                message: error1.message
+              }
+            });
+          },
+          () => {
+            this.linkGroup = this.footApi.getLinkGroup().map(res => res.data);
+            this.getLinks();
+          }
+        );
+      });
+
   }
 
   /**
    * 更新链接
    * @param value
    */
-  update(value) {
-    this.dialog.open(AddLinkDialogComponent, {
+  editLink(id?: string) {
+    const editDialog = this.dialog.open(AddLinkDialogComponent, {
       width: '50%',
       data: {
-        id: value.id
+        id: id
       }
     });
+    editDialog.componentInstance.doConfirm.subscribe(() => {
+      this.getLinks();
+    });
+  }
+
+  /**
+   * 根据id删除链接
+   * @param {string} id
+   */
+  deleteLink(id: string) {
+    this.footApi.deleteLinkByID(id).subscribe(
+      success => {
+        this.dialog.open(AddConfirmDialogComponent, {
+          width: '50%',
+          data: {
+            message: success.message
+          }
+        });
+      },
+      error1 => {
+        this.dialog.open(AddConfirmDialogComponent, {
+          width: '50%',
+          data: {
+            message: error1.message
+          }
+        });
+      },
+      () => {
+        this.getLinks();
+      }
+    );
   }
 }

@@ -34,12 +34,12 @@ export class AddTitleDialogComponent implements OnInit {
     if (this.data.id) { // 传id时
       this.titleApi.getTitleById(this.data.id).subscribe(
         result => {
-          console.log('title', result);
           if (1 === result.status) {
+            const pid = result.data.pid ? result.data.pid : '0';
             this.formModel = new FormBuilder().group({
               id: [result.data.id],
               name: [result.data.name],
-              pid: [result.data.pid ? result.data.pid : '0'],
+              pid: [pid],
               inNavBar: [result.data.inNavigationBar],
               displayStyle: [result.data.displayStyle]
             });
@@ -67,20 +67,22 @@ export class AddTitleDialogComponent implements OnInit {
   /**
    * 提交数据
    */
-  doPost(value) {
-    switch (value.displayStyle) {
+  doPost() {
+    if (!this.formModel.valid) {
+      return;
+    }
+    switch (this.formModel.value.displayStyle) {
       case '1':
-        value.route = '/frontend/other/style1';
+        this.formModel.value.route = '/frontend/other/style1';
         break;
       case '2':
-        value.route = '/frontend/other/style2';
+        this.formModel.value.route = '/frontend/other/style2';
         break;
       default:
         break;
     }
-    console.log('title表单', value);
     if (this.data.id) { // 更新操作
-      this.titleApi.updateTitle(value).subscribe(
+      this.titleApi.updateTitle(this.formModel.value).subscribe(
         result => {
           console.log('更新成功');
           this.dialog.open(AddConfirmDialogComponent, {
@@ -102,7 +104,7 @@ export class AddTitleDialogComponent implements OnInit {
           this.doConfirm.emit(); // 分发确认信号
         });
     } else { // 新增操作
-      this.titleApi.addTitle(value).subscribe(
+      this.titleApi.addTitle(this.formModel.value).subscribe(
         result => {
           console.log('新增成功');
           this.dialog.open(AddConfirmDialogComponent, {

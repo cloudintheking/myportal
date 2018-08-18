@@ -1,35 +1,18 @@
 <div>
-  <button mat-raised-button color="warn" style="width:100%;margin: 0 auto 10px auto;font-size: 20px">
+  <button mat-raised-button color="warn" style="width:100%;margin: 0 auto 10px auto;font-size: 20px"
+          (click)="openFileDialog()">
     <span>新增</span>
     <fa-icon [icon]="faAngry" [fixedWidth]="true"></fa-icon>
   </button>
 </div>
 <input type="file" id="browsefile" style="display: none" accept="image/*" (change)="onchangeSelectFile($event)">
 <mat-grid-list cols="2" class="container">
-  <mat-grid-tile>
+  <mat-grid-tile *ngFor="let img of headerImgs; let index = index">
     <mat-card class="post-tile">
-      <img mat-card-image [src]="logoImg"/>
+      <img mat-card-image [src]="img.url"/>
       <mat-card-actions>
-        <button mat-button color="primary" (click)="updateLogo(1)">编辑</button>
-        <button mat-button color="warn" (click)="deleteLogo()">删除</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-card class="post-tile">
-      <img mat-card-image [src]="logoImg"/>
-      <mat-card-actions>
-        <button mat-button color="primary" (click)="updateLogo(2)">编辑</button>
-        <button mat-button color="warn">删除</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-card class="post-tile">
-      <img mat-card-image [src]="logoImg"/>
-      <mat-card-actions>
-        <button mat-button color="primary" (click)="updateLogo(3)">编辑</button>
-        <button mat-button color="warn">删除</button>
+        <button mat-button color="primary" (click)="openFileDialog(index)">编辑</button>
+        <button mat-button color="warn" (click)="deleteHeaderImg(index)">删除</button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>

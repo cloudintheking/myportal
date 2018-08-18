@@ -7,7 +7,6 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
   styleUrls: ['./add-confirm-dialog.component.css']
 })
 export class AddConfirmDialogComponent implements OnInit {
-  @Output()
   doConfirm = new EventEmitter<any>();
   message: string; // 提示信息
 
