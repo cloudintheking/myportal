@@ -39,7 +39,8 @@ export class AddArticleDialogComponent implements OnInit {
       title: [],
       content: [],
       hide: [],
-      cover: []
+      cover: [],
+      route: []
     });
   }
 
@@ -106,6 +107,7 @@ export class AddArticleDialogComponent implements OnInit {
         }
       );
     } else { // 新增文章
+      this.articleForm.value.route = 'frontend/other/detail';
       this.articleApi.addArticle(this.articleForm.value).subscribe(
         success => {
           this.dialog.open(AddConfirmDialogComponent, {

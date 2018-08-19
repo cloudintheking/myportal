@@ -1,5 +1,5 @@
 <div class="col-md-4 col-sm-6 imgCenter">
-   <img style="display: inline-block" src="assets/img/tu1.jpg" title="褚银良副市长督查环城南路东段快速化改...">
+  <img style="display: inline-block" src="assets/img/tu1.jpg" title="褚银良副市长督查环城南路东段快速化改...">
 </div>
 <div class="col-md-8 col-sm-6 ">
   <div class="scrollbox">
@@ -12,11 +12,11 @@
         <b></b>
       </span>
       <div class="scroltit">
-        <div class="updown but_up"  [id]="butdownId" >向下</div>
-        <div class="updown but_down"  [id]="butupId" >向上</div>
+        <div class="updown but_up" [id]="butdownId">向下</div>
+        <div class="updown but_down" [id]="butupId">向上</div>
       </div>
     </div>
-    <div [id]="scrollid" class="scrollDiv">
+    <div [id]="'s'+scrollid" class="scrollDiv">
       <ul>
         <li *ngFor="let article of articleTemp">
           <div class="time">
@@ -25,7 +25,7 @@
           </div>
           <div class="nnei">
             <h3>
-              <a  [routerLink]="[article.route]" class="linktit">{{article.title}}</a>
+              <a [routerLink]="[article.route]" class="linktit">{{article.title}}</a>
             </h3>
             <div class="neirong">{{article.sub}}</div>
           </div>

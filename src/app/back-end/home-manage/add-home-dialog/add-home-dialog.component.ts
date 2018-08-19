@@ -26,7 +26,8 @@ export class AddHomeDialogComponent implements OnInit {
       flex: [],
       pos: [],
       hide: [],
-      showTypeLevel: []
+      showTypeLevel: [],
+      route: []
     });
   }
 
