@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { OtherComponent } from './other.component';
-import { MenuComponent } from './menu/menu.component';
-import { ArticleList1Component } from './article-list1/article-list1.component';
-import { ArticleList2Component } from './article-list2/article-list2.component';
-import { ArticleDetailComponent } from './article-detail/article-detail.component';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {OtherComponent} from './other.component';
+import {MenuComponent} from './menu/menu.component';
+import {ArticleList1Component} from './article-list1/article-list1.component';
+import {ArticleList2Component} from './article-list2/article-list2.component';
+import {ArticleDetailComponent} from './article-detail/article-detail.component';
+import {Routes, RouterModule} from '@angular/router';
+import {PaginatorComponent} from '../../common-components/paginator/paginator.component';
+import {FroalaViewModule} from 'angular-froala-wysiwyg';
 
 const ROUTES: Routes = [
   {
@@ -27,9 +29,11 @@ const ROUTES: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    FroalaViewModule.forRoot(),
     RouterModule.forChild(ROUTES)
   ],
   exports: [RouterModule],
-  declarations: [OtherComponent, MenuComponent, ArticleList1Component, ArticleList2Component, ArticleDetailComponent]
+  declarations: [OtherComponent, MenuComponent, ArticleList1Component, ArticleList2Component, ArticleDetailComponent, PaginatorComponent]
 })
-export class OtherModule { }
+export class OtherModule {
+}

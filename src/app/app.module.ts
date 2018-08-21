@@ -15,6 +15,7 @@ import {BackGuard} from './guard/back.guard';
 import {HomeResolveService} from './guard/home-resolve.service';
 import {OtherResolveService} from './guard/other-resolve.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { PaginatorComponent } from './common-components/paginator/paginator.component';
 
 
 const ROUTES: Routes = [

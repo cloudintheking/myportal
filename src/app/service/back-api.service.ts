@@ -12,9 +12,10 @@ import {environment} from 'environments/environment';
 export class BackApiService {
   baseUrl = environment.baseUrl; // CMS系统接口域名
   fileUrl = environment.fileUrl; // 文件系统接口域名
-  articleIdEmitter: EventEmitter<number> = new EventEmitter<number>(); // 文章id分发器
   froalaOptions: object; // 富文本配置
-
+  articleIdEmitter: EventEmitter<string> = new EventEmitter<string>(); // 文章id分发器
+  titleL1Emitter: EventEmitter<string> = new EventEmitter<string>(); // 一级栏目分发器
+  titleL2Emitter: EventEmitter<string> = new EventEmitter<string>(); // 二级栏目分发器
   constructor(private  http: HttpClient) {
     this.froalaOptions = {
       placeholder: 'Edit Me',
@@ -166,7 +167,8 @@ export class BackApiService {
   getTitleById(id: string): Observable<any> {
     return this.http.get(this.baseUrl + '/japi/cms/article/type/getById', {
       params: {
-        typeID: id
+        typeID: id,
+        showChilds: 'true'
       }
     });
   }
@@ -176,9 +178,20 @@ export class BackApiService {
    * @param {string} level
    */
   getTitlesByLevel(level: string): Observable<any> {
-    const header: HttpHeaders = new HttpHeaders();
-    header.append('Access-Control-Allow-Origin', '*');
     return this.http.get(this.baseUrl + '/japi/cms/article/type/getByLevel', {
+      params: {
+        level: level
+      }
+    });
+  }
+
+  /**
+   * 匿名接口
+   * 根据分类等级获取栏目
+   * @param {string} level
+   */
+  getTitlesByLevelAnon(level: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/type/getByLevel', {
       params: {
         level: level
       }
@@ -192,6 +205,17 @@ export class BackApiService {
    */
   getTitlesTree(params: any): Observable<any> {
     return this.http.get(this.baseUrl + '/japi/cms/article/type/getTree', {
+      params: params
+    });
+  }
+
+  /**
+   * 匿名接口
+   * 查找子栏目信息
+   * @returns {Observable<any>}
+   */
+  getChildrenTilesAnon(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/type/getChildrenById', {
       params: params
     });
   }
@@ -230,6 +254,16 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   getModules(params: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/module/getBy', params);
+  }
+
+  /**
+   * 匿名
+   *多条件查询首页模块信息
+   * @param params
+   * @returns {Observable<any>}
+   */
+  getModulesAnon(params: any): Observable<any> {
     return this.http.post(this.baseUrl + '/japi/cms/module/getBy', params);
   }
 
@@ -294,6 +328,30 @@ export class BackApiService {
   getArticleById(id: string): Observable<any> {
     return this.http.get(this.baseUrl + '/japi/cms/article/get', {
       params: {articleID: id}
+    });
+  }
+
+  /**
+   * 匿名
+   * 根据文章id获取对应文章信息
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  getArticleByIdAnon(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/article/get', {
+      params: params
+    });
+  }
+
+  /**
+   * 匿名接口
+   * 根据栏目id查询分页文章信息
+   * @param params
+   * @returns {Observable<any>}
+   */
+  getArticleByTitleIdAnon(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/article/getFromTypeRecu', {
+      params: params
     });
   }
 

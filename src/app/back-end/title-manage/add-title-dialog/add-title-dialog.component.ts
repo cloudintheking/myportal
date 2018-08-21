@@ -3,7 +3,7 @@ import {BackApiService} from '../../../service/back-api.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {AddConfirmDialogComponent} from '../../../common-components/add-confirm-dialog/add-confirm-dialog.component';
 import {DomSanitizer} from '@angular/platform-browser';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 
 @Component({

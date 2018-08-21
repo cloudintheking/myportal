@@ -7,7 +7,6 @@ import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Observable';
 import {AddConfirmDialogComponent} from '../../../common-components/add-confirm-dialog/add-confirm-dialog.component';
 import {environment} from 'environments/environment';
-
 /**
  * @author hl
  * @date 2018/8/1

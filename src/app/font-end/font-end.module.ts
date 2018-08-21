@@ -13,6 +13,7 @@ import {HomeComponent} from './home/home.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {SharedMaterialModule} from '../shared-material/shared-material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {PaginatorComponent} from '../common-components/paginator/paginator.component';
 
 const ROUTES: Routes = [
   {

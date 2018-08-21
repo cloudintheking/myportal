@@ -2,36 +2,45 @@
   <div class="content_top">通知公告</div>
   <div class="content_list">
     <ul>
-      <li *ngFor="let article of articleTemp">
-        <img [src]="article.img">
-        <span>{{article.sub}}</span>
+      <!--<li *ngFor="let article of articleTemp">-->
+      <!--<img [src]="article.img">-->
+      <!--<span>{{article.sub}}</span>-->
+      <!--<b>{{article.date}}</b>-->
+      <!--<i>{{article.content}}</i>-->
+      <!--<a [routerLink]="['../detail']">查看详情</a>-->
+      <!--</li>-->
+      <li *ngFor="let article of articleList">
+        <img [src]="article.cover">
+        <span>{{article.title}}</span>
         <b>{{article.date}}</b>
-        <i>{{article.content}}</i>
-        <a [routerLink]="['../detail']">查看详情</a>
+        <i>{{article.preview}}</i>
+        <a (click)="showArticleDetail(article)">查看详情</a>
       </li>
     </ul>
   </div>
-  <ul class="pagination">
-    <li>
-      <a href="#">&laquo;</a>
-    </li>
-    <li>
-      <a href="#">1</a>
-    </li>
-    <li>
-      <a href="#">2</a>
-    </li>
-    <li>
-      <a href="#">3</a>
-    </li>
-    <li>
-      <a href="#">4</a>
-    </li>
-    <li>
-      <a href="#">5</a>
-    </li>
-    <li>
-      <a href="#">&raquo;</a>
-    </li>
-  </ul>
+  <app-paginator #paginator [totalRecords]="artcileCount" [currentPage]="pageIndex" [rows]="pageSize" class="pagination"
+                 (OnPageChange)="pageTo($event)"></app-paginator>
+  <!--<ul class="pagination" id="pageLimit">-->
+  <!--<li>-->
+  <!--<a href="#">&laquo;</a>-->
+  <!--</li>-->
+  <!--<li>-->
+  <!--<a href="#">1</a>-->
+  <!--</li>-->
+  <!--<li>-->
+  <!--<a href="#">2</a>-->
+  <!--</li>-->
+  <!--<li>-->
+  <!--<a href="#">3</a>-->
+  <!--</li>-->
+  <!--<li>-->
+  <!--<a href="#">4</a>-->
+  <!--</li>-->
+  <!--<li>-->
+  <!--<a href="#">5</a>-->
+  <!--</li>-->
+  <!--<li>-->
+  <!--<a href="#">&raquo;</a>-->
+  <!--</li>-->
+  <!--</ul>-->
 </div>

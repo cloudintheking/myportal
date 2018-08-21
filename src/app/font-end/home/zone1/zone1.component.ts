@@ -54,6 +54,11 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
     $('#s' + this.scrollid).Scroll({line: 1, speed: 300, timer: 3000, up: this.butupId, down: this.butdownId});
   }
 
+  /**
+   * change生命周期
+   * 获取父组件传来的值
+   * @param {SimpleChanges} changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     this.butdownId = 'butdown' + this.scrollid;
     this.butupId = 'butup' + this.scrollid;
