@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges, SimpleChanges, AfterViewInit} from '@angular/core';
+import {Component, OnInit, OnChanges, SimpleChanges, AfterViewInit, Input} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BackApiService} from '../../service/back-api.service';
 import {Router} from '@angular/router';
@@ -21,8 +21,7 @@ export class HomeComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit() {
-    const params = {};
-    this.homeModules = this.homeApi.getModulesAnon(params);
+    this.homeModules = this.homeApi.getModulesAnon().map(res => res.module);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -5,8 +5,8 @@
   <div class="scrollbox">
     <div class="lanmu_names">
       <div class="lanmu_names_tou">
-        <h3>行业动态</h3>
-        <h4>NEWS</h4>
+        <h3>{{navigation1}}</h3>
+        <h4>{{navigation2}}</h4>
       </div>
       <span>
         <b></b>
@@ -18,16 +18,16 @@
     </div>
     <div [id]="'s'+scrollid" class="scrollDiv">
       <ul>
-        <li *ngFor="let article of articleTemp">
+        <li *ngFor="let article of articles" (click)="showArticleDetail(article)">
           <div class="time">
-            <h4>{{article.month}}月</h4>
-            <h5>{{article.day}}</h5>
+            <h4>{{article.year}}年</h4>
+            <h5>{{article.month}}月</h5>
           </div>
           <div class="nnei">
             <h3>
-              <a [routerLink]="[article.route]" class="linktit">{{article.title}}</a>
+              <a class="linktit">{{article.title}}</a>
             </h3>
-            <div class="neirong">{{article.sub}}</div>
+            <div class="neirong">{{article.preview}}</div>
           </div>
         </li>
       </ul>

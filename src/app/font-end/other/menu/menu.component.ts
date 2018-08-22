@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class MenuComponent implements OnInit {
   menus: any; // 菜单组(二级栏目组)
   L1: any; // 一级栏目信息
-
+  navigation: any; //  导航
   constructor(private  menuApi: BackApiService, private  routerInfo: ActivatedRoute, private  router: Router) {
   }
 
@@ -31,11 +31,13 @@ export class MenuComponent implements OnInit {
    */
   getMenus() {
     const params = {
-      typeID: this.L1
+      typeID: this.L1,
+      showChilds: true
     };
     this.menuApi.getChildrenTilesAnon(params).subscribe(
       success => {
-        this.menus = success.data;
+        this.menus = success.data.childs;
+        this.navigation = success.data.name;
         console.log('菜单信息', success.data);
       }
     );

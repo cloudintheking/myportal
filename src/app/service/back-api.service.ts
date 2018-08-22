@@ -2,6 +2,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from 'environments/environment';
+import {p} from '@angular/core/src/render3';
 
 /**
  * @author hl
@@ -118,6 +119,15 @@ export class BackApiService {
   }
 
   /**
+   * 匿名
+   * 获取背景图
+   * @returns {Observable<any>}
+   */
+  getHeaderImgsAnon(): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/get');
+  }
+
+  /**
    * 移除背景图
    * @param params
    * @returns {Observable<any>}
@@ -199,6 +209,17 @@ export class BackApiService {
   }
 
   /**
+   * 获取父级栏目
+   * @param params
+   * @returns {Observable<any>}
+   */
+  getParentTitle(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/type/getFirstLevel', {
+      params: params
+    });
+  }
+
+  /**
    * 获取栏目树形结构
    * @param params
    * @returns {Observable<any>}
@@ -215,7 +236,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   getChildrenTilesAnon(params: any): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/type/getChildrenById', {
+    return this.http.get(this.baseUrl + '/japi/portal/type/getById', {
       params: params
     });
   }
@@ -263,8 +284,8 @@ export class BackApiService {
    * @param params
    * @returns {Observable<any>}
    */
-  getModulesAnon(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/module/getBy', params);
+  getModulesAnon(): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/module/getAll');
   }
 
   /**
@@ -344,6 +365,18 @@ export class BackApiService {
   }
 
   /**
+   * 匿名
+   *获取关联文章信息
+   * @param parans
+   * @returns {Observable<any>}
+   */
+  getRelateArticlesAnon(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/article/getRelate', {
+      params: params
+    });
+  }
+
+  /**
    * 匿名接口
    * 根据栏目id查询分页文章信息
    * @param params
@@ -393,6 +426,15 @@ export class BackApiService {
    */
   getLinkGroup(): Observable<any> {
     return this.http.get(this.baseUrl + '/japi/cms/tailLinkGroup/getBy');
+  }
+
+  /**
+   * 匿名
+   * 查询链接组
+   * @returns {Observable<any>}
+   */
+  getLinkGroupAnon(): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/portal/tailLinkGroup/get');
   }
 
   /**

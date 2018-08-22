@@ -13,8 +13,10 @@ export class ArticleList2Component implements OnInit {
   artcileCount: any; // 文章个数
   pageIndex = 0; // 当前页
   pageSize = 10; // 每页数据条数
+  L1: any; // 一级栏目id
   L2: any; // 二级栏目id
   fileUrl = environment.fileUrl; // 文件系统域名
+  navigation: any; // 导航
   constructor(private  articleApi: BackApiService, private routerInfo: ActivatedRoute, private router: Router) {
   }
 
@@ -22,7 +24,9 @@ export class ArticleList2Component implements OnInit {
     this.routerInfo.queryParams.subscribe(
       title => {
         this.L2 = title.L2;
+        this.L1 = title.L1;
         this.getArticles();
+        this.getNavigation(this.L2);
       }
     );
   }
@@ -51,6 +55,19 @@ export class ArticleList2Component implements OnInit {
   }
 
   /**
+   * 导航信息
+   */
+  getNavigation(ID) {
+    this.articleApi.getChildrenTilesAnon({
+      typeID: ID
+    }).subscribe(
+      success => {
+        this.navigation = success.data.name;
+      }
+    );
+  }
+
+  /**
    * 分页点击事件
    * @param event
    */
@@ -66,7 +83,8 @@ export class ArticleList2Component implements OnInit {
   showArticleDetail(article) {
     this.router.navigate(['frontend/other/detail'], {
       queryParams: {
-        articleID: article.id
+        articleID: article.id,
+        L1: this.L1
       },
       skipLocationChange: true
     });

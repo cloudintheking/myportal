@@ -10,31 +10,29 @@
   <div class="content_more">
     <div class="content_more_top">更多资讯</div>
     <ul>
-      <a [routerLink]="['../../1/detail']">
-        <li>宁波市城市天然气利用工程
-          <span>2018-09-05</span>
-        </li>
-      </a>
-      <a [routerLink]="['../../1/detail']">
-        <li>宁波市城市天然气利用工程
-          <span>2018-09-05</span>
-        </li>
-      </a>
-      <a [routerLink]="['../detail']">
-        <li>宁波市城市天然气利用工程
-          <span>2018-09-05</span>
-        </li>
-      </a>
-      <a [routerLink]="['../detail']">
-        <li>宁波市城市天然气利用工程
-          <span>2018-09-05</span>
-        </li>
-      </a>
-      <a [routerLink]="['../detail']" style="border: none">
-        <li>宁波市城市天然气利用工程
-          <span>2018-09-05</span>
-        </li>
-      </a>
+      <li *ngFor="let a of relateArticles | async" (click)="showArticleDetail(a.id)">{{a.title}}
+        <span>{{a.date}}</span>
+      </li>
+      <!--<a [routerLink]="['../../1/detail']">-->
+      <!--<li>宁波市城市天然气利用工程-->
+      <!--<span>2018-09-05</span>-->
+      <!--</li>-->
+      <!--</a>-->
+      <!--<a [routerLink]="['../detail']">-->
+      <!--<li>宁波市城市天然气利用工程-->
+      <!--<span>2018-09-05</span>-->
+      <!--</li>-->
+      <!--</a>-->
+      <!--<a [routerLink]="['../detail']">-->
+      <!--<li>宁波市城市天然气利用工程-->
+      <!--<span>2018-09-05</span>-->
+      <!--</li>-->
+      <!--</a>-->
+      <!--<a [routerLink]="['../detail']" style="border: none">-->
+      <!--<li>宁波市城市天然气利用工程-->
+      <!--<span>2018-09-05</span>-->
+      <!--</li>-->
+      <!--</a>-->
     </ul>
   </div>
 </div>
