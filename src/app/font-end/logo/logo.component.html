@@ -1,9 +1,10 @@
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- 轮播（Carousel）指标 -->
   <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li *ngFor="let h of headerImgs|async;let i=index"  data-target="#myCarousel"
+        [ngClass]="{'active':i===0}" ></li>
+    <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
+    <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
   </ol>
   <div class="carousel-inner">
     <div class="item " *ngFor="let h of headerImgs | async;let i =index" [ngClass]="{'active':i==0}">

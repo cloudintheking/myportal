@@ -22,5 +22,4 @@ export class LogoComponent implements OnInit {
       });
     });
   }
-
 }
