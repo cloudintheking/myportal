@@ -1,5 +1,5 @@
 <section style="margin: 5% 5%">
-  <form [formGroup]="paramsForm" >
+  <form [formGroup]="paramsForm">
     <mat-form-field>
       <mat-select placeholder="风格" formControlName="moduleType" (change)="getModules()">
         <mat-option [value]="null">無</mat-option>
@@ -56,7 +56,7 @@
     <ng-container matColumnDef="hide">
       <mat-header-cell *matHeaderCellDef mat-sort-header>状态</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-slide-toggle [disableRipple]="true" [checked]="row.hide"></mat-slide-toggle>
+        <mat-slide-toggle [disableRipple]="true" [checked]="!row.hide"></mat-slide-toggle>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="updateby">
@@ -73,7 +73,7 @@
     </ng-container>
     <ng-container matColumnDef="management">
       <mat-header-cell *matHeaderCellDef>
-        管理
+        <div style="text-align: center">管理</div>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button mat-button color="primary" (click)="editModule(row.id)">编辑</button>

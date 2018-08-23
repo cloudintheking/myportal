@@ -60,7 +60,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
             <button mat-button color="primary" (click)="editLink(row.id)">编辑</button>
-            <button mat-button color="warn"  (click)="deleteLink(row.id)">删除</button>
+            <button mat-button color="warn" (click)="deleteLink(row.id)">删除</button>
           </mat-cell>
         </ng-container>
 
@@ -77,8 +77,10 @@
       copyright
       <mat-icon style="vertical-align: middle">copyright</mat-icon>
     </ng-template>
+
     <mat-form-field class="mycopyright">
-      <textarea matInput [froalaEditor]="options"></textarea>
+      <button mat-raised-button color="primary" (click)="updateFoot()">保存</button>
+      <textarea matInput [froalaEditor]="options" [(froalaModel)]="foot"></textarea>
     </mat-form-field>
   </mat-tab>
 </mat-tab-group>

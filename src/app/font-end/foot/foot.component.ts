@@ -11,12 +11,18 @@ import {Router} from '@angular/router';
 })
 export class FootComponent implements OnInit {
   linkGroup: Observable<any>; // 链接组
+  foot: string; // 脚注
 
   constructor(private footApi: BackApiService, private router: Router) {
   }
 
   ngOnInit() {
     this.linkGroup = this.footApi.getLinkGroupAnon().map(res => res.data.linkGroup);
+    this.footApi.getHeaderImgsAnon().subscribe(
+      success => {
+        this.foot = success.prop.tailText;
+      }
+    );
   }
 
   /**
@@ -24,7 +30,7 @@ export class FootComponent implements OnInit {
    * @param {MatSelectChange} event
    */
   selectChange(event) {
-    window.location.href = 'http://' + encodeURI(event.target.value);
+    window.location.href = encodeURI(event.target.value);
     console.log(event.target.value);
   }
 }

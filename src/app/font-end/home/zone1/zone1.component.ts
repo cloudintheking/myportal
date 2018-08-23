@@ -101,7 +101,7 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
   showArticleDetail(article) {
     this.router.navigate(['frontend/other/detail'], {
       queryParams: {
-        artitcleID: article.id,
+        articleID: article.id,
         L1: this.L1
       },
       skipLocationChange: true

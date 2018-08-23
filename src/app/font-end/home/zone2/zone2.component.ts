@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BackApiService} from '../../../service/back-api.service';
 import {Router} from '@angular/router';
 import {environment} from 'environments/environment';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-zone2',
@@ -24,7 +25,6 @@ export class Zone2Component implements OnInit {
   ngOnInit() {
     this.getNavigation();
     this.getArticles();
-    this.getRelateArticles();
   }
 
   /**
@@ -39,9 +39,9 @@ export class Zone2Component implements OnInit {
     this.moduleApi.getArticleByTitleIdAnon(params).subscribe(
       success => {
         if (success.status === 1) {
-          this.article = success.data.list.slice(0, 1);
+          this.article = success.data.list.slice(0, 1)[0];
           this.article.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + this.article.cover;
-          console.log('zone2 article', this.article);
+          this.getRelateArticles(this.article.id);
         }
       }
     );
@@ -50,8 +50,9 @@ export class Zone2Component implements OnInit {
   /**
    * 获取关联文章信息
    */
-  getRelateArticles() {
-    this.moduleApi.getRelateArticlesAnon({id: this.article.id}).map(res => res.data).subscribe(
+  getRelateArticles(relateId) {
+    console.log('zone2 articleID', relateId);
+    this.moduleApi.getRelateArticlesAnon({id: relateId}).subscribe(
       success => {
         if (success.status === 1) {
           this.articlesRelate = success.data;
@@ -96,9 +97,10 @@ export class Zone2Component implements OnInit {
    * @param article
    */
   showArticleDetail(article) {
+    console.log('zone2夜传送文章信息', article);
     this.router.navigate(['frontend/other/detail'], {
       queryParams: {
-        artitcleID: article.id,
+        articleID: article.id,
         L1: this.L1
       },
       skipLocationChange: true

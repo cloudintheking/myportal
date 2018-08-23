@@ -61,11 +61,13 @@
     </ng-container>
     <ng-container matColumnDef="management">
       <mat-header-cell *matHeaderCellDef>
-        <span>管理</span>
+        <div style="text-align: center">管理</div>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button color="primary" (click)="editArticle(row.id)">编辑</button>
-        <button mat-button color="warn" (click)="deleteArticle(row.id)">删除</button>
+        <div style="text-align: center">
+          <button mat-button color="primary" (click)="editArticle(row.id)">编辑</button>
+          <button mat-button color="warn" (click)="deleteArticle(row.id)">删除</button>
+        </div>
       </mat-cell>
     </ng-container>
 

@@ -39,9 +39,11 @@ export class Zone3Component implements OnInit {
           if (this.module.showTypeLevel === 1) {
             this.titles = success.data.childs;
             this.L1 = success.data.id;
+            console.log('这是一级模块', success);
           } else {
             this.titles.push(success.data);
             this.L1 = success.data.pid;
+            console.log('这是二级模块', success);
           }
         }
       });
@@ -60,7 +62,7 @@ export class Zone3Component implements OnInit {
     this.moduleApi.getArticleByTitleIdAnon(params).subscribe(
       success => {
         if (success.status === 1) {
-          this.articles = success.data.map(a => {
+          this.articles = success.data.list.map(a => {
             a.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + a.cover;
             return a;
           });
@@ -75,7 +77,7 @@ export class Zone3Component implements OnInit {
   showArticleDetail(article) {
     this.router.navigate(['frontend/other/detail'], {
       queryParams: {
-        artitcleID: article.id,
+        articleID: article.id,
         L1: this.L1
       },
       skipLocationChange: true

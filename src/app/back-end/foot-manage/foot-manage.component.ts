@@ -27,6 +27,8 @@ export class FootManageComponent implements OnInit {
   separatorKeysCodes = [ENTER, COMMA];
   linkGroup: Observable<any>; // 链接组
   linkParams: FormGroup; // 参数表单
+  footOptions: any; // 脚注配置
+  foot: string; // 脚注
 
   constructor(private  dialog: MatDialog, private  footApi: BackApiService) {
     this.options = this.footApi.froalaOptions;
@@ -36,6 +38,10 @@ export class FootManageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.footApi.getHeaderImgs().subscribe(success => {
+      this.footOptions = success.prop;
+      this.foot = success.prop.tailText;
+    });
     this.linkGroup = this.footApi.getLinkGroup().map(res => res.data);
     this.paginator.page.subscribe(
       (page: PageEvent) => {
@@ -182,5 +188,20 @@ export class FootManageComponent implements OnInit {
         this.getLinks();
       }
     );
+  }
+
+  /**
+   * 更新脚注
+   */
+  updateFoot() {
+    this.footOptions.tailText = this.foot;
+    this.footApi.updateFoot(this.footOptions).subscribe(success => {
+      this.dialog.open(AddConfirmDialogComponent, {
+        width: '50%',
+        data: {
+          message: success.message
+        }
+      });
+    });
   }
 }

@@ -49,10 +49,10 @@ export class AddHomeDialogComponent implements OnInit {
                 id: [result.data.id],
                 name: [result.data.name],
                 articleType: [result.data.articleTypeVo],
-                moduleType: [result.data.type],
+                moduleType: [result.data.moduleType],
                 flex: [result.data.flex],
                 pos: [result.data.pos],
-                hide: [result.data.hide],
+                hide: [!result.data.hide],
                 showTypeLevel: [result.data.showTypeLevel]
               });
               if (result.data.showTypeLevel === 1) {
@@ -90,6 +90,7 @@ export class AddHomeDialogComponent implements OnInit {
     if (!this.homeMoudelForm.valid) {
       return;
     }
+    this.homeMoudelForm.value.hide = !this.homeMoudelForm.value.hide;
     console.log('首页模块表单提交数据', this.homeMoudelForm.value);
     if (this.data.id) { // 更新首页模块
       this.homeApi.updateModule(this.homeMoudelForm.value).subscribe(

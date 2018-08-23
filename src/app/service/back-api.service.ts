@@ -42,9 +42,6 @@ export class BackApiService {
         maxFileSize: 419430400
       },
       events: {
-        'froalaEditor.focus': function (e, editor) {
-          console.log(editor.html.get());
-        },
         'froalaEditor.image.removed': function (e, editor, img) {
           const src = img.attr('src');
           const index = src.indexOf('?id='); // 获取文件id
@@ -111,6 +108,15 @@ export class BackApiService {
 
   /**********************logo管理api******************************/
   /**
+   * 更新脚注
+   * @param data
+   * @returns {Observable<any>}
+   */
+  updateFoot(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/cms/portal/update', data);
+  }
+
+  /**
    * 获取背景图
    * @returns {Observable<any>}
    */
@@ -120,7 +126,7 @@ export class BackApiService {
 
   /**
    * 匿名
-   * 获取背景图
+   * 获取背景图及脚注
    * @returns {Observable<any>}
    */
   getHeaderImgsAnon(): Observable<any> {

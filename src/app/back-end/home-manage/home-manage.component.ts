@@ -62,6 +62,8 @@ export class HomeManageComponent implements OnInit {
         res.data.list.map(m => {
           if (m.articleTypeVo) {
             m.articleTypeVo = m.articleTypeVo.name;
+            m.moduleType = this.transModuleTypeName(m.moduleType);
+            m.flex = this.transFlex(m.flex);
           }
           return m;
         });
@@ -125,5 +127,38 @@ export class HomeManageComponent implements OnInit {
     this.currentSort.sortField = sortInfo.active;
     this.currentSort.sortOrder = sortInfo.direction;
     this.getModules();
+  }
+
+  /**
+   * 模块风格名转换
+   * @param type
+   * @returns {string}
+   */
+  transModuleTypeName(type: number): string {
+    switch (type) {
+      case 0:
+        return '滚动';
+      case 1:
+        return '报文';
+      case 2:
+        return '平铺';
+      default:
+        return '';
+    }
+  }
+
+  /**
+   * 模块宽度转换
+   * @param {number} type
+   */
+  transFlex(type: number): string {
+    switch (type) {
+      case 1:
+        return '50';
+      case 2:
+        return '100';
+      default:
+        return '';
+    }
   }
 }
