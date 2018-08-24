@@ -21,7 +21,6 @@ export class Zone3Component implements OnInit {
 
   ngOnInit() {
     this.getTitles();
-    this.showArticles(this.module.articleTypeId);
   }
 
   /**
@@ -45,6 +44,7 @@ export class Zone3Component implements OnInit {
             this.L1 = success.data.pid;
             console.log('这是二级模块', success);
           }
+          this.showArticles(this.titles[0].id);
         }
       });
   }

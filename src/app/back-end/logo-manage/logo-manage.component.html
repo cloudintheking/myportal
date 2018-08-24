@@ -7,7 +7,7 @@
 </div>
 <input type="file" id="browsefile" style="display: none" accept="image/*" (change)="onchangeSelectFile($event)">
 <mat-grid-list cols="2" class="container">
-  <mat-grid-tile *ngFor="let img of headerImgs; let index = index">
+  <mat-grid-tile [colspan]="2" *ngFor="let img of headerImgs; let index = index">
     <mat-card class="post-tile">
       <img mat-card-image [src]="img.url"/>
       <mat-card-actions>

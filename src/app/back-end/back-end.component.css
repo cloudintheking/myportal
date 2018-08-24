@@ -14,3 +14,7 @@
   padding-top: 64px;
   width: 300px;
 }
+
+.toolbar-seprator {
+  flex: 1 1 auto;
+}

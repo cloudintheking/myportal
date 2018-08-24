@@ -63,7 +63,6 @@ export class HomeManageComponent implements OnInit {
           if (m.articleTypeVo) {
             m.articleTypeVo = m.articleTypeVo.name;
             m.moduleType = this.transModuleTypeName(m.moduleType);
-            m.flex = this.transFlex(m.flex);
           }
           return m;
         });
@@ -147,18 +146,4 @@ export class HomeManageComponent implements OnInit {
     }
   }
 
-  /**
-   * 模块宽度转换
-   * @param {number} type
-   */
-  transFlex(type: number): string {
-    switch (type) {
-      case 1:
-        return '50';
-      case 2:
-        return '100';
-      default:
-        return '';
-    }
-  }
 }

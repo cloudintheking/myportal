@@ -29,8 +29,8 @@
 .index_new2_n img {
   float: left;
   margin: 0 10px 0 0;
-  max-width: 300px;
-  max-height: 300px;
+  width: 200px;
+  height: 180px;
 }
 
 .index_new2_n b {

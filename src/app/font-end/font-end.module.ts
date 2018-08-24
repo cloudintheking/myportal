@@ -6,30 +6,41 @@ import {CommonModule} from '@angular/common';
 import {FontEndComponent} from './font-end.component';
 import {LogoComponent} from './logo/logo.component';
 import {TitleComponent} from './title/title.component';
-import {LoginComponent} from './login/login.component';
 import {FootComponent} from './foot/foot.component';
 import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {SharedMaterialModule} from '../shared-material/shared-material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {PaginatorComponent} from '../common-components/paginator/paginator.component';
+import {FroalaViewModule} from 'angular-froala-wysiwyg';
+import {RichTextComponent} from './rich-text/rich-text.component';
 
 const ROUTES: Routes = [
   {
     path: '', component: FontEndComponent,
     children: [
       {
-        path: '', redirectTo: 'home'
+        path: '', redirectTo: 'home', pathMatch: 'full'
       },
       {
         path: 'home', component: HomeComponent
       },
       {
         path: 'other', loadChildren: './other/other.module#OtherModule'
+      },
+      {
+        path: 'us/:id', component: RichTextComponent
       }
     ]
   }
+  // {
+  //   path: '', redirectTo: 'home', pathMatch: 'full'
+  // },
+  // {
+  //   path: 'home', component: HomeComponent
+  // },
+  // {
+  //   path: 'other', loadChildren: './other/other.module#OtherModule'
+  // }
 ];
 
 @NgModule({
@@ -40,11 +51,8 @@ const ROUTES: Routes = [
     FlexLayoutModule,
     SharedMaterialModule
   ],
-  exports: [
-    FontEndComponent
-  ],
   declarations: [FontEndComponent, LogoComponent, TitleComponent, HomeComponent,
-    LoginComponent, FootComponent, Zone1Component, Zone2Component, Zone3Component]
+    FootComponent, Zone1Component, Zone2Component, Zone3Component, RichTextComponent]
 })
 export class FontEndModule {
 }

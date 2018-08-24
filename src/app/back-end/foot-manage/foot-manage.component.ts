@@ -5,9 +5,9 @@ import {AddLinkDialogComponent} from './add-link-dialog/add-link-dialog.componen
 import {BackApiService} from '../../service/back-api.service';
 import {Observable} from 'rxjs/Observable';
 import {AddConfirmDialogComponent} from '../../common-components/add-confirm-dialog/add-confirm-dialog.component';
-import {MatSelectChange} from '@angular/material/typings/select/select';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DeleteLinkDialogComponent} from './delete-link-dialog/delete-link-dialog.component';
+import {faUser, faComments} from '@fortawesome/free-regular-svg-icons';
 
 /**
  * @author hl
@@ -29,7 +29,13 @@ export class FootManageComponent implements OnInit {
   linkParams: FormGroup; // 参数表单
   footOptions: any; // 脚注配置
   foot: string; // 脚注
+  about: string; // 关于我们
+  contact: string; // 联系我们
+  /********Font Awesome Icon****************/
+  faUser = faUser;
+  faComments = faComments;
 
+  /********icon****************/
   constructor(private  dialog: MatDialog, private  footApi: BackApiService) {
     this.options = this.footApi.froalaOptions;
     this.linkParams = new FormBuilder().group({
@@ -41,6 +47,8 @@ export class FootManageComponent implements OnInit {
     this.footApi.getHeaderImgs().subscribe(success => {
       this.footOptions = success.prop;
       this.foot = success.prop.tailText;
+      this.about = success.prop.introduction;
+      this.contact = success.prop.contractUs;
     });
     this.linkGroup = this.footApi.getLinkGroup().map(res => res.data);
     this.paginator.page.subscribe(
@@ -195,6 +203,8 @@ export class FootManageComponent implements OnInit {
    */
   updateFoot() {
     this.footOptions.tailText = this.foot;
+    this.footOptions.introduction = this.about;
+    this.footOptions.contractUs = this.contact;
     this.footApi.updateFoot(this.footOptions).subscribe(success => {
       this.dialog.open(AddConfirmDialogComponent, {
         width: '50%',

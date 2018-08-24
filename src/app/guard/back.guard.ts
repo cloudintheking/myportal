@@ -1,23 +1,23 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
-import {LoginService} from '../service/login.service';
+import {BackApiService} from '../service/back-api.service';
 
 /**
  * @author hl
  * @date 2018/8/1
- * @Description: 后台路由守卫
+ * @Description: 后台管理路由守卫
  */
 @Injectable()
 export class BackGuard implements CanActivate {
-  constructor(private  loginApi: LoginService) {
+  constructor(private  loginApi: BackApiService) {
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(this.loginApi.userlocal.getItem('state'));
-    if (this.loginApi.userlocal.getItem('state')) {
+    console.log('路由守卫,登录会话id', this.loginApi.userData.getItem('user'));
+    if (this.loginApi.userData.getItem('user')) {
       return true;
     } else {
       return false;

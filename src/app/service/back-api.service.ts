@@ -2,7 +2,6 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from 'environments/environment';
-import {p} from '@angular/core/src/render3';
 
 /**
  * @author hl
@@ -13,10 +12,10 @@ import {p} from '@angular/core/src/render3';
 export class BackApiService {
   baseUrl = environment.baseUrl; // CMS系统接口域名
   fileUrl = environment.fileUrl; // 文件系统接口域名
+  ssoUrl = environment.ssoUrl; // 单点登录接口域名
   froalaOptions: object; // 富文本配置
-  articleIdEmitter: EventEmitter<string> = new EventEmitter<string>(); // 文章id分发器
-  titleL1Emitter: EventEmitter<string> = new EventEmitter<string>(); // 一级栏目分发器
-  titleL2Emitter: EventEmitter<string> = new EventEmitter<string>(); // 二级栏目分发器
+  userData: Storage = localStorage; // 登录信息保存至本地storage
+  // userData: any; // 登录信息保存至本地storage
   constructor(private  http: HttpClient) {
     this.froalaOptions = {
       placeholder: 'Edit Me',
@@ -91,6 +90,26 @@ export class BackApiService {
     };
   }
 
+  /*****************************登录接口************************************/
+  /**
+   * 登录
+   * @param data
+   * @returns {Observable<any>}
+   */
+  loginIn(data: any): Observable<any> {
+    return this.http.post(this.ssoUrl + '/japi/login', data);
+  }
+
+  /**
+   * 登出
+   * @param data
+   * @returns {Observable<any>}
+   */
+  loginOut(data: any): Observable<any> {
+    return this.http.get(this.ssoUrl + '/japi/logout', data);
+  }
+
+  /*************************文件上传接口*************************************/
   /**
    *  文件上传
    * @param {FormData} file 文件数据

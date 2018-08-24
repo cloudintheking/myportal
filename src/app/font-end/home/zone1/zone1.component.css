@@ -3,6 +3,11 @@
   /*vertical-align: middle;*/
   text-align: center;
 }
+
+.imgCenter img {
+  height: 320px;
+}
+
 .scrollbox {
   width: 100%;
   margin: 0 auto;
@@ -44,9 +49,11 @@
   float: left;
   width: 84%;
 }
-.nnei h3 a:hover{
+
+.nnei h3 a:hover {
   color: #ff312e !important;
 }
+
 .scrollDiv {
   width: 100%;
   height: 300px;
@@ -166,11 +173,11 @@
   margin-bottom: 15px;
 }
 
-.land {
-  background: url("../../../../assets/img/b1.jpg") repeat;
-  width: 100%;
-  float: left;
-}
+/*.land {*/
+/*background: url("../../../../assets/img/b1.jpg") repeat;*/
+/*width: 100%;*/
+/*float: left;*/
+/*}*/
 
 .name {
   line-height: 36px;

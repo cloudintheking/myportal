@@ -2,6 +2,7 @@ import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from 
 import {BackApiService} from '../../../service/back-api.service';
 import {Router} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import {environment} from 'environments/environment';
 
 @Component({
   selector: 'app-zone1',
@@ -19,6 +20,9 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
   navigation2: any; // 导航2
   articles: any[]; // 文章列表
   L1: any; // 一级栏目id
+  fileUrl = environment.fileUrl; // 文件系统域名
+  imgUrl: any; // 动态图片url
+
   constructor(private moduleApi: BackApiService, private  router: Router) {
   }
 
@@ -28,6 +32,9 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
     this.getArticles();
   }
 
+  /**
+   * 获取文章列表
+   */
   getArticles() {
     const params = {
       type: this.module.articleTypeId,
@@ -40,9 +47,12 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
           this.articles = success.data.list.map(a => {
             a.year = a.date.split('-')[0];
             a.month = a.date.split('-')[1];
+            a.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + a.cover;
             return a;
           });
+          this.imgUrl = this.articles[0].cover;
         }
+        // this.dynamicImgUrl(this.articles);
       }
     );
   }
@@ -107,4 +117,12 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
       skipLocationChange: true
     });
   }
+
+  // dynamicImgUrl(articles: any[]) {
+  //   let i: any = 0;
+  //   setInterval(() => {
+  //     i = parseInt((Math.random() * 100 / articles.length).toString(), 10);
+  //     this.imgUrl = articles[i].cover;
+  //   }, 3000);
+  // }
 }

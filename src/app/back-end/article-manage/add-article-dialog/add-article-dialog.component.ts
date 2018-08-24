@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Observable';
 import {AddConfirmDialogComponent} from '../../../common-components/add-confirm-dialog/add-confirm-dialog.component';
 import {environment} from 'environments/environment';
+
 /**
  * @author hl
  * @date 2018/8/1
@@ -37,7 +38,7 @@ export class AddArticleDialogComponent implements OnInit {
       articleTypeID: [],
       title: [],
       content: [],
-      hide: [],
+      hide: [true],
       cover: [],
       route: []
     });
@@ -55,7 +56,7 @@ export class AddArticleDialogComponent implements OnInit {
             articleTypeID: [result.data.type],
             title: [result.data.title],
             content: [result.data.content],
-            hide: [result.data.hide],
+            hide: [!result.data.hide],
             cover: [result.data.cover]
           });
           this.imgUrl = this.fileUrl + '/japi/filesystem/getFile?id=' + result.data.cover;
@@ -83,6 +84,7 @@ export class AddArticleDialogComponent implements OnInit {
     if (this.imgID) {
       this.articleForm.value.cover = this.imgID;
     }
+    this.articleForm.value.hide = !this.articleForm.value.hide; // 取反
     console.log('文章表单数据', this.articleForm.value);
     if (this.data.id) { // 更新文章
       this.articleApi.updateArticle(this.articleForm.value).subscribe(

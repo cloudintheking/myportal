@@ -1,11 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {faAngry, faNewspaper} from '@fortawesome/free-regular-svg-icons';
 import {faShoePrints, faColumns, faCube} from '@fortawesome/free-solid-svg-icons';
+import {BackApiService} from '../../service/back-api.service';
+
 /**
  * @author hl
  * @date 2018/8/3  菜单组件
  * @Description:
-*/
+ */
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -14,6 +16,7 @@ import {faShoePrints, faColumns, faCube} from '@fortawesome/free-solid-svg-icons
 export class ManageComponent implements OnInit {
   @Output()
   menuItem: EventEmitter<any> = new EventEmitter<any>(); // 菜单项分发器
+  user: any; // 从localstorage取出用户信息
   menus: any[] = [
     {
       name: 'logo管理',
@@ -42,10 +45,22 @@ export class ManageComponent implements OnInit {
     }
   ];
 
-  constructor() {
+  constructor(private menuApi: BackApiService) {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(this.menuApi.userData.getItem('user'));
+    console.log('取出用户登陆菜单', this.user.menuList);
+    this.menus = this.user.menuList
+      .filter(m => {
+        return /cms_page/.test(m.code);
+      })
+      .map(m => {
+        m.icon = this.transIcon(m.icon);
+        return m;
+      });
+
+    console.log('动态菜单', this.menus);
   }
 
   /**
@@ -54,5 +69,25 @@ export class ManageComponent implements OnInit {
    */
   menuitem(event) {
     this.menuItem.emit(event.target.innerText);
+  }
+
+  /**
+   * icon转换
+   * @param icon
+   * @returns {IconDefinition}
+   */
+  transIcon(icon) {
+    switch (icon) {
+      case 'faAngry':
+        return faAngry;
+      case 'faColumns':
+        return faColumns;
+      case 'faCube':
+        return faCube;
+      case 'faNewspaper':
+        return faNewspaper;
+      case 'faShoePrints':
+        return faShoePrints;
+    }
   }
 }

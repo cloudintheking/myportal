@@ -4,7 +4,7 @@
     fxLayout.lt-md="column"
     fxLayoutAlign="start">
 
-    <div *ngFor="let m of homeModules| async;let i=index" class="item" fxFlex="100" fxFlexOrder="1">
+    <div *ngFor="let m of homeModules| async;let i=index" class="item" [fxFlex]="m.flex" [fxFlexOrder]="m.pos">
       <app-zone1 *ngIf="m?.moduleType === 0" [scrollid]="'s'+i" [module]="m"></app-zone1>
       <app-zone2 *ngIf="m?.moduleType === 1" [module]="m"></app-zone2>
       <app-zone3 *ngIf="m?.moduleType === 2" [module]="m"></app-zone3>

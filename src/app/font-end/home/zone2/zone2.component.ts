@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BackApiService} from '../../../service/back-api.service';
 import {Router} from '@angular/router';
 import {environment} from 'environments/environment';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-zone2',
@@ -14,8 +13,8 @@ export class Zone2Component implements OnInit {
   module: any; // 父组件传递过来的模块信息
   navigation1: any; // 导航1
   navigation2: any; // 导航2
-  article: any; // 文章列表
-  articlesRelate: any[]; // 关联文章
+  article: any; // 文章
+  articles: any[]; // 关联文章
   L1: any; // 一级栏目id
   fileUrl = environment.fileUrl; // 文件系统域名
 
@@ -36,29 +35,28 @@ export class Zone2Component implements OnInit {
       pageIndex: 0,
       pageSize: 10
     };
+    console.log('zone2传递article参数', params);
     this.moduleApi.getArticleByTitleIdAnon(params).subscribe(
       success => {
         if (success.status === 1) {
           this.article = success.data.list.slice(0, 1)[0];
           this.article.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + this.article.cover;
-          this.getRelateArticles(this.article.id);
+          this.articles = success.data.list.slice(1, 4);
         }
       }
     );
   }
-
   /**
    * 获取关联文章信息
    */
-  getRelateArticles(relateId) {
-    console.log('zone2 articleID', relateId);
-    this.moduleApi.getRelateArticlesAnon({id: relateId}).subscribe(
-      success => {
-        if (success.status === 1) {
-          this.articlesRelate = success.data;
-        }
-      });
-  }
+  // getRelateArticles(relateId) {
+  //   this.moduleApi.getRelateArticlesAnon({id: relateId}).subscribe(
+  //     success => {
+  //       if (success.status === 1) {
+  //         this.articles = success.data;
+  //       }
+  //     });
+  // }
 
   /**
    * 导航信息
@@ -70,7 +68,6 @@ export class Zone2Component implements OnInit {
           if (success.status === 1) {
             this.navigation1 = success.data.name;
             this.L1 = success.data.id;
-            console.log('navigation1', this.navigation1);
           }
         }
       );
@@ -97,7 +94,6 @@ export class Zone2Component implements OnInit {
    * @param article
    */
   showArticleDetail(article) {
-    console.log('zone2夜传送文章信息', article);
     this.router.navigate(['frontend/other/detail'], {
       queryParams: {
         articleID: article.id,

@@ -1,49 +1,21 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {
-  MatIconModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatRippleModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatListModule,
-  MatMenuModule,
-  MatStepperModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatAutocompleteModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MAT_DATE_LOCALE,
-  MAT_DATE_FORMATS,
-  MatSelectModule,
-  MatCheckboxModule,
-  MatRadioModule,
-  MatSlideToggleModule,
-  MatSliderModule,
-  MatGridListModule,
-  MatCardModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatDialogModule,
-  MatChipsModule,
-  MatTooltipModule,
-  MatSnackBarModule,
-  MatExpansionModule,
-  MatTabsModule,
-  MatTableModule,
-  MatSortModule,
-  MatPaginatorModule
+  MatIconModule, MatButtonModule, MatButtonToggleModule, MatRippleModule, MatSidenavModule, MatToolbarModule,
+  MatListModule, MatMenuModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule,
+  MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatSelectModule, MatCheckboxModule,
+  MatRadioModule, MatSlideToggleModule, MatSliderModule, MatGridListModule, MatCardModule, MatProgressBarModule,
+  MatProgressSpinnerModule, MatDialogModule, MatChipsModule, MatTooltipModule, MatSnackBarModule, MatExpansionModule,
+  MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule
 } from '@angular/material';
 
 // import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { A11yModule } from '@angular/cdk/a11y';
-import { BidiModule } from '@angular/cdk/bidi';
-import { LayoutModule } from '@angular/cdk/layout';
-import { ObserversModule } from '@angular/cdk/observers';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { PortalModule } from '@angular/cdk/portal';
-import { PlatformModule } from '@angular/cdk/platform';
+import {A11yModule} from '@angular/cdk/a11y';
+import {BidiModule} from '@angular/cdk/bidi';
+import {LayoutModule} from '@angular/cdk/layout';
+import {ObserversModule} from '@angular/cdk/observers';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import {PortalModule} from '@angular/cdk/portal';
+import {PlatformModule} from '@angular/cdk/platform';
 import {CdkTableModule} from '@angular/cdk/table';
 
 export const TW_FORMATS = {
@@ -100,6 +72,7 @@ export const TW_FORMATS = {
     PortalModule,
     PlatformModule
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'zh-TW' }, { provide: MAT_DATE_FORMATS, useValue: TW_FORMATS }]
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'zh-TW'}, {provide: MAT_DATE_FORMATS, useValue: TW_FORMATS}]
 })
-export class SharedMaterialModule {}
+export class SharedMaterialModule {
+}

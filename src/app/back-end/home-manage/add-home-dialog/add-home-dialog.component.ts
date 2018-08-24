@@ -25,7 +25,7 @@ export class AddHomeDialogComponent implements OnInit {
       moduleType: [],
       flex: [],
       pos: [],
-      hide: [],
+      hide: [true],
       showTypeLevel: [],
       route: []
     });
@@ -90,7 +90,7 @@ export class AddHomeDialogComponent implements OnInit {
     if (!this.homeMoudelForm.valid) {
       return;
     }
-    this.homeMoudelForm.value.hide = !this.homeMoudelForm.value.hide;
+    this.homeMoudelForm.value.hide = !this.homeMoudelForm.value.hide; // 取反
     console.log('首页模块表单提交数据', this.homeMoudelForm.value);
     if (this.data.id) { // 更新首页模块
       this.homeApi.updateModule(this.homeMoudelForm.value).subscribe(

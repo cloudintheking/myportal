@@ -1,7 +1,7 @@
 <mat-tab-group>
   <mat-tab>
     <ng-template mat-tab-label>
-      友情链接
+      links
       <mat-icon style="vertical-align: middle">link</mat-icon>
     </ng-template>
     <div style="margin: 5% 5%;">
@@ -78,9 +78,33 @@
       <mat-icon style="vertical-align: middle">copyright</mat-icon>
     </ng-template>
 
-    <mat-form-field class="mycopyright">
+    <mat-form-field class="theRichText">
       <button mat-raised-button color="primary" (click)="updateFoot()">保存</button>
       <textarea matInput [froalaEditor]="options" [(froalaModel)]="foot"></textarea>
+    </mat-form-field>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      about us
+      <fa-icon [icon]="faUser"></fa-icon>
+    </ng-template>
+
+    <mat-form-field class="theRichText">
+      <button mat-raised-button color="primary" (click)="updateFoot()">保存</button>
+      <textarea matInput [froalaEditor]="options" [(froalaModel)]="about"></textarea>
+    </mat-form-field>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      contact us
+      <fa-icon [icon]="faComments"></fa-icon>
+    </ng-template>
+
+    <mat-form-field class="theRichText">
+      <button mat-raised-button color="primary" (click)="updateFoot()">保存</button>
+      <textarea matInput [froalaEditor]="options" [(froalaModel)]="contact"></textarea>
     </mat-form-field>
   </mat-tab>
 </mat-tab-group>

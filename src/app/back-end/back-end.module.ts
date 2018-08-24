@@ -6,7 +6,6 @@ import {TitleManageComponent} from './title-manage/title-manage.component';
 import {HomeManageComponent} from './home-manage/home-manage.component';
 import {ArticleManageComponent} from './article-manage/article-manage.component';
 import {FootManageComponent} from './foot-manage/foot-manage.component';
-import {RichTextComponent} from './rich-text/rich-text.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {Routes, RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -24,7 +23,7 @@ import {DeleteLinkDialogComponent} from './foot-manage/delete-link-dialog/delete
 
 const ROUTES: Routes = [
   {
-    path: '', component: BackEndComponent, resolve: {},
+    path: '', component: BackEndComponent,
     children: [
       {
         path: 'logo', component: LogoManageComponent
@@ -57,12 +56,13 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     SharedMaterialModule
   ],
+  exports: [AddConfirmDialogComponent],
   entryComponents: [AddArticleDialogComponent, AddConfirmDialogComponent,
     AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent,
     DeleteTitleDialogComponent, DeleteLinkDialogComponent],
   declarations: [
     BackEndComponent, ManageComponent, TitleManageComponent, HomeManageComponent, AddConfirmDialogComponent,
-    ArticleManageComponent, FootManageComponent, RichTextComponent, LogoManageComponent, AddArticleDialogComponent,
+    ArticleManageComponent, FootManageComponent, LogoManageComponent, AddArticleDialogComponent,
     AddTitleDialogComponent, AddHomeDialogComponent, AddLinkDialogComponent, DeleteTitleDialogComponent, DeleteLinkDialogComponent]
 })
 export class BackEndModule {

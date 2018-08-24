@@ -10,12 +10,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoginComponent} from './login/login.component';
 import {SharedMaterialModule} from './shared-material/shared-material.module';
 import {BackApiService} from './service/back-api.service';
-import {LoginService} from './service/login.service';
 import {BackGuard} from './guard/back.guard';
 import {HomeResolveService} from './guard/home-resolve.service';
 import {OtherResolveService} from './guard/other-resolve.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import { PaginatorComponent } from './common-components/paginator/paginator.component';
+import {AddConfirmDialogComponent} from './common-components/add-confirm-dialog/add-confirm-dialog.component';
+import {BackEndModule} from './back-end/back-end.module';
+import {FontEndModule} from './font-end/font-end.module';
+import {FontEndComponent} from './font-end/font-end.component';
 
 
 const ROUTES: Routes = [
@@ -27,7 +29,7 @@ const ROUTES: Routes = [
     loadChildren: './font-end/font-end.module#FontEndModule'
   },
   {
-    path: 'backend', loadChildren: './back-end/back-end.module#BackEndModule'
+    path: 'backend', loadChildren: './back-end/back-end.module#BackEndModule', canActivate: [BackGuard]
   },
   {
     path: 'login', component: LoginComponent
@@ -45,13 +47,16 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
     FormsModule,
     ReactiveFormsModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
+    // FroalaEditorModule.forRoot(),
+    // FroalaViewModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedMaterialModule
+    SharedMaterialModule,
+    FontEndModule,
+    BackEndModule,
   ],
-  providers: [HomeApiService, BackApiService, LoginService, BackGuard, HomeResolveService, OtherResolveService,
+  entryComponents: [AddConfirmDialogComponent],
+  providers: [HomeApiService, BackApiService, BackGuard, HomeResolveService, OtherResolveService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })

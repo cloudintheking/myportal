@@ -1,6 +1,6 @@
 <div class="index_new2">
   <div class="index_new2_top">
-    <span></span>{{navigation1}} <i> {{'/'+navigation2}}</i>
+    <span></span>{{navigation1}} <i> {{navigation2}}</i>
   </div>
   <div class="index_new2_n">
     <img [src]="article?.cover">
@@ -12,7 +12,7 @@
     </div>
   </div>
   <ul class="index_new_list">
-    <li *ngFor="let a of articlesRelate " (click)="showArticleDetail(a)">
+    <li *ngFor="let a of articles " (click)="showArticleDetail(a)">
       <b> {{a?.title}}</b>
       <span>{{a?.date}}</span>
     </li>

@@ -1,11 +1,14 @@
-import {AfterViewInit, Component, EventEmitter, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {LoginService} from '../service/login.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {BackApiService} from '../service/back-api.service';
+import {MatDialog} from '@angular/material';
+import {AddConfirmDialogComponent} from '../common-components/add-confirm-dialog/add-confirm-dialog.component';
 
 /**
  * @author hl
  * @date 2018/8/1
- * @Description: 登陆组件
+ * @Description: 登录组件
  */
 @Component({
   selector: 'app-login',
@@ -13,36 +16,52 @@ import {LoginService} from '../service/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-  constructor(private  router: Router, private loginApi: LoginService) {
+  loginForm: FormGroup;
+
+  constructor(private  router: Router, private loginApi: BackApiService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
+    if (this.loginApi.userData.getItem('user')) {
+      this.router.navigate(['/backend/logo']);
+    }
+    this.loginForm = new FormBuilder().group({
+      username: [],
+      password: []
+    });
   }
 
   ngAfterViewInit(): void {
   }
 
   /**
-   * 登陆
-   * @param user
+   * 登录
    */
-  login(user) {
-    // this.loginApi.login(user).subscribe(
-    //   data => {
-    //     this.loginApi.User = data;
-    //     this.router.navigate(['/backend/home']);
-    //   },
-    //   error => {
-    //   },
-    //   () => {
-    //   }
-    // );
-    console.log(user);
-    if (user.username === 'admin' && user.password === '123') {
-      this.loginApi.userlocal.setItem('state', 'ff');
-    }
-    // localStorage.removeItem('state');
-    this.router.navigate(['/backend/logo']);
+  login() {
+    console.log(this.loginForm);
+    this.loginApi.loginIn(this.loginForm.value).subscribe(
+      success => {
+        if (success.status === 1) {
+          // this.loginApi.userData = success.user;
+          this.loginApi.userData.setItem('user', JSON.stringify(success.user));
+          this.router.navigate(['/backend/logo']);
+        } else {
+          this.dialog.open(AddConfirmDialogComponent, {
+            width: '50%',
+            data: {
+              message: success.message
+            }
+          });
+        }
+      },
+      error1 => {
+        this.dialog.open(AddConfirmDialogComponent, {
+          width: '50%',
+          data: {
+            message: error1.mesaage
+          }
+        });
+      });
     //  window.location.href = 'http://112.16.169.54:8025/neibu.html';
   }
 

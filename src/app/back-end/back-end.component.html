@@ -3,8 +3,13 @@
     <mat-icon>{{sideNav.opened ? 'close' : 'menu'}}</mat-icon>
   </button>
   <span>xxx公司后台管理系统</span>
-  <fa-icon [icon]='faHandPointRight'  [fixedWidth]="true" size="lg"></fa-icon>
+  <fa-icon [icon]='faHandPointRight' [fixedWidth]="true" size="lg"></fa-icon>
   <span> {{menuItem}}</span>
+  <!-- 在這之後的都會被推到右邊去 -->
+  <span class="toolbar-seprator"></span>
+  <button mat-icon-button (click)="loginOut()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
 </mat-toolbar>
 
 <mat-sidenav-container class="back-container">

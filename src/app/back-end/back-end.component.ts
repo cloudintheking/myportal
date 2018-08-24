@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {faHandPointRight} from '@fortawesome/free-regular-svg-icons';
-import {LoginService} from '../service/login.service';
+import {Router} from '@angular/router';
+import {BackApiService} from '../service/back-api.service';
 
 /**
  * @author hl
@@ -13,10 +14,10 @@ import {LoginService} from '../service/login.service';
   styleUrls: ['./back-end.component.css']
 })
 export class BackEndComponent implements OnInit, OnDestroy {
-  menuItem: String = 'logo管理';
+  menuItem: string;
   faHandPointRight = faHandPointRight;
 
-  constructor(private loginApi: LoginService ) {
+  constructor(private loginApi: BackApiService, private  router: Router) {
   }
 
   ngOnInit() {
@@ -27,6 +28,14 @@ export class BackEndComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-  // localStorage.removeItem('state');
+    // localStorage.removeItem('state');
+  }
+
+  /**
+   * 退出登录
+   */
+  loginOut() {
+    this.loginApi.userData.removeItem('user');
+    this.router.navigate(['/frontend/home']);
   }
 }

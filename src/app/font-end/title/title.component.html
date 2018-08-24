@@ -10,10 +10,12 @@
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
-        <li><a [routerLink]="['./home']" class="hvr-shutter-out-horizontal">网站首页</a></li>
+        <li><a [routerLink]="['/frontend/home']" class="hvr-shutter-out-horizontal">网站首页</a></li>
+        <li><a [routerLink]="['/frontend//us',1]" class="hvr-shutter-out-horizontal">公司介绍</a></li>
         <li *ngFor="let t of titles | async ;let i=index">
           <a (click)="showTitle(t)" class="hvr-shutter-out-horizontal">{{t.name}}</a>
         </li>
+        <li><a [routerLink]="['/frontend/us',2]" class="hvr-shutter-out-horizontal">联系我们</a></li>
         <li><a [routerLink]="['/login']" class="hvr-shutter-out-horizontal">后台登陆</a></li>
       </ul>
     </div>

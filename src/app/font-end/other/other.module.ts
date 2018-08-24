@@ -33,7 +33,8 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   exports: [RouterModule],
-  declarations: [OtherComponent, MenuComponent, ArticleList1Component, ArticleList2Component, ArticleDetailComponent, PaginatorComponent]
+  declarations: [OtherComponent, MenuComponent, ArticleList1Component, ArticleList2Component,
+    ArticleDetailComponent, PaginatorComponent]
 })
 export class OtherModule {
 }
