@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.loginApi.loginIn(this.loginForm.value).subscribe(
       success => {
         if (success.status === 1) {
-          // this.loginApi.userData = success.user;
           this.loginApi.userData.setItem('user', JSON.stringify(success.user));
           this.router.navigate(['/backend/logo']);
         } else {

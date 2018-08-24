@@ -50,17 +50,17 @@ export class ManageComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(this.menuApi.userData.getItem('user'));
-    console.log('取出用户登陆菜单', this.user.menuList);
-    this.menus = this.user.menuList
-      .filter(m => {
-        return /cms_page/.test(m.code);
-      })
-      .map(m => {
-        m.icon = this.transIcon(m.icon);
-        return m;
-      });
-
-    console.log('动态菜单', this.menus);
+    if (this.user) {
+      this.menus = this.user.menuList
+        .filter(m => {
+          return /cms_page/.test(m.code);
+        })
+        .map(m => {
+          m.url = encodeURI(m.url);
+          m.icon = this.transIcon(m.icon);
+          return m;
+        });
+    }
   }
 
   /**
