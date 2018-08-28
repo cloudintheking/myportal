@@ -45,8 +45,6 @@ export class AddArticleDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    // $('#cover').on('click', function (event) {
-    // });
     this.titleList = this.articleApi.getTitlesTree({navBar: false}).map(res => res.data);
     if (this.data.id) {  // 传id时
       this.articleApi.getArticleById(this.data.id).subscribe(

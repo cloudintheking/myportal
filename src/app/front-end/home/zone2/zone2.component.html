@@ -5,11 +5,12 @@
   <div class="index_new2_n">
     <img [src]="article?.cover">
     <b>{{article?.title}}</b>
-    <i>发布时间：{{article?.date}}</i>
+   
     <span>{{article?.preview}}</span>
-    <div style="clear: both">
+    
+     <i>发布时间：{{article?.date}}</i>
       <a (click)="showArticleDetail(article)">查看详情</a>
-    </div>
+    
   </div>
   <ul class="index_new_list">
     <li *ngFor="let a of articles " (click)="showArticleDetail(a)">

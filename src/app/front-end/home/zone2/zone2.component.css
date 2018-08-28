@@ -1,5 +1,9 @@
+.index_new2{
+    margin: 0px 0 12px 0;
+    float: left;
+}
 .index_new2_top {
-  margin: 3% 0;
+  margin: 15px 0;
   color: #656565;
   font-size: 18px;
 }
@@ -39,6 +43,9 @@
   line-height: 24px;
   float: left;
   width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .index_new2_n span {
@@ -48,11 +55,12 @@
   float: left;
   width: 60%;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   overflow: hidden;
+  height: 123px;
 }
 
 .index_new2_n i {
@@ -82,7 +90,7 @@
 .index_new_list li {
   width: 95%;
   border-bottom: 1px #d0d0d0 dotted;
-  line-height: 30px;
+  line-height: 48px;
   color: #797979;
   float: left;
 
@@ -93,7 +101,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   float: left;
-  width: 80%;
+  width: 70%;
   font-weight: normal;
 }
 

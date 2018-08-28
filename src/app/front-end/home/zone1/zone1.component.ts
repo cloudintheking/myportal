@@ -117,12 +117,4 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
       skipLocationChange: true
     });
   }
-
-  // dynamicImgUrl(articles: any[]) {
-  //   let i: any = 0;
-  //   setInterval(() => {
-  //     i = parseInt((Math.random() * 100 / articles.length).toString(), 10);
-  //     this.imgUrl = articles[i].cover;
-  //   }, 3000);
-  // }
 }

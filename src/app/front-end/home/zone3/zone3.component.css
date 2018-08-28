@@ -24,14 +24,17 @@
   color: #676767;
   width: 100%;
   float: left;
-  margin: 10px;
+  margin: 10px 0;
   line-height: 24px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   overflow: hidden;
 }
-
+.index_new_list1 li img{
+  width: 360px;
+  height: 260px;
+}
 .index_new_list1 li a {
   color: #fff;
   background: #2797d8;
@@ -40,7 +43,6 @@
   line-height: 30px;
   text-align: center;
   float: left;
-  margin: 0 10px;
 }
 .nav>li>a:focus, .nav>li>a:hover {
   text-decoration: none;

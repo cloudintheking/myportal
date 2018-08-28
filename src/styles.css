@@ -17,11 +17,13 @@ a:hover {
 }
 
 li {
-  list-style: none
+  list-style: none;
+  cursor: pointer;
 }
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 img {
@@ -92,10 +94,13 @@ img {
 
 .content_top {
   border-bottom: 1px solid #0c7dd8;
-
-  font-size: 16px;
+  font-size: 18px;
   width: 96%;
+  line-height: 47px;
   margin: 0 2%;
+}
+.navbar{
+  border-radius: 0 !important;
 }
 
 .content_top span {

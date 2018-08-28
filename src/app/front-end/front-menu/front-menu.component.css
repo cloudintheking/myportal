@@ -3,6 +3,11 @@
   margin-bottom: 20px;
 }
 
+.navbar-collapse{
+  padding: 0 0 !important;
+}
+
+
 .navbar-index a {
   color: #fff;
   font-size: 18px;
@@ -11,7 +16,7 @@
   line-height: normal !important;
 }
 .nav > li > a {
-  padding: 10px 25px !important;
+  padding: 10px 15px !important;
 }
 
 .navbar-toggle .icon-bar {

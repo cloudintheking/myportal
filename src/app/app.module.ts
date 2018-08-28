@@ -44,8 +44,6 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
     FormsModule,
     ReactiveFormsModule,
-    // FroalaEditorModule.forRoot(),
-    // FroalaViewModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
     SharedMaterialModule,
