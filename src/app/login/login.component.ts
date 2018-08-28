@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     if (this.loginApi.userData.getItem('user')) {
-      this.router.navigate(['/backend/logo']);
+      this.router.navigate(['/backend/head']);
     }
     this.loginForm = new FormBuilder().group({
       username: [],

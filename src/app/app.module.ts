@@ -14,7 +14,7 @@ import {OtherResolveService} from './guard/other-resolve.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AddConfirmDialogComponent} from './common-components/add-confirm-dialog/add-confirm-dialog.component';
 import {BackEndModule} from './back-end/back-end.module';
-import {FontEndModule} from './font-end/font-end.module';
+import {FrontEndModule} from './front-end/front-end.module';
 
 
 const ROUTES: Routes = [
@@ -23,7 +23,7 @@ const ROUTES: Routes = [
   },
   {
     path: 'frontend',
-    loadChildren: './font-end/font-end.module#FontEndModule'
+    loadChildren: './front-end/front-end.module#FrontEndModule'
   },
   {
     path: 'backend', loadChildren: './back-end/back-end.module#BackEndModule', canActivate: [BackGuard]
@@ -49,7 +49,7 @@ const ROUTES: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     SharedMaterialModule,
-    FontEndModule,
+    FrontEndModule,
     BackEndModule,
   ],
   entryComponents: [AddConfirmDialogComponent],

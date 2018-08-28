@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import category style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body,
@@ -34,10 +34,6 @@ img {
 /*margin: 0 auto;*/
 /*}*/
 
-
-
-
-
 .center {
   width: 100%;
   height: auto;
@@ -61,15 +57,11 @@ img {
   width: 66% !important;
 }
 
-
-
-
 /*页签*/
 
 .loginsign {
   width: 98%;
 }
-
 
 .breadcrumb {
   text-align: right;
@@ -99,18 +91,20 @@ img {
 }
 
 .content_top {
-  border-bottom:1px solid #0c7dd8;
+  border-bottom: 1px solid #0c7dd8;
 
   font-size: 16px;
   width: 96%;
   margin: 0 2%;
 }
-.content_top span{
+
+.content_top span {
   background: #0c7dd8;
   color: #fff;
   line-height: 36px;
   padding: 8px 15px;
 }
+
 .pagination {
   float: right;
   margin: 20px !important;
@@ -170,6 +164,7 @@ img {
   text-indent: 1em;
   color: #656565;
 }
+
 /* Shutter Out Horizontal */
 .hvr-shutter-out-horizontal {
   display: inline-block;
@@ -184,6 +179,7 @@ img {
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
+
 .hvr-shutter-out-horizontal:before {
   content: "";
   position: absolute;
@@ -204,10 +200,19 @@ img {
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
+
 .hvr-shutter-out-horizontal:hover, .hvr-shutter-out-horizontal:focus, .hvr-shutter-out-horizontal:active {
   color: white;
 }
+
 .hvr-shutter-out-horizontal:hover:before, .hvr-shutter-out-horizontal:focus:before, .hvr-shutter-out-horizontal:active:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
+}
+
+.fr-wrapper > div[style*='z-index: 9999'] {
+  /*position: absolute;
+  top: -10000px;
+  opacity: 0;*/
+  display: none;
 }

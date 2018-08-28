@@ -1,9 +1,0 @@
-<mat-nav-list>
-  <mat-list-item *ngFor="let menu of menus">
-    <!--<button mat-icon-button>-->
-      <!--<mat-icon>{{menu.icon}}</mat-icon>-->
-    <!--</button>-->
-    <a [routerLink]="[menu.url]" (click)="menuitem($event)">{{menu.name}}</a>
-    <fa-icon [icon]="menu.icon" [fixedWidth]="true"  ></fa-icon>
-  </mat-list-item>
-</mat-nav-list>

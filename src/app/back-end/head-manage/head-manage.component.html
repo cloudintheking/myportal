@@ -1,0 +1,77 @@
+<div>
+  <button mat-raised-button color="warn" style="width:100%;margin: 0 auto 10px auto;font-size: 20px"
+          (click)="openFileDialog()">
+    <span>新增</span>
+    <fa-icon [icon]="faAngry" [fixedWidth]="true"></fa-icon>
+  </button>
+</div>
+<input type="file" id="browsefile" style="display: none" accept="image/*" (change)="onchangeSelectFile($event)">
+<mat-grid-list cols="2" class="container">
+  <mat-grid-tile [colspan]="2" *ngFor="let img of headerImgs; let index = index">
+    <mat-card class="post-tile">
+      <img mat-card-image [src]="img.url"/>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="openFileDialog(index)">编辑</button>
+        <button mat-button color="warn" (click)="deleteHeaderImg(index)">删除</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!--<mat-card>-->
+<!--<mat-card-header>-->
+<!--<mat-card-front-side-menu>-->
+<!--<div style="overflow: hidden;vertical-align:middle;position:relative;">-->
+<!--<button mat-raised-button color="primary">上传</button>-->
+<!--<input id="file1" accept="image/png" type="file" (change)="onchangeSelectFile($event)"-->
+<!--style="position:absolute;top:0;left:0;font-size:34px; opacity:0">-->
+<!--<span id="filename1" style="vertical-align: middle">格式:20*20</span>-->
+<!--</div>-->
+<!--</mat-card-front-side-menu>-->
+<!--</mat-card-header>-->
+<!--<img mat-card-image [src]="logoImg">-->
+<!--</mat-card>-->
+
+<!--<mat-card  >-->
+<!--<mat-card-header>-->
+<!--<mat-card-front-side-menu>-->
+<!--<div style="overflow: hidden;vertical-align:middle;position:relative;">-->
+<!--<button mat-raised-button color="primary">上传</button>-->
+<!--<input id="file2" accept="image/*" type="file" (change)="onchangeSelectFile($event)"-->
+<!--style="position:absolute;top:0;left:0;font-size:34px; opacity:0">-->
+<!--<span id="filename2" style="vertical-align: middle">格式:1920*290</span>-->
+<!--</div>-->
+<!--</mat-card-front-side-menu>-->
+<!--</mat-card-header>-->
+<!--<img mat-card-image [src]="backImg">-->
+<!--</mat-card>-->
+
+<!--<mat-card  >-->
+<!--<mat-card-header>-->
+<!--<mat-card-front-side-menu>-->
+<!--<div style="overflow: hidden;vertical-align:middle;position:relative;">-->
+<!--<button mat-raised-button color="primary">上传</button>-->
+<!--<input id="file2" accept="image/*" type="file" (change)="onchangeSelectFile($event)"-->
+<!--style="position:absolute;top:0;left:0;font-size:34px; opacity:0">-->
+<!--<span id="filename2" style="vertical-align: middle">格式:1920*290</span>-->
+<!--</div>-->
+<!--</mat-card-front-side-menu>-->
+<!--</mat-card-header>-->
+<!--<img mat-card-image [src]="backImg">-->
+<!--</mat-card>-->
+
+<!--<mat-card  >-->
+<!--<mat-card-header>-->
+<!--<mat-card-front-side-menu>-->
+<!--<div style="overflow: hidden;vertical-align:middle;position:relative;">-->
+<!--<button mat-raised-button color="primary">上传</button>-->
+<!--<input id="file2" accept="image/*" type="file" (change)="onchangeSelectFile($event)"-->
+<!--style="position:absolute;top:0;left:0;font-size:34px; opacity:0">-->
+<!--<span id="filename2" style="vertical-align: middle">格式:1920*290</span>-->
+<!--</div>-->
+<!--</mat-card-front-side-menu>-->
+<!--</mat-card-header>-->
+<!--<img mat-card-image [src]="backImg">-->
+<!--</mat-card>-->
+
+

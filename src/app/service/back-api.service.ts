@@ -19,30 +19,48 @@ export class BackApiService {
     this.froalaOptions = {
       placeholder: 'Edit Me',
       imageMaxSize: 1024 * 1024 * 3, // 图片限制3M
-      imageUploadURL: this.fileUrl + '/japi/filesystem/upload',
-      imageUploadParams: {
-        viewByAnon: true,
-        longLife: true,
-        maxFileSize: 3145728
-      },
+      // imageUploadMethod: 'POST',
+      imageUploadURL: this.fileUrl + '/japi/filesystem/richTextUpload',
       fileMaxSize: 1024 * 1024 * 20, // 文件限制20M
-      fileUploadURL: this.fileUrl + '/japi/filesystem/upload',
-      fileUploadParams: {
-        viewByAnon: true,
-        longLife: true,
-        maxFileSize: 20971520
-      },
+      fileUploadURL: this.fileUrl + '/japi/filesystem/richTextUpload',
       videoMaxSize: 1024 * 1024 * 400, // 视频限制400M
-      videoUploadURL: this.fileUrl + '/japi/filesystem/upload',
-      videoUploadParams: { // 上传参数
-        viewByAnon: true,
-        longLife: true,
-        maxFileSize: 419430400
-      },
+      videoUploadURL: this.fileUrl + '/japi/filesystem/richTextUpload',
+      // videoUploadParams: { // 上传参数
+      //   viewByAnon: true,
+      //   longLife: true,
+      //   maxFileSize: 419430400
+      // },
       events: {
-        'froalaEditor.image.removed': function (e, editor, img) {
-          const src = img.attr('src');
+        // 'froalaEditor.image.beforeUpload': (e, editor, images) => {
+        //   console.log('before upload editor', images);
+        //   const data: FormData = new FormData();
+        //   data.append('file', images[0]);
+        //   data.append('viewByAnon', 'true');
+        //   data.append('longLife', 'true');
+        //   data.append('maxFileSize', images[0].size);
+        //   $.ajax({
+        //     url: this.fileUrl + '/japi/filesystem/upload',
+        //     method: 'POST',
+        //     data: data,
+        //     processData: false,
+        //     contentType: false
+        //   })
+        //     .done(res => {
+        //       console.log(res);
+        //     })
+        //     .fail(res => {
+        //       console.log(res);
+        //     });
+        // },
+        'froalaEditor.image.uploaded': (e, editor, response) => {
+          console.log('response', response);
+        },
+        'froalaEditor.image.removed': (e, editor, $img) => {
+          console.log('remove', $img[0]);
+          const src = $img.attr('src');
+          console.log('src', src);
           const index = src.indexOf('?id='); // 获取文件id
+          console.log('id', src.slice(index + 4));
           const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
           $.ajax({
             method: 'POST',
@@ -55,7 +73,9 @@ export class BackApiService {
               console.log('image deleteArticle problem: ' + JSON.stringify(err));
             });
         },
-        'froalaEditor.file.unlink': function (e, editor, link) {
+        // 'froalaEditor.file.beforeUpload': (e, editor, files) => {
+        // },
+        'froalaEditor.file.unlink': (e, editor, link) => {
           const src = link.getAttribute('href');
           const index = src.indexOf('?id='); // 获取文件id
           const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
@@ -70,7 +90,7 @@ export class BackApiService {
               console.log('file deleteArticle problem: ' + JSON.stringify(err.message));
             });
         },
-        'froalaEditor.video.removed': function (e, editor, video) {
+        'froalaEditor.video.removed': (e, editor, video) => {
           const src = video.getAttribute('src');
           const index = src.indexOf('?id='); // 获取文件id
           const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
