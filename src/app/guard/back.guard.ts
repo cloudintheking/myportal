@@ -16,7 +16,6 @@ export class BackGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('路由守卫,登录会话id', this.loginApi.userData.getItem('user'));
     if (this.loginApi.userData.getItem('user')) {
       return true;
     } else {

@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from 'environments/environment';
@@ -15,7 +15,6 @@ export class BackApiService {
   ssoUrl = environment.ssoUrl; // 单点登录接口域名
   froalaOptions: object; // 富文本配置
   userData: Storage = localStorage; // 登录信息保存至本地storage
-  // userData: any; // 登录信息保存至本地storage
   constructor(private  http: HttpClient) {
     this.froalaOptions = {
       placeholder: 'Edit Me',

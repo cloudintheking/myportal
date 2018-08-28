@@ -1,9 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {AppComponent} from './app.component';
 import {Routes, RouterModule} from '@angular/router';
-import {HomeApiService} from './service/home-api.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -17,7 +15,6 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AddConfirmDialogComponent} from './common-components/add-confirm-dialog/add-confirm-dialog.component';
 import {BackEndModule} from './back-end/back-end.module';
 import {FontEndModule} from './font-end/font-end.module';
-import {FontEndComponent} from './font-end/font-end.component';
 
 
 const ROUTES: Routes = [
@@ -56,7 +53,7 @@ const ROUTES: Routes = [
     BackEndModule,
   ],
   entryComponents: [AddConfirmDialogComponent],
-  providers: [HomeApiService, BackApiService, BackGuard, HomeResolveService, OtherResolveService,
+  providers: [BackApiService, BackGuard, HomeResolveService, OtherResolveService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })

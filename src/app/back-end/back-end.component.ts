@@ -28,7 +28,6 @@ export class BackEndComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // localStorage.removeItem('state');
   }
 
   /**

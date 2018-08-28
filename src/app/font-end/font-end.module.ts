@@ -32,15 +32,6 @@ const ROUTES: Routes = [
       }
     ]
   }
-  // {
-  //   path: '', redirectTo: 'home', pathMatch: 'full'
-  // },
-  // {
-  //   path: 'home', component: HomeComponent
-  // },
-  // {
-  //   path: 'other', loadChildren: './other/other.module#OtherModule'
-  // }
 ];
 
 @NgModule({
