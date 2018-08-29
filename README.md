@@ -28,6 +28,8 @@ run  `ng serve -e prod` //启动生产模式
 
 then open [http://localhost:4200](http://localhost:4200)
 
+PS: 运行该命令前,请先克隆[myportal服务端项目](https://github.com/Cloudintheking/myportal_server)并启动后端服务
+
 ## Build
 
 run ng build -e test //生成测试模式下站点文件
