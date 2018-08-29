@@ -17,6 +17,7 @@ export class Zone2Component implements OnInit {
   articles: any[]; // 关联文章
   L1: any; // 一级栏目id
   fileUrl = environment.fileUrl; // 文件系统域名
+  more: any; // 更多
 
   constructor(private moduleApi: BackApiService, private  router: Router) {
   }
@@ -41,7 +42,7 @@ export class Zone2Component implements OnInit {
         if (success.status === 1) {
           this.article = success.data.list.slice(0, 1)[0];
           this.article.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + this.article.cover;
-          this.articles = success.data.list.slice(1, 4);
+          this.articles = success.data.list.slice(1, 6);
         }
       }
     );
@@ -99,7 +100,17 @@ export class Zone2Component implements OnInit {
         articleID: article.id,
         L1: this.L1
       },
-      skipLocationChange: true
+      skipLocationChange: false
+    });
+  }
+  showArticleMore(more) {
+    this.router.navigate(['frontend/category/style1'], {
+      queryParams: {
+        articleID: this.module.articleTypeId,
+        L1: this.L1,
+        L2: this.L1
+      },
+      skipLocationChange: false
     });
   }
 }

@@ -11,6 +11,7 @@
     </ul>
   </div>
   <div style="clear: both">
-    <app-paginator class="pagination" [rows]="pageSize" [currentPage]="0" [totalRecords]="artcileCount"></app-paginator>
+    <app-paginator class="pagination" [rows]="pageSize" [currentPage]="pageIndex" [totalRecords]="artcileCount"
+                   (OnPageChange)="pageTo($event)"></app-paginator>
   </div>
 </div>

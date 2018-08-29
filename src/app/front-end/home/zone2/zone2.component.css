@@ -1,6 +1,7 @@
 .index_new2{
     margin: 0px 0 12px 0;
     float: left;
+  width: 100%;
 }
 .index_new2_top {
   margin: 15px 0;
@@ -91,11 +92,12 @@
   width: 95%;
   border-bottom: 1px #d0d0d0 dotted;
   line-height: 48px;
-  color: #797979;
   float: left;
 
 }
-
+.index_new_list li a{
+  color: #797979;
+}
 .index_new_list li b {
   overflow: hidden;
   text-overflow: ellipsis;

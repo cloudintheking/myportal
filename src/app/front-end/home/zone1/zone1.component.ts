@@ -114,7 +114,7 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
         articleID: article.id,
         L1: this.L1
       },
-      skipLocationChange: true
+      skipLocationChange: false
     });
   }
 }

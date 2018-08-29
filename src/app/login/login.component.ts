@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       success => {
         if (success.status === 1) {
           this.loginApi.userData.setItem('user', JSON.stringify(success.user));
-          this.router.navigate(['/backend']);
+          this.router.navigate(['/backend/head']);
         } else {
           this.dialog.open(AddConfirmDialogComponent, {
             width: '50%',

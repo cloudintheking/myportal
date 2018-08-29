@@ -12,7 +12,7 @@ export class ArticleList2Component implements OnInit {
   articleList: any[]; // 文章列表
   artcileCount: any; // 文章个数
   pageIndex = 0; // 当前页
-  pageSize = 10; // 每页数据条数
+  pageSize = 12; // 每页数据条数
   L1: any; // 一级栏目id
   L2: any; // 二级栏目id
   fileUrl = environment.fileUrl; // 文件系统域名
@@ -72,8 +72,10 @@ export class ArticleList2Component implements OnInit {
    * @param event
    */
   pageTo(event) {
-    this.pageIndex = event.page;
-    this.getArticles();
+    if (event.page !== this.pageIndex) {
+      this.pageIndex = event.page;
+      this.getArticles();
+    }
   }
 
   /**

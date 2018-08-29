@@ -9,14 +9,15 @@
 }
 
 .content_pro ul li {
-  width: 29%;
+  width: 31%;
   float: left;
-  margin: 1% 2%;
+  margin: 1%;
 }
 
 .content_pro ul li img {
   float: left;
-  width: 96%;
+  width: 234px;
+  height: 169px;
   padding: 2%;
   border: 1px #f2f2f2 solid;
 }
@@ -26,6 +27,9 @@
   float: left;
   font-size: 16px;
   line-height: 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .content_pro ul li i {

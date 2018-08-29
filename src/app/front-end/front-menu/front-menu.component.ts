@@ -31,7 +31,7 @@ export class FrontMenuComponent implements OnInit {
         L1: title.id,
         L2: title.id
       },
-      skipLocationChange: true
+      skipLocationChange: false
     });
   }
 }

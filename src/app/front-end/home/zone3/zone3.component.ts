@@ -80,7 +80,7 @@ export class Zone3Component implements OnInit {
         articleID: article.id,
         L1: this.L1
       },
-      skipLocationChange: true
+      skipLocationChange: false
     });
   }
 }
