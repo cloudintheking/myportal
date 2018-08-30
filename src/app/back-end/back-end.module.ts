@@ -13,12 +13,12 @@ import {HeadManageComponent} from './head-manage/head-manage.component';
 import {AddArticleDialogComponent} from './article-manage/add-article-dialog/add-article-dialog.component';
 import {SharedMaterialModule} from '../shared-material/shared-material.module';
 import {AddConfirmDialogComponent} from '../common-components/add-confirm-dialog/add-confirm-dialog.component';
-import {AddTitleDialogComponent} from './category-manage/add-category-dialog/add-title-dialog.component';
+import {AddCategoryDialogComponent} from './category-manage/add-category-dialog/add-category-dialog.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AddZoneDialogComponent} from './zone-manage/add-zone-dialog/add-zone-dialog.component';
 import {AddLinkDialogComponent} from './other-manage/add-link-dialog/add-link-dialog.component';
-import {DeleteTitleDialogComponent} from './category-manage/delete-category-dialog/delete-title-dialog.component';
+import {DeleteCategoryDialogComponent} from './category-manage/delete-category-dialog/delete-category-dialog.component';
 import {DeleteLinkDialogComponent} from './other-manage/delete-link-dialog/delete-link-dialog.component';
 
 const ROUTES: Routes = [
@@ -58,12 +58,12 @@ const ROUTES: Routes = [
   ],
   exports: [AddConfirmDialogComponent],
   entryComponents: [AddArticleDialogComponent, AddConfirmDialogComponent,
-    AddTitleDialogComponent, AddZoneDialogComponent, AddLinkDialogComponent,
-    DeleteTitleDialogComponent, DeleteLinkDialogComponent],
+    AddCategoryDialogComponent, AddZoneDialogComponent, AddLinkDialogComponent,
+    DeleteCategoryDialogComponent, DeleteLinkDialogComponent],
   declarations: [
     BackEndComponent, BackMenuComponent, CategoryManageComponent, ZoneManageComponent, AddConfirmDialogComponent,
     ArticleManageComponent, OtherManageComponent, HeadManageComponent, AddArticleDialogComponent,
-    AddTitleDialogComponent, AddZoneDialogComponent, AddLinkDialogComponent, DeleteTitleDialogComponent, DeleteLinkDialogComponent]
+    AddCategoryDialogComponent, AddZoneDialogComponent, AddLinkDialogComponent, DeleteCategoryDialogComponent, DeleteLinkDialogComponent]
 })
 export class BackEndModule {
 }

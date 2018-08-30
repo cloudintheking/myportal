@@ -11,10 +11,10 @@ import {Observable} from 'rxjs/Observable';
  */
 @Component({
   selector: 'app-delete-title-dialog',
-  templateUrl: './delete-title-dialog.component.html',
-  styleUrls: ['./delete-title-dialog.component.css']
+  templateUrl: './delete-category-dialog.component.html',
+  styleUrls: ['./delete-category-dialog.component.css']
 })
-export class DeleteTitleDialogComponent implements OnInit {
+export class DeleteCategoryDialogComponent implements OnInit {
   toID = null;
   typeFrom: any;
   titleList: Observable<any>;

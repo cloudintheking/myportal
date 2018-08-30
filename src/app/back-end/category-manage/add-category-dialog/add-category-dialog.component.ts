@@ -8,10 +8,10 @@ import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-add-title-dialog',
-  templateUrl: './add-title-dialog.component.html',
-  styleUrls: ['./add-title-dialog.component.css']
+  templateUrl: './add-category-dialog.component.html',
+  styleUrls: ['./add-category-dialog.component.css']
 })
-export class AddTitleDialogComponent implements OnInit {
+export class AddCategoryDialogComponent implements OnInit {
   status: Boolean = true; // 状态 0:禁用, 1:启用
   statusMess: String = '启用'; // 状态提示信息
   titleList: Observable<any>;

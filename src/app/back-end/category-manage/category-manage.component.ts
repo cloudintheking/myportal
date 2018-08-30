@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BackApiService} from '../../service/back-api.service';
 import {MatDialog, MatPaginator, MatPaginatorIntl, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
-import {AddTitleDialogComponent} from './add-category-dialog/add-title-dialog.component';
+import {AddCategoryDialogComponent} from './add-category-dialog/add-category-dialog.component';
 import 'rxjs/add/operator/map';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
-import {DeleteTitleDialogComponent} from './delete-category-dialog/delete-title-dialog.component';
+import {DeleteCategoryDialogComponent} from './delete-category-dialog/delete-category-dialog.component';
 
 /**
  * @author hl
@@ -122,7 +122,7 @@ export class CategoryManageComponent implements OnInit {
    */
   editTitle(id?: any) {
     console.log(id);
-    const currentdialog1 = this.dialog.open(AddTitleDialogComponent, {
+    const currentdialog1 = this.dialog.open(AddCategoryDialogComponent, {
       width: '50%',
       data: {id: id}
     });
@@ -136,7 +136,7 @@ export class CategoryManageComponent implements OnInit {
    * @param titleRow
    */
   deleteTitle(titleRow) {
-    const currentdialog2 = this.dialog.open(DeleteTitleDialogComponent, {
+    const currentdialog2 = this.dialog.open(DeleteCategoryDialogComponent, {
       width: '50%',
       data: {
         id: titleRow.id
