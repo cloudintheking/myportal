@@ -21,7 +21,7 @@
         <li *ngFor="let article of articles" (click)="showArticleDetail(article)">
           <div class="time">
             <h4>{{article.year}}年</h4>
-            <h5>{{article.month}}月</h5>
+            <h5>{{article.month}}月{{article.day}}日</h5>
           </div>
           <div class="nnei">
             <h3>

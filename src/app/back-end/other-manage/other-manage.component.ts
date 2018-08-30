@@ -1,5 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatChipInputEvent, MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {
+  MatChipInputEvent,
+  MatDialog,
+  MatPaginator,
+  MatPaginatorIntl,
+  MatSort,
+  MatTableDataSource,
+  PageEvent,
+  Sort
+} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {AddLinkDialogComponent} from './add-link-dialog/add-link-dialog.component';
 import {BackApiService} from '../../service/back-api.service';
@@ -36,11 +45,26 @@ export class OtherManageComponent implements OnInit {
   faComments = faComments;
 
   /********icon****************/
-  constructor(private  dialog: MatDialog, private  footApi: BackApiService) {
+  constructor(private  dialog: MatDialog, private  footApi: BackApiService, private matPaginatorIntl: MatPaginatorIntl) {
     this.options = this.footApi.froalaOptions;
     this.linkParams = new FormBuilder().group({
       groupId: []
     });
+    // material paginator 中文提示
+    this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number): string => {
+      if (length === 0 || pageSize === 0) {
+        return `第 0 页、共 ${length} 个`;
+      }
+
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+
+      return `第 ${startIndex + 1} - ${endIndex} 个 共 ${length} 个`;
+    };
+    this.matPaginatorIntl.itemsPerPageLabel = '每页个数：';
+    this.matPaginatorIntl.nextPageLabel = '下一页';
+    this.matPaginatorIntl.previousPageLabel = '上一页';
   }
 
   ngOnInit() {
@@ -73,6 +97,7 @@ export class OtherManageComponent implements OnInit {
       sortField: this.sortTable.active,
       sortOrder: this.sortTable.direction
     };
+    console.log('查询参数', params);
     this.footApi.getLinks(params).subscribe(
       success => {
         this.linkDataSource.data = success.data.list;

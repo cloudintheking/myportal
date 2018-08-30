@@ -18,12 +18,6 @@
     </mat-form-field>
   </form>
 
-  <mat-paginator #paginator
-                 [pageIndex]="0"
-                 [pageSize]="10"
-                 [pageSizeOptions]="[5,10,15]">
-  </mat-paginator>
-
   <button mat-raised-button color="accent" (click)="editModule()"> 新增</button>
 
   <mat-table matSort [dataSource]="homeModules" (matSortChange)="changeSort($event)" class="mat-elevation-z8">
@@ -85,4 +79,10 @@
     <mat-row
       *matRowDef="let emailRow; columns: ['name','title','type','flex','hide','pos','updateby','deptment', 'management']"></mat-row>
   </mat-table>
+
+  <mat-paginator #paginator
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5,10,15]">
+  </mat-paginator>
 </section>

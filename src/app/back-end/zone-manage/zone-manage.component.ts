@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BackApiService} from '../../service/back-api.service';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {MatDialog, MatPaginator, MatPaginatorIntl, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AddZoneDialogComponent} from './add-zone-dialog/add-zone-dialog.component';
 import {AddConfirmDialogComponent} from '../../common-components/add-confirm-dialog/add-confirm-dialog.component';
@@ -18,7 +18,7 @@ export class ZoneManageComponent implements OnInit {
   currentSort: any; // 当前排序信息
   paramsForm: FormGroup;
 
-  constructor(private homeApi: BackApiService, private dialog: MatDialog) {
+  constructor(private homeApi: BackApiService, private dialog: MatDialog, private matPaginatorIntl: MatPaginatorIntl) {
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
@@ -32,6 +32,22 @@ export class ZoneManageComponent implements OnInit {
       moduleType: [],
       hide: []
     });
+
+    // material paginator 中文提示
+    this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number): string => {
+      if (length === 0 || pageSize === 0) {
+        return `第 0 页、共 ${length} 个`;
+      }
+
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+
+      return `第 ${startIndex + 1} - ${endIndex} 个 共 ${length} 个`;
+    };
+    this.matPaginatorIntl.itemsPerPageLabel = '每页个数：';
+    this.matPaginatorIntl.nextPageLabel = '下一页';
+    this.matPaginatorIntl.previousPageLabel = '上一页';
   }
 
   ngOnInit() {

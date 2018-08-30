@@ -28,8 +28,7 @@
       <div>
         <button mat-raised-button color="primary" (click)="editLink()">新增</button>
       </div>
-      <mat-paginator #paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5,10,15]">
-      </mat-paginator>
+
       <mat-table matSort [dataSource]="linkDataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="groupName">
           <mat-header-cell *matHeaderCellDef mat-sort-header>组名</mat-header-cell>
@@ -69,6 +68,8 @@
         <mat-row
           *matRowDef="let element; columns: ['groupName','name','url', 'creatorUserName','creatorDeptName', 'management']"></mat-row>
       </mat-table>
+      <mat-paginator #paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5,10,15]">
+      </mat-paginator>
     </div>
   </mat-tab>
 

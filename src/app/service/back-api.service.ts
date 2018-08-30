@@ -369,7 +369,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   deleteModule(id: string): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/module/deleteArticle', null, {
+    return this.http.post(this.baseUrl + '/japi/cms/module/delete', null, {
       params: {id: id}
     });
   }

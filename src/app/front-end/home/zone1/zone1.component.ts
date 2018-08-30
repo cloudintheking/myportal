@@ -45,8 +45,14 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
       success => {
         if (success.status === 1) {
           this.articles = success.data.list.map(a => {
-            a.year = a.date.split('-')[0];
-            a.month = a.date.split('-')[1];
+            a.year = a.date.substring(0, 4);
+            a.month = a.date.substring(5, 7);
+            a.day = a.date.substring(8, 10);
+
+
+            // a.year = a.date.split('-')[0];
+            // a.month = a.date.split('-')[1];
+            // a.day = a.date.split('-')[2];
             a.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + a.cover;
             return a;
           });

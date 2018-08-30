@@ -5,11 +5,12 @@
 .content_list ul li{
   float: left;
   width: 100%;
-  padding: 10px 0;
   border-bottom: 1px solid #f2f2f2;
+  padding: 10px 0;
 }
 .content_list ul li img{
-  width: 22%;
+width:216px ;
+  height: 156px;
   float: left;
   margin: 0 10px 0 0;
   padding: 10px;
@@ -30,13 +31,13 @@
   line-height: 36px;
   font-weight: normal;
   font-size: 14px;
-  padding: 10px 0;
+
 }
 .content_list ul li i{
   float: left;
   line-height: 24px;
   font-size: 14px;
-  width: 75%;
+  width: 69%;
   font-style: normal;
   display: -webkit-box;
   -webkit-line-clamp: 2;

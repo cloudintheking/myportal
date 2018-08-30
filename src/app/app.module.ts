@@ -26,7 +26,7 @@ const ROUTES: Routes = [
     loadChildren: './front-end/front-end.module#FrontEndModule'
   },
   {
-    path: 'backend', loadChildren: './back-end/back-end.module#BackEndModule', canActivate: [BackGuard]
+    path: 'backend', loadChildren: './back-end/back-end.module#BackEndModule'
   },
   {
     path: 'login', component: LoginComponent
