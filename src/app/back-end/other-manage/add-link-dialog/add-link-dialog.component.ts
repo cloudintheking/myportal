@@ -21,7 +21,7 @@ export class AddLinkDialogComponent implements OnInit {
   doConfirm: EventEmitter<any> = new EventEmitter<any>(); // 确认信号分发器
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialog: MatDialog, private linkApi: BackApiService) {
     this.linkForm = new FormBuilder().group({
-      gid: [],
+      group: [],
       id: [],
       name: [],
       url: []
@@ -34,11 +34,12 @@ export class AddLinkDialogComponent implements OnInit {
       this.linkApi.getLinkByID(this.data.id).subscribe(
         success => {
           this.linkForm = new FormBuilder().group({
-            gid: [success.data.groupId],
+            group: [success.data.group],
             id: [success.data.id],
             name: [success.data.name],
             url: [success.data.url]
           });
+          console.log('链接', success);
         },
         error1 => {
           this.dialog.open(AddConfirmDialogComponent, {

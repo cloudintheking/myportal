@@ -1,7 +1,7 @@
 <section style="margin: 5% 5%">
   <form [formGroup]="params" >
     <mat-form-field>
-      <mat-select placeholder="等级" formControlName="typeLevel" (change)="getTitles()">
+      <mat-select placeholder="等级" formControlName="typeLevel" (change)="getCategories()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="1">1级</mat-option>
         <mat-option [value]="2">2级</mat-option>
@@ -9,7 +9,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="样式" formControlName="displayStyle" (change)="getTitles()">
+      <mat-select placeholder="样式" formControlName="displayStyle" (change)="getCategories()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="1">列表</mat-option>
         <mat-option [value]="2">九宫格</mat-option>
@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="状态" formControlName="inNavigationBar" (change)="getTitles()">
+      <mat-select placeholder="状态" formControlName="inNavigationBar" (change)="getCategories()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="true">开启</mat-option>
         <mat-option [value]="false">禁用</mat-option>
@@ -26,28 +26,28 @@
   </form>
 
   <button mat-raised-button color="accent" (click)="editTitle()"> 新增</button>
-  <mat-table [dataSource]="titles" matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
+  <mat-table [dataSource]="categories" matSort (matSortChange)="changeSort($event)" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>栏目名称</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="typeLevel">
+    <ng-container matColumnDef="level">
       <mat-header-cell *matHeaderCellDef mat-sort-header>等级</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.typeLevel }}级</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.level }}级</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="displayStyle">
+    <ng-container matColumnDef="style">
       <mat-header-cell *matHeaderCellDef mat-sort-header>展示风格</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.displayStyle }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.style }}</mat-cell>
     </ng-container>
     <!--<ng-container matColumnDef="updateBy">-->
     <!--<mat-header-cell *matHeaderCellDef mat-sort-header>维护人</mat-header-cell>-->
     <!--<mat-cell *matCellDef="let row">{{ row.updateBy }}</mat-cell>-->
     <!--</ng-container>-->
-    <ng-container matColumnDef="inNavigationBar">
+    <ng-container matColumnDef="show">
       <mat-header-cell *matHeaderCellDef mat-sort-header>状态</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-slide-toggle (change)="updateTitleStatus($event, row)" [checked]="row.inNavigationBar"></mat-slide-toggle>
+        <mat-slide-toggle (change)="updateTitleStatus($event, row)" [checked]="row.show"></mat-slide-toggle>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="management">
@@ -61,9 +61,9 @@
     </ng-container>
 
     <mat-header-row
-      *matHeaderRowDef="['name','typeLevel','displayStyle','inNavigationBar','management']"></mat-header-row>
+      *matHeaderRowDef="['name','level','style','show','management']"></mat-header-row>
     <mat-row
-      *matRowDef="let Row; columns: ['name','typeLevel','displayStyle','inNavigationBar','management']"></mat-row>
+      *matRowDef="let Row; columns: ['name','level','style','show','management']"></mat-row>
   </mat-table>
   <mat-paginator #paginator
                  [length]="totalCount"

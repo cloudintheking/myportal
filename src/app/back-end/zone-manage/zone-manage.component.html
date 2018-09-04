@@ -1,7 +1,7 @@
 <section style="margin: 5% 5%">
   <form [formGroup]="paramsForm">
     <mat-form-field>
-      <mat-select placeholder="风格" formControlName="moduleType" (change)="getModules()">
+      <mat-select placeholder="风格" formControlName="style" (change)="getZones()">
         <mat-option [value]="null">無</mat-option>
         <mat-option [value]="1">滚动</mat-option>
         <mat-option [value]="2">报文</mat-option>
@@ -10,59 +10,59 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="状态" formControlName="hide" (change)="getModules()">
+      <mat-select placeholder="状态" formControlName="show" (change)="getZones()">
         <mat-option [value]="null">無</mat-option>
-        <mat-option [value]="false">开启</mat-option>
-        <mat-option [value]="true">禁用</mat-option>
+        <mat-option [value]="true">开启</mat-option>
+        <mat-option [value]="false">禁用</mat-option>
       </mat-select>
     </mat-form-field>
   </form>
 
-  <button mat-raised-button color="accent" (click)="editModule()"> 新增</button>
+  <button mat-raised-button color="accent" (click)="editZone()"> 新增</button>
 
-  <mat-table matSort [dataSource]="homeModules" (matSortChange)="changeSort($event)" class="mat-elevation-z8">
+  <mat-table matSort [dataSource]="zones" (matSortChange)="changeSort($event)" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>模块名</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>展区名</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef>展示栏目</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.articleTypeVo }}</mat-cell>
+    <ng-container matColumnDef="categoryName">
+    <mat-header-cell *matHeaderCellDef>展示栏目</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.categoryName }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="type">
+    <ng-container matColumnDef="style">
       <mat-header-cell *matHeaderCellDef mat-sort-header>风格</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        {{row.moduleType}}
+        {{row?.style}}
       </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="flex">
+    <ng-container matColumnDef="width">
       <mat-header-cell *matHeaderCellDef mat-sort-header>宽度%</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        {{row.flex}}
+        {{row?.width}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="pos">
       <mat-header-cell *matHeaderCellDef mat-sort-header>展示顺序</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        {{row.pos}}
+        {{row?.pos}}
       </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="hide">
+    <ng-container matColumnDef="show">
       <mat-header-cell *matHeaderCellDef mat-sort-header>状态</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-slide-toggle [disableRipple]="true" [checked]="!row.hide"></mat-slide-toggle>
+        <mat-slide-toggle [disableRipple]="true" [checked]="row.show"></mat-slide-toggle>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="updateby">
       <mat-header-cell *matHeaderCellDef mat-sort-header>维护人</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        {{row.creatorUserName}}
+        {{row?.creatorUserName}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="deptment">
       <mat-header-cell *matHeaderCellDef mat-sort-header>维护部门</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        {{row.creatorDeptName}}
+        {{row?.creatorDeptName}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="management">
@@ -70,14 +70,14 @@
         <div style="text-align: center">管理</div>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-button color="primary" (click)="editModule(row.id)">编辑</button>
-        <button mat-button color="warn" (click)="deleteModule(row.id)">删除</button>
+        <button mat-button color="primary" (click)="editZone(row.id)">编辑</button>
+        <button mat-button color="warn" (click)="deleteZone(row.id)">删除</button>
       </mat-cell>
     </ng-container>
     <mat-header-row
-      *matHeaderRowDef="['name','title','type','flex','hide','pos','updateby','deptment','management']"></mat-header-row>
+      *matHeaderRowDef="['name','categoryName','style','width','show','pos','updateby','deptment','management']"></mat-header-row>
     <mat-row
-      *matRowDef="let emailRow; columns: ['name','title','type','flex','hide','pos','updateby','deptment', 'management']"></mat-row>
+      *matRowDef="let emailRow; columns: ['name','categoryName','style','width','show','pos','updateby','deptment', 'management']"></mat-row>
   </mat-table>
 
   <mat-paginator #paginator

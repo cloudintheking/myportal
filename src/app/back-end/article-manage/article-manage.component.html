@@ -4,24 +4,42 @@
       <input matInput placeholder="标题" formControlName="title" (change)="getArticles( )"/>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="栏目" formControlName="type" (change)="getArticles( )">
+      <mat-select placeholder="展示栏目等级"   (selectionChange)="levelOnOff($event)">
         <mat-option [value]="null">無</mat-option>
-        <mat-optgroup *ngFor="let t of titleList | async" [label]="t.name">
-          <mat-option *ngFor="let child of t.childs" [value]="child.id">{{child.name}}</mat-option>
+        <mat-option [value]="1">1级</mat-option>
+        <mat-option [value]="2">2级</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <!-- 一级下拉-->
+      <mat-select *ngIf="levelON_OFF" placeholder="所属栏目" formControlName="category" (change)="getArticles( )">
+        <mat-option [value]="null">無</mat-option>
+        <mat-option *ngFor="let c of categoryLevel1 | async" [value]="c.id">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+      <!--二级下拉-->
+      <mat-select *ngIf="!levelON_OFF" placeholder="所属栏目" formControlName="category" (change)="getArticles( )">
+        <mat-option [value]="null">無</mat-option>
+        <mat-optgroup *ngFor="let l1 of categoryTree | async" [label]="l1.name">
+          <mat-option *ngFor="let l2 of l1.childs" [value]="l2.id">{{l2.name}}</mat-option>
         </mat-optgroup>
       </mat-select>
     </mat-form-field>
+
     <mat-form-field>
-      <input type="date" matInput placeholder="起始日期" formControlName="dateStart" (change)="getArticles( )"/>
+      <input type="date" matInput placeholder="起始日期" formControlName="startDate" (change)="getArticles( )"/>
     </mat-form-field>
     <mat-form-field>
-      <input type="date" matInput placeholder="截止日期" formControlName="dateEnd" (change)="getArticles( )"/>
+      <input type="date" matInput placeholder="截止日期" formControlName="endDate" (change)="getArticles( )"/>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="状态" formControlName="hide" (change)="getArticles( )">
+      <mat-select placeholder="状态" formControlName="show" (change)="getArticles( )">
         <mat-option [value]="null">無</mat-option>
-        <mat-option [value]="false">开启</mat-option>
-        <mat-option [value]="true">关闭</mat-option>
+        <mat-option [value]="true">开启</mat-option>
+        <mat-option [value]="false">关闭</mat-option>
       </mat-select>
     </mat-form-field>
   </form>
@@ -32,24 +50,25 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>标题</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
     </ng-container>
-
-    <ng-container matColumnDef="creatorUserName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>发布人</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.creatorUserName}}</mat-cell>
+    <ng-container matColumnDef="categoryName">
+      <mat-header-cell *matHeaderCellDef>所属栏目</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.categoryName}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="creatorDeptName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>归属部门</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.creatorDeptName}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="createTime">
+    <!--<ng-container matColumnDef="creatorUserName">-->
+    <!--<mat-header-cell *matHeaderCellDef mat-sort-header>发布人</mat-header-cell>-->
+    <!--<mat-cell *matCellDef="let row"> {{row.creatorUserName}}</mat-cell>-->
+    <!--</ng-container>-->
+
+
+    <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>发布日期</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.createTime }}</mat-cell>
+      <mat-cell *matCellDef="let row">{{ row.date }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="hide">
+    <ng-container matColumnDef="show">
       <mat-header-cell *matHeaderCellDef mat-sort-header>状态</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-slide-toggle class="example-margin" color="accent" [checked]="!row.hide">
+        <mat-slide-toggle class="example-margin" color="accent" [checked]="row.show">
         </mat-slide-toggle>
       </mat-cell>
     </ng-container>
@@ -66,9 +85,9 @@
     </ng-container>
 
     <mat-header-row
-      *matHeaderRowDef="['title','creatorUserName','creatorDeptName','createTime','hide','management']"></mat-header-row>
+      *matHeaderRowDef="['title','categoryName','date','show','management']"></mat-header-row>
     <mat-row
-      *matRowDef="let emailRow; columns: [ 'title','creatorUserName','creatorDeptName', 'createTime','hide', 'management']"></mat-row>
+      *matRowDef="let emailRow; columns: [ 'title','categoryName', 'date','show', 'management']"></mat-row>
   </mat-table>
 
   <mat-paginator #paginator

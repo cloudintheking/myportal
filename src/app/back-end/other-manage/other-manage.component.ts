@@ -30,14 +30,14 @@ import {faUser, faComments} from '@fortawesome/free-regular-svg-icons';
 })
 export class OtherManageComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator; // 分页信息
-  @ViewChild(MatSort) sortTable: MatSort; // 排序信息
-  options: object; // 富文本配置
+  currentSort: any; // 保存排序信息
+  froalaOptions: object; // 富文本配置
   linkDataSource = new MatTableDataSource<any>(); // 链接数据源
   separatorKeysCodes = [ENTER, COMMA];
   linkGroup: Observable<any>; // 链接组
   linkParams: FormGroup; // 参数表单
-  footOptions: any; // 脚注配置
-  foot: string; // 脚注
+  optionID: any; // 配置id
+  copyright: string; // 脚注
   about: string; // 关于我们
   contact: string; // 联系我们
   /********Font Awesome Icon****************/
@@ -46,10 +46,14 @@ export class OtherManageComponent implements OnInit {
 
   /********icon****************/
   constructor(private  dialog: MatDialog, private  footApi: BackApiService, private matPaginatorIntl: MatPaginatorIntl) {
-    this.options = this.footApi.froalaOptions;
+    this.froalaOptions = this.footApi.froalaOptions;
     this.linkParams = new FormBuilder().group({
-      groupId: []
+      group: []
     });
+    this.currentSort = {
+      sortField: null,
+      sortOrder: null
+    };
     // material paginator 中文提示
     this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number): string => {
       if (length === 0 || pageSize === 0) {
@@ -68,11 +72,11 @@ export class OtherManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.footApi.getHeaderImgs().subscribe(success => {
-      this.footOptions = success.prop;
-      this.foot = success.prop.tailText;
-      this.about = success.prop.introduction;
-      this.contact = success.prop.contractUs;
+    this.footApi.getOption().subscribe(success => {
+      this.optionID = success.data.id;
+      this.copyright = success.data.copyright;
+      this.about = success.data.about;
+      this.contact = success.data.contact;
     });
     this.linkGroup = this.footApi.getLinkGroup().map(res => res.data);
     this.paginator.page.subscribe(
@@ -80,9 +84,6 @@ export class OtherManageComponent implements OnInit {
         this.getLinks(); // 分页刷新
       }
     );
-    this.sortTable.sortChange.subscribe((sort: Sort) => {
-      this.getLinks(); // 排序刷新
-    });
     this.getLinks();
   }
 
@@ -91,16 +92,19 @@ export class OtherManageComponent implements OnInit {
    */
   getLinks() {
     const params = {
-      groupId: this.linkParams.value.groupId,
+      group: this.linkParams.value.group,
       pageIndex: this.paginator.pageIndex,
       pageSize: this.paginator.pageSize,
-      sortField: this.sortTable.active,
-      sortOrder: this.sortTable.direction
+      sortField: this.currentSort.sortField,
+      sortOrder: this.currentSort.sortOrder
     };
     console.log('查询参数', params);
-    this.footApi.getLinks(params).subscribe(
+    this.footApi.getLinksPage(params).subscribe(
       success => {
-        this.linkDataSource.data = success.data.list;
+        this.linkDataSource.data = success.data.content.map(l => {
+          l.groupName = l.group.name;
+          return l;
+        });
         this.paginator.length = success.data.total;
       }
     );
@@ -224,13 +228,16 @@ export class OtherManageComponent implements OnInit {
   }
 
   /**
-   * 更新脚注
+   * 更新配置
    */
-  updateFoot() {
-    this.footOptions.tailText = this.foot;
-    this.footOptions.introduction = this.about;
-    this.footOptions.contractUs = this.contact;
-    this.footApi.updateFoot(this.footOptions).subscribe(success => {
+  updateOption() {
+    const params = {
+      id: this.optionID,
+      copyright: this.copyright,
+      about: this.about,
+      contact: this.contact
+    };
+    this.footApi.updateOption(params).subscribe(success => {
       this.dialog.open(AddConfirmDialogComponent, {
         width: '50%',
         data: {
@@ -238,5 +245,15 @@ export class OtherManageComponent implements OnInit {
         }
       });
     });
+  }
+
+  /**
+   * 改变排序信息
+   * @param {Sort} sortInfo
+   */
+  changeSort(sortInfo: Sort) {
+    this.currentSort.sortField = sortInfo.active;
+    this.currentSort.sortOrder = sortInfo.direction;
+    this.getLinks();
   }
 }

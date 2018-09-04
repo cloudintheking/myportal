@@ -25,11 +25,11 @@ export class BackMenuComponent implements OnInit {
     },
     {
       name: '栏目管理',
-      route: './front-side-menu',
+      route: './category',
       icon: faColumns
     },
     {
-      name: '首页模块管理',
+      name: '首页展区管理',
       route: './home',
       icon: faCube
     },

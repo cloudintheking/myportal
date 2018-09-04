@@ -39,28 +39,30 @@ export class LoginComponent implements OnInit, AfterViewInit {
    */
   login() {
     console.log(this.loginForm);
-    this.loginApi.loginIn(this.loginForm.value).subscribe(
-      success => {
-        if (success.status === 1) {
-          this.loginApi.userData.setItem('user', JSON.stringify(success.user));
-          this.router.navigate(['/backend/head']);
-        } else {
-          this.dialog.open(AddConfirmDialogComponent, {
-            width: '50%',
-            data: {
-              message: success.message
-            }
-          });
-        }
-      },
-      error1 => {
-        this.dialog.open(AddConfirmDialogComponent, {
-          width: '50%',
-          data: {
-            message: error1.mesaage
-          }
-        });
-      });
+    this.router.navigate(['/backend/head']);
+    // this.loginApi.loginIn(this.loginForm.value).subscribe(
+    //   success => {
+    //     if (success.status === 1) {
+    //       this.loginApi.userData.setItem('user', JSON.stringify(success.user));
+    //       this.router.navigate(['/backend/head']);
+    //     } else {
+    //       this.dialog.open(AddConfirmDialogComponent, {
+    //         width: '50%',
+    //         data: {
+    //           message: success.message
+    //         }
+    //       });
+    //     }
+    //   },
+    //   error1 => {
+    //     this.dialog.open(AddConfirmDialogComponent, {
+    //       width: '50%',
+    //       data: {
+    //         message: error1.mesaage
+    //       }
+    //     });
+    //   }
+    // );
     //  window.location.href = 'http://112.16.169.54:8025/neibu.html';
   }
 

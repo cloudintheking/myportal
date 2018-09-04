@@ -10,7 +10,7 @@ import {environment} from 'environments/environment';
 })
 export class Zone2Component implements OnInit {
   @Input()
-  module: any; // 父组件传递过来的模块信息
+  zone: any; // 父组件传递过来的模块信息
   navigation1: any; // 导航1
   navigation2: any; // 导航2
   article: any; // 文章
@@ -19,7 +19,7 @@ export class Zone2Component implements OnInit {
   fileUrl = environment.fileUrl; // 文件系统域名
   more: any; // 更多
 
-  constructor(private moduleApi: BackApiService, private  router: Router) {
+  constructor(private zoneApi: BackApiService, private  router: Router) {
   }
 
   ngOnInit() {
@@ -32,26 +32,27 @@ export class Zone2Component implements OnInit {
    */
   getArticles() {
     const params = {
-      type: this.module.articleTypeId,
+      category: this.zone.category.id,
       pageIndex: 0,
       pageSize: 10
     };
     console.log('zone2传递article参数', params);
-    this.moduleApi.getArticleByTitleIdAnon(params).subscribe(
+    this.zoneApi.getArticlesPageAnon(params).subscribe(
       success => {
         if (success.status === 1) {
-          this.article = success.data.list.slice(0, 1)[0];
+          this.article = success.data.content.slice(0, 1)[0];
           this.article.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + this.article.cover;
           this.articles = success.data.list.slice(1, 6);
         }
       }
     );
   }
+
   /**
    * 获取关联文章信息
    */
   // getRelateArticles(relateId) {
-  //   this.moduleApi.getRelateArticlesAnon({id: relateId}).subscribe(
+  //   this.zoneApi.getArticlesRelatedAnon({id: relateId}).subscribe(
   //     success => {
   //       if (success.status === 1) {
   //         this.articles = success.data;
@@ -63,30 +64,14 @@ export class Zone2Component implements OnInit {
    * 导航信息
    */
   getNavigation() {
-    if (this.module.showTypeLevel === 1) {
-      this.moduleApi.getChildrenTilesAnon({typeID: this.module.articleTypeId}).subscribe(
-        success => {
-          if (success.status === 1) {
-            this.navigation1 = success.data.name;
-            this.L1 = success.data.id;
-          }
-        }
-      );
+    if (this.zone.cateory.level === 1) {
+      this.navigation1 = this.zone.cateory.name;
+      this.L1 = this.zone.cateory.id;
+      console.log('navigation1', this.navigation1);
     } else {
-      this.moduleApi.getChildrenTilesAnon({typeID: this.module.articleTypeId})
-        .switchMap(
-          t => {
-            this.navigation2 = t.data.name;
-            return this.moduleApi.getChildrenTilesAnon({
-              typeID: t.data.pid
-            });
-          })
-        .subscribe(
-          success => {
-            this.navigation1 = success.data.name;
-            this.L1 = success.data.id;
-          }
-        );
+      this.navigation2 = this.zone.cateory.name;
+      this.navigation1 = this.zone.cateory.parent.name;
+      this.L1 = this.zone.cateory.id;
     }
   }
 
@@ -103,10 +88,11 @@ export class Zone2Component implements OnInit {
       skipLocationChange: false
     });
   }
+
   showArticleMore(more) {
     this.router.navigate(['frontend/category/style1'], {
       queryParams: {
-        articleID: this.module.articleTypeId,
+        articleID: this.zone.articleTypeId,
         L1: this.L1,
         L2: this.L1
       },

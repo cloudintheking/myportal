@@ -1,6 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BackApiService} from '../../service/back-api.service';
-import {MatDialog, MatPaginator, MatPaginatorIntl, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {
+  MatDialog,
+  MatPaginator,
+  MatPaginatorIntl,
+  MatSelectChange,
+  MatTableDataSource,
+  PageEvent,
+  Sort
+} from '@angular/material';
 import {AddArticleDialogComponent} from './add-article-dialog/add-article-dialog.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
@@ -17,7 +25,9 @@ export class ArticleManageComponent implements OnInit {
   currentPage: PageEvent; // 分页信息
   currentSort: any; // 排序信息
   paramsForm: FormGroup; // 查询条件表单
-  titleList: Observable<any>; // 栏目组
+  categoryTree: Observable<any>; // 树形栏目
+  categoryLevel1: Observable<any>; // 一级栏目组
+  levelON_OFF: Boolean = true; // 栏目等级开关
   constructor(private articleApi: BackApiService, private dialog: MatDialog, private matPaginatorIntl: MatPaginatorIntl) {
     this.currentPage = {
       pageIndex: 0,
@@ -25,15 +35,15 @@ export class ArticleManageComponent implements OnInit {
       length: null
     };
     this.currentSort = {
-      sortField: '',
-      sortOrder: ''
+      sortField: null,
+      sortOrder: null
     };
     this.paramsForm = new FormBuilder().group({
       title: [],
-      type: [],
-      dateStart: [],
-      dateEnd: [],
-      hide: []
+      category: [],
+      startDate: [],
+      endDate: [],
+      show: []
     });
     // material paginator 中文提示
     this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number): string => {
@@ -53,7 +63,8 @@ export class ArticleManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleList = this.articleApi.getTitlesTree({navBar: false}).map(res => res.data);
+    this.categoryLevel1 = this.articleApi.getCategories({level: 1}).map(res => res.data);
+    this.categoryTree = this.articleApi.getCategoriesTree({show: false, deep: 2}).map(res => res.data);
     this.getArticles();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
@@ -68,20 +79,28 @@ export class ArticleManageComponent implements OnInit {
   getArticles() {
     const params = {  // 查询参数
       title: this.paramsForm.value.title,
-      type: this.paramsForm.value.type,
-      dateStart: this.paramsForm.value.dateStart,
-      dateEnd: this.paramsForm.value.dateEnd,
-      hide: this.paramsForm.value.hide,
+      category: this.paramsForm.value.category,
+      startDate: this.paramsForm.value.startDate,
+      endDate: this.paramsForm.value.endDate,
+      show: this.paramsForm.value.show,
       pageIndex: this.paginator.pageIndex,
       pageSize: this.paginator.pageSize,
       sortField: this.currentSort.sortField,
       sortOrder: this.currentSort.sortOrder
     };
     console.log('查询参数', params);
-    this.articleApi.getArticles(params).subscribe(res => {
-      this.articles.data = res.data.list;
-      this.paginator.length = res.data.total;
-    });
+    this.articleApi.getArticlesPage(params).subscribe(
+      res => {
+        if (res.status === 1) {
+          this.articles.data = res.data.content.map(a => {
+            a.categoryName = a.category.name;
+            return a;
+          });
+          this.paginator.length = res.data.total;
+          console.log('文章结果', res);
+        }
+      }
+    );
   }
 
   /**
@@ -138,6 +157,20 @@ export class ArticleManageComponent implements OnInit {
     this.currentSort.sortField = sortInfo.active;
     this.currentSort.sortOrder = sortInfo.direction;
     this.getArticles();
+  }
+
+
+  /**
+   * 等级开关
+   * @param $event
+   */
+  levelOnOff($event: MatSelectChange) {
+    console.log($event);
+    if ($event.value === 1) {
+      this.levelON_OFF = true;
+    } else {
+      this.levelON_OFF = false;
+    }
   }
 
 }

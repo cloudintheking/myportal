@@ -32,10 +32,7 @@ export class ArticleDetailComponent implements OnInit {
    * 获取文章详情
    */
   getArticleDetail() {
-    const params = {
-      articleID: this.articleID
-    };
-    this.articleApi.getArticleByIdAnon(params).subscribe(
+    this.articleApi.getArticleByIdAnon({id: this.articleID}).subscribe(
       res => {
         this.articleData = res.data;
         this.articleData.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + this.articleData.cover;
@@ -49,7 +46,7 @@ export class ArticleDetailComponent implements OnInit {
     const params = {
       id: this.articleID
     };
-    this.relateArticles = this.articleApi.getRelateArticlesAnon(params).map(res => res.data);
+    this.relateArticles = this.articleApi.getArticlesRelatedAnon(params).map(res => res.data);
   }
 
   /**

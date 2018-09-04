@@ -8,7 +8,7 @@
       <select *ngFor="let g of linkGroup | async" fxFlex="10" fxFlex.lt-md="30" fxFlex.xs="45" label="dsd"
               (change)="selectChange($event)">
         <option style='display: none'>{{g.name}}</option>
-        <option *ngFor="let l of g.tailLinks" [value]="l.url">{{l.name}}</option>
+        <option *ngFor="let l of g.links" [value]="l.url">{{l.name}}</option>
       </select>
     </div>
   </div>

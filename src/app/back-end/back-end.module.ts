@@ -32,7 +32,7 @@ const ROUTES: Routes = [
         path: 'home', component: ZoneManageComponent
       },
       {
-        path: 'title', component: CategoryManageComponent
+        path: 'category', component: CategoryManageComponent
       },
       {
         path: 'article', component: ArticleManageComponent

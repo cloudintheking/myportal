@@ -1,5 +1,5 @@
 <ul id="myTab" class="nav nav-tabs">
-  <li *ngFor="let t of titles;let i=index" [ngClass]="{'active':i===0}"
+  <li *ngFor="let t of categories;let i=index" [ngClass]="{'active':i===0}"
       (click)="showArticles(t.id)">
     <a data-toggle="tab">{{t?.name}}</a>
   </li>

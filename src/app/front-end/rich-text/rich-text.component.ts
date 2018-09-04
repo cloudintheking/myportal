@@ -21,12 +21,12 @@ export class RichTextComponent implements OnInit {
 
   ngOnInit() {
     this.routerInfo.params.subscribe(data => {
-      this.richApi.getHeaderImgsAnon().subscribe(
+      this.richApi.getOptionAnon().subscribe(
         success => {
           if (data.id === '1') {// 公司介绍
-            this.contents = success.prop.introduction;
+            this.contents = success.data.about;
           } else { // 联系我们
-            this.contents = success.prop.contractUs;
+            this.contents = success.data.contact;
           }
         });
 

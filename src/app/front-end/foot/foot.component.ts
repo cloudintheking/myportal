@@ -17,10 +17,10 @@ export class FootComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.linkGroup = this.footApi.getLinkGroupAnon().map(res => res.data.linkGroup);
-    this.footApi.getHeaderImgsAnon().subscribe(
+    this.linkGroup = this.footApi.getLinkGroupAnon().map(res => res.data);
+    this.footApi.getOptionAnon().subscribe(
       success => {
-        this.foot = success.prop.tailText;
+        this.foot = success.data.copyright;
       }
     );
   }

@@ -9,7 +9,7 @@
   <mat-form-field>
     <mat-select placeholder="是否移动文章至其他栏目" [(value)]="toID">
       <mat-option [value]="null">不</mat-option>
-      <mat-optgroup *ngFor="let t of titleList | async" [label]="t.name">
+      <mat-optgroup *ngFor="let t of categoryList | async" [label]="t.name">
         <mat-option *ngFor="let c of t.childs" [value]="c.id" [disabled]="c.id === typeFrom">{{c.name}}</mat-option>
       </mat-optgroup>
     </mat-select>

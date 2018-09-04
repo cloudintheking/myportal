@@ -11,51 +11,44 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./add-zone-dialog.component.css']
 })
 export class AddZoneDialogComponent implements OnInit {
-
-  homeMoudelForm: FormGroup; // 模块表单数据
-  titleLevel1: Observable<any>; // 一级栏目组
-  titleTree: Observable<any>; // 栏目树
+  zoneForm: FormGroup; // 模块表单数据
+  categoryTree: Observable<any>; // 栏目树
+  categoryLevel1: Observable<any>; // 一级栏目组
   levelON_OFF: Boolean = true; // 栏目等级开关
   doConfirm: EventEmitter<any> = new EventEmitter<any>(); // 确认信号
-  constructor(@Inject(MAT_DIALOG_DATA) private data, private dialog: MatDialog, private homeApi: BackApiService) {
-    this.homeMoudelForm = new FormBuilder().group({
+  constructor(@Inject(MAT_DIALOG_DATA) private data, private dialog: MatDialog, private zoneApi: BackApiService) {
+    this.zoneForm = new FormBuilder().group({
       id: [],
       name: [],
-      articleType: [],
-      moduleType: [],
-      flex: [],
+      category: [],
+      level: [1],
+      style: [],
+      width: [],
       pos: [],
-      hide: [true],
-      showTypeLevel: [],
+      show: [],
       route: []
     });
   }
 
   ngOnInit() {
-    this.titleLevel1 = this.homeApi.getTitlesByLevel('1').map(res => res.data);
-    this.titleTree = this.homeApi.getTitlesTree({navBar: false}).map(res => res.data);
+    this.categoryLevel1 = this.zoneApi.getCategories({level: 1}).map(res => res.data);
+    this.categoryTree = this.zoneApi.getCategoriesTree({show: false, deep: 2}).map(res => res.data);
     if (this.data.id) { // 传id时
-      this.homeApi.getModuleByID(this.data.id)
-        .map(res => {
-          if (res.data.articleTypeVo) {
-            res.data.articleTypeVo = res.data.articleTypeVo.id;
-          }
-          return res;
-        })
+      this.zoneApi.getZoneByID(this.data.id)
         .subscribe(
           result => {
             if (result.status === 1) {
-              this.homeMoudelForm = new FormBuilder().group({
+              this.zoneForm = new FormBuilder().group({
                 id: [result.data.id],
                 name: [result.data.name],
-                articleType: [result.data.articleTypeVo],
-                moduleType: [result.data.moduleType],
-                flex: [result.data.flex],
+                category: [result.data.category.id],
+                level: [result.data.category.level],
+                style: [result.data.style],
+                width: [result.data.width],
                 pos: [result.data.pos],
-                hide: [!result.data.hide],
-                showTypeLevel: [result.data.showTypeLevel]
+                show: [result.data.show]
               });
-              if (result.data.showTypeLevel === 1) {
+              if (result.data.category.level === 1) {
                 this.levelON_OFF = true;
               } else {
                 this.levelON_OFF = false;
@@ -87,13 +80,12 @@ export class AddZoneDialogComponent implements OnInit {
    * 提交表单数据
    */
   doPost() {
-    if (!this.homeMoudelForm.valid) {
+    if (!this.zoneForm.valid) {
       return;
     }
-    this.homeMoudelForm.value.hide = !this.homeMoudelForm.value.hide; // 取反
-    console.log('首页模块表单提交数据', this.homeMoudelForm.value);
+    console.log('首页模块表单提交数据', this.zoneForm.value);
     if (this.data.id) { // 更新首页模块
-      this.homeApi.updateModule(this.homeMoudelForm.value).subscribe(
+      this.zoneApi.updateZone(this.zoneForm.value).subscribe(
         success => {
           this.dialog.open(AddConfirmDialogComponent, {
             width: '50%',
@@ -115,7 +107,7 @@ export class AddZoneDialogComponent implements OnInit {
         }
       );
     } else { // 新增首页模块
-      this.homeApi.addModule(this.homeMoudelForm.value).subscribe(
+      this.zoneApi.addZone(this.zoneForm.value).subscribe(
         success => {
           this.dialog.open(AddConfirmDialogComponent, {
             width: '50%',

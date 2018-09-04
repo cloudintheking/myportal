@@ -3,23 +3,24 @@
 <mat-dialog-content class="post-form">
   <form [formGroup]="formModel">
     <mat-form-field>
-      <mat-select placeholder="归属" formControlName="pid" required>
-        <mat-option value="0">顶级</mat-option>
-        <mat-option *ngFor="let t of titleList | async" [value]="t.id">{{t.name}}</mat-option>
+      <mat-select placeholder="归属" formControlName="parent" required>
+        <mat-option value=" ">顶级</mat-option>
+        <mat-option *ngFor="let c of categoryList | async" [value]="c.id" [disabled]="data?.id==c?.id">{{c?.name}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="名称" formControlName="name" required/>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="样式" formControlName="displayStyle" required>
-        <mat-option [value]="'1'">列表</mat-option>
-        <mat-option [value]="'2'">九宫格</mat-option>
+      <mat-select placeholder="风格" formControlName="style" required>
+        <mat-option [value]="1">列表</mat-option>
+        <mat-option [value]="2">九宫格</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="form-group">
       <label>是否启用:</label>
-      <mat-slide-toggle formControlName="inNavBar" class="example-margin" color="accent" disabled="false"
+      <mat-slide-toggle formControlName="show" class="example-margin" color="accent" disabled="false"
                         (change)="statusChange($event)">
         {{statusMess}}
       </mat-slide-toggle>

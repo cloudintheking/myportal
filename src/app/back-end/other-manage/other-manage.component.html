@@ -18,7 +18,7 @@
       </mat-form-field>
       <form [formGroup]="linkParams">
         <mat-form-field>
-          <mat-select placeholder="组名" formControlName="groupId" (change)="getLinks()">
+          <mat-select placeholder="组名" formControlName="group" (change)="getLinks()">
             <mat-option [value]="null">無</mat-option>
             <mat-option *ngFor="let tag of linkGroup | async" [value]="tag.id">{{tag.name}}</mat-option>
           </mat-select>
@@ -29,7 +29,7 @@
         <button mat-raised-button color="primary" (click)="editLink()">新增</button>
       </div>
 
-      <mat-table matSort [dataSource]="linkDataSource" class="mat-elevation-z8">
+      <mat-table matSort (matSortChange)="changeSort($event)" [dataSource]="linkDataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="groupName">
           <mat-header-cell *matHeaderCellDef mat-sort-header>组名</mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.groupName}}</mat-cell>
@@ -80,8 +80,8 @@
     </ng-template>
 
     <mat-form-field class="theRichText">
-      <button mat-raised-button color="primary" (click)="updateFoot()">保存</button>
-      <textarea matInput [froalaEditor]="options" [(froalaModel)]="foot"></textarea>
+      <button mat-raised-button color="primary" (click)="updateOption()">保存</button>
+      <textarea matInput [froalaEditor]="froalaOptions" [(froalaModel)]="copyright"></textarea>
     </mat-form-field>
   </mat-tab>
 
@@ -92,8 +92,8 @@
     </ng-template>
 
     <mat-form-field class="theRichText">
-      <button mat-raised-button color="primary" (click)="updateFoot()">保存</button>
-      <textarea matInput [froalaEditor]="options" [(froalaModel)]="about"></textarea>
+      <button mat-raised-button color="primary" (click)="updateOption()">保存</button>
+      <textarea matInput [froalaEditor]="froalaOptions" [(froalaModel)]="about"></textarea>
     </mat-form-field>
   </mat-tab>
 
@@ -104,8 +104,8 @@
     </ng-template>
 
     <mat-form-field class="theRichText">
-      <button mat-raised-button color="primary" (click)="updateFoot()">保存</button>
-      <textarea matInput [froalaEditor]="options" [(froalaModel)]="contact"></textarea>
+      <button mat-raised-button color="primary" (click)="updateOption()">保存</button>
+      <textarea matInput [froalaEditor]="froalaOptions" [(froalaModel)]="contact"></textarea>
     </mat-form-field>
   </mat-tab>
 </mat-tab-group>

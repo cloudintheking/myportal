@@ -15,16 +15,20 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./delete-category-dialog.component.css']
 })
 export class DeleteCategoryDialogComponent implements OnInit {
+  categoryList: Observable<any>;
+  doConfirm: EventEmitter<any> = new EventEmitter<any>(); // 确认信号
   toID = null;
   typeFrom: any;
-  titleList: Observable<any>;
-  doConfirm: EventEmitter<any> = new EventEmitter<any>(); // 确认信号
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private titleApi: BackApiService, private  dialog: MatDialog) {
+  delArticle: Boolean = false; // 是否删除关联文章
+  delZone: Boolean = false; // 是否删除关联首页展区
+  articleRef: string; // 如果不删除文章，文章新关联的栏目id
+  zoneRef: string; // 如果不删除首页展区，首页展区新关联的栏目id
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private categoryApi: BackApiService, private  dialog: MatDialog) {
     this.typeFrom = data.id;
   }
 
   ngOnInit() {
-    this.titleList = this.titleApi.getTitlesTree({navBar: false}).map(res => res.data);
+    this.categoryList = this.categoryApi.getCategoriesTree({show: false, deep: 2}).map(res => res.data);
   }
 
   /**
@@ -32,11 +36,14 @@ export class DeleteCategoryDialogComponent implements OnInit {
    */
   doPost() {
     const params = {
-      typeFrom: this.data.id,
-      typeTo: this.toID
+      id: this.data.id,
+      delA: this.delArticle,
+      delZ: this.delZone,
+      articleRef: this.articleRef,
+      zoneRef: this.zoneRef
     };
     console.log(params);
-    this.titleApi.deleteTitle(params).subscribe(
+    this.categoryApi.deleteCategory(params).subscribe(
       result => {
         this.dialog.open(AddConfirmDialogComponent, {
           width: '50%',

@@ -1,5 +1,5 @@
 <mat-nav-list>
-  <mat-list-item *ngFor="let menu of menus" (click)="menuitem($event)"  [routerLink]="[menu.url]">
+  <mat-list-item *ngFor="let menu of menus" (click)="menuitem($event)"  [routerLink]="[menu.route]">
     <div style="margin: 0 auto">
       <a>{{menu.name}}</a>
       <fa-icon [icon]="menu.icon" [fixedWidth]="true"></fa-icon>

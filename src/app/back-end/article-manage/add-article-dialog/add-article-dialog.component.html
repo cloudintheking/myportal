@@ -2,9 +2,23 @@
 <mat-dialog-content class="post-form">
   <form [formGroup]="articleForm">
     <mat-form-field>
-      <mat-select placeholder="栏目" required formControlName="articleTypeID">
-        <mat-optgroup *ngFor="let t of titleList | async" [label]="t.name">
-          <mat-option *ngFor="let child of t.childs" [value]="child.id">{{child.name}}</mat-option>
+      <mat-select placeholder="展示栏目等级" required formControlName="level" (selectionChange)="levelOnOff($event)">
+        <mat-option [value]="1">1级</mat-option>
+        <mat-option [value]="2">2级</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <!-- 一级下拉-->
+      <mat-select *ngIf="levelON_OFF" placeholder="所属栏目" formControlName="category" required>
+        <mat-option *ngFor="let c of categoryLevel1 | async" [value]="c.id">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+      <!--二级下拉-->
+      <mat-select *ngIf="!levelON_OFF" placeholder="所属栏目" formControlName="category" required>
+        <mat-optgroup *ngFor="let l1 of categoryTree | async" [label]="l1.name">
+          <mat-option *ngFor="let l2 of l1.childs" [value]="l2.id">{{l2.name}}</mat-option>
         </mat-optgroup>
       </mat-select>
     </mat-form-field>
@@ -24,7 +38,7 @@
     </div>
     <div class="form-group">
       <label>是否启用:</label>
-      <mat-slide-toggle class="example-margin" color="accent" (change)="statusChange($event)" formControlName="hide">
+      <mat-slide-toggle class="example-margin" color="accent" (change)="statusChange($event)" formControlName="show">
         {{statusMessage}}
       </mat-slide-toggle>
     </div>

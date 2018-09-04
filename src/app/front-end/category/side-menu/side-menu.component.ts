@@ -31,10 +31,12 @@ export class SideMenuComponent implements OnInit {
    */
   getMenus() {
     const params = {
-      typeID: this.L1,
-      showChilds: true
+      id: this.L1,
+      showChilds: true,
+      byShow: true,
+      deep: 2
     };
-    this.menuApi.getChildrenTilesAnon(params).subscribe(
+    this.menuApi.getCategoryById(params).subscribe(
       success => {
         this.menus = success.data.childs;
         this.navigation = success.data.name;

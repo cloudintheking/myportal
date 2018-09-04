@@ -11,13 +11,13 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./front-menu.component.css']
 })
 export class FrontMenuComponent implements OnInit {
-  titles: Observable<any>; // 栏目组
+  categories: Observable<any>; // 栏目组
 
-  constructor(private titleApi: BackApiService, private  router: Router, private routeInfo: ActivatedRoute) {
+  constructor(private categoryApi: BackApiService, private  router: Router, private routeInfo: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.titles = this.titleApi.getTitlesByLevelAnon('1').map(res => res.data);
+    this.categories = this.categoryApi.getCategoriesAnon({level: 1, show: true}).map(res => res.data);
   }
 
   /**

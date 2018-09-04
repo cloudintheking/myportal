@@ -1,13 +1,13 @@
-<h2 mat-dialog-title>编辑模块</h2>
+<h2 mat-dialog-title>编辑展区</h2>
 
 <mat-dialog-content class="post-form">
-  <form [formGroup]="homeMoudelForm">
+  <form [formGroup]="zoneForm">
     <mat-form-field>
-      <input matInput placeholder="模块名" formControlName="name" required/>
+      <input matInput placeholder="展区名" formControlName="name" required/>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="展示栏目等级" required formControlName="showTypeLevel" (selectionChange)="levelOnOff($event)">
+      <mat-select placeholder="展示栏目等级" required formControlName="level" (selectionChange)="levelOnOff($event)">
         <mat-option [value]="1">1级</mat-option>
         <mat-option [value]="2">2级</mat-option>
       </mat-select>
@@ -15,29 +15,29 @@
 
     <mat-form-field>
       <!-- 一级下拉-->
-      <mat-select *ngIf="levelON_OFF" placeholder="所属栏目" formControlName="articleType" required>
-        <mat-option *ngFor="let t of titleLevel1 | async" [value]="t.id">
-          {{t.name}}
+      <mat-select *ngIf="levelON_OFF" placeholder="所属栏目" formControlName="category" required>
+        <mat-option *ngFor="let c of categoryLevel1 | async" [value]="c.id">
+          {{c.name}}
         </mat-option>
       </mat-select>
       <!--二级下拉-->
-      <mat-select *ngIf="!levelON_OFF" placeholder="所属栏目" formControlName="articleType" required>
-        <mat-optgroup *ngFor="let t of titleTree | async" [label]="t.name">
-          <mat-option *ngFor="let c of t.childs" [value]="c.id">{{c.name}}</mat-option>
+      <mat-select *ngIf="!levelON_OFF" placeholder="所属栏目" formControlName="category" required>
+        <mat-optgroup *ngFor="let l1 of categoryTree | async" [label]="l1.name">
+          <mat-option *ngFor="let l2 of l1.childs" [value]="l2.id">{{l2.name}}</mat-option>
         </mat-optgroup>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="风格" formControlName="moduleType" required>
-        <mat-option [value]="0">滚动</mat-option>
-        <mat-option [value]="1">报文</mat-option>
-        <mat-option [value]="2">平铺</mat-option>
+      <mat-select placeholder="风格" formControlName="style" required>
+        <mat-option [value]="1">滚动</mat-option>
+        <mat-option [value]="2">报文</mat-option>
+        <mat-option [value]="3">平铺</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="宽度%" formControlName="flex" required>
+      <mat-select placeholder="宽度%" formControlName="width" required>
         <mat-option [value]="50">50</mat-option>
         <mat-option [value]="100">100</mat-option>
       </mat-select>
@@ -48,12 +48,12 @@
     </mat-form-field>
     <div>
       <mat-label>是否启用</mat-label>
-      <mat-slide-toggle formControlName="hide"></mat-slide-toggle>
+      <mat-slide-toggle formControlName="show"></mat-slide-toggle>
     </div>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="doPost()" [disabled]="!homeMoudelForm.valid">确定</button>
+  <button mat-button color="primary" (click)="doPost()" [disabled]="!zoneForm.valid">确定</button>
   <button mat-button mat-dialog-close color="warn">取消</button>
 </mat-dialog-actions>

@@ -11,7 +11,7 @@ import {environment} from 'environments/environment';
 })
 export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
   @Input()
-  module: any; // 父组件传递过来的模块信息
+  zone: any; // 父组件传递过来首页展区信息
   @Input()
   scrollid: string; // 滚动界面元素id
   butupId: string; // 向上按钮元素id
@@ -23,11 +23,11 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
   fileUrl = environment.fileUrl; // 文件系统域名
   imgUrl: any; // 动态图片url
 
-  constructor(private moduleApi: BackApiService, private  router: Router) {
+  constructor(private zoneApi: BackApiService, private  router: Router) {
   }
 
   ngOnInit() {
-    console.log('module', this.module);
+    console.log('zone', this.zone);
     this.getNavigation();
     this.getArticles();
   }
@@ -37,14 +37,14 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
    */
   getArticles() {
     const params = {
-      type: this.module.articleTypeId,
+      category: this.zone.category.id,
       pageIndex: 0,
       pageSize: 10
     };
-    this.moduleApi.getArticleByTitleIdAnon(params).subscribe(
+    this.zoneApi.getArticlesPageAnon(params).subscribe(
       success => {
         if (success.status === 1) {
-          this.articles = success.data.list.map(a => {
+          this.articles = success.data.content.map(a => {
             a.year = a.date.substring(0, 4);
             a.month = a.date.substring(5, 7);
             a.day = a.date.substring(8, 10);
@@ -67,31 +67,14 @@ export class Zone1Component implements OnInit, AfterViewInit, OnChanges {
    * 导航信息
    */
   getNavigation() {
-    if (this.module.showTypeLevel === 1) {
-      this.moduleApi.getChildrenTilesAnon({typeID: this.module.articleTypeId}).subscribe(
-        success => {
-          if (success.status === 1) {
-            this.navigation1 = success.data.name;
-            this.L1 = success.data.id;
-            console.log('navigation1', this.navigation1);
-          }
-        }
-      );
+    if (this.zone.cateory.level === 1) {
+      this.navigation1 = this.zone.cateory.name;
+      this.L1 = this.zone.cateory.id;
+      console.log('navigation1', this.navigation1);
     } else {
-      this.moduleApi.getChildrenTilesAnon({typeID: this.module.articleTypeId})
-        .switchMap(
-          t => {
-            this.navigation2 = t.data.name;
-            return this.moduleApi.getChildrenTilesAnon({
-              typeID: t.data.pid
-            });
-          })
-        .subscribe(
-          success => {
-            this.navigation1 = success.data.name;
-            this.L1 = success.data.id;
-          }
-        );
+      this.navigation2 = this.zone.cateory.name;
+      this.navigation1 = this.zone.cateory.parent.name;
+      this.L1 = this.zone.cateory.id;
     }
   }
 

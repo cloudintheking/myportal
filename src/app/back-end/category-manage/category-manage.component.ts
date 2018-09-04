@@ -1,6 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BackApiService} from '../../service/back-api.service';
-import {MatDialog, MatPaginator, MatPaginatorIntl, MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
+import {
+  MatDialog,
+  MatPaginator,
+  MatPaginatorIntl,
+  MatSort,
+  MatTableDataSource,
+  PageEvent,
+  Sort
+} from '@angular/material';
 import {AddCategoryDialogComponent} from './add-category-dialog/add-category-dialog.component';
 import 'rxjs/add/operator/map';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -18,21 +26,21 @@ import {DeleteCategoryDialogComponent} from './delete-category-dialog/delete-cat
   styleUrls: ['./category-manage.component.css']
 })
 export class CategoryManageComponent implements OnInit {
-  titles: MatTableDataSource<any> = new MatTableDataSource<any>(); // 文章列表数据源
+  categories: MatTableDataSource<any> = new MatTableDataSource<any>(); // 文章列表数据源
   @ViewChild('paginator') paginator: MatPaginator;
   totalCount: number;
   currentPage: PageEvent;
   currentSort: any; // 保存排序信息
   params: FormGroup; // 查询参数
-  constructor(private titleApi: BackApiService, private dialog: MatDialog, private matPaginatorIntl: MatPaginatorIntl) {
+  constructor(private categoryApi: BackApiService, private dialog: MatDialog, private matPaginatorIntl: MatPaginatorIntl) {
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
       length: null
     };
     this.currentSort = {
-      sortField: '',
-      sortOrder: ''
+      sortField: null,
+      sortOrder: null
     };
     this.params = new FormBuilder().group({
       typeLevel: [],
@@ -57,33 +65,33 @@ export class CategoryManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTitles();
-    // this.titles.sort = this.sortTable; 本地排序
+    this.getCategories();
+    // this.categories.sort = this.sortTable; 本地排序
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
-      this.getTitles();
+      this.getCategories();
     });
   }
 
   /**
    * 获取栏目信息
    */
-  getTitles() {
+  getCategories() {
     console.log('表单参数', this.params.value);
     console.log('分页参数', this.currentPage);
     console.log('排序参数', this.currentSort);
     const params = {
-      typeLevel: this.params.value.typeLevel,
-      displayStyle: this.params.value.displayStyle,
-      inNavigationBar: this.params.value.inNavigationBar,
+      level: this.params.value.typeLevel,
+      style: this.params.value.displayStyle,
+      show: this.params.value.inNavigationBar,
       pageIndex: this.currentPage.pageIndex,
       pageSize: this.currentPage.pageSize,
       sortField: this.currentSort.sortField,
       sortOrder: this.currentSort.sortOrder
     };
-    this.titleApi.getAllTitles(params)
+    this.categoryApi.getCategoryPage(params)
       .map(res => {
-        res.data.list.map(v => {
+        res.data.content.map(v => {
             switch (v.displayStyle) {
               case '1':
                 v.displayStyle = '列表';
@@ -101,9 +109,9 @@ export class CategoryManageComponent implements OnInit {
         return res;
       })
       .subscribe(res => {
-        this.titles.data = res.data.list;
+        this.categories.data = res.data.content;
         this.totalCount = res.data.total;
-        //  this.titles.sort = this.sortTable;
+        //  this.categories.sort = this.sortTable;
       });
   }
 
@@ -114,7 +122,7 @@ export class CategoryManageComponent implements OnInit {
   changeSort(sortInfo: Sort) {
     this.currentSort.sortField = sortInfo.active;
     this.currentSort.sortOrder = sortInfo.direction;
-    this.getTitles();
+    this.getCategories();
   }
 
   /**
@@ -127,7 +135,7 @@ export class CategoryManageComponent implements OnInit {
       data: {id: id}
     });
     currentdialog1.componentInstance.doConfirm.subscribe(() => {
-      this.getTitles(); // 更新数据
+      this.getCategories(); // 更新数据
     });
   }
 
@@ -143,7 +151,7 @@ export class CategoryManageComponent implements OnInit {
       }
     });
     currentdialog2.componentInstance.doConfirm.subscribe(() => {
-      this.getTitles(); // 更新数据
+      this.getCategories(); // 更新数据
     });
   }
 
@@ -161,6 +169,6 @@ export class CategoryManageComponent implements OnInit {
    * 更新栏目
    */
   updateTitle() {
-    this.titleApi.updateTitle(null).subscribe();
+    this.categoryApi.updateCategory(null).subscribe();
   }
 }

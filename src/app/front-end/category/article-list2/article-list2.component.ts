@@ -36,17 +36,17 @@ export class ArticleList2Component implements OnInit {
    */
   getArticles() {
     const params = {
-      type: this.L2,
+      category: this.L2,
       pageIndex: this.pageIndex,
       pageSize: this.pageSize // 和paginator组件中rows值保持一致
     };
     console.log('分页参数', params);
-    this.articleApi.getArticleByTitleIdAnon(params)
+    this.articleApi.getArticlesPageAnon(params)
       .subscribe(
         success => {
           console.log('总页数Init', success.data.total);
           this.artcileCount = success.data.total;
-          this.articleList = success.data.list.map(a => {
+          this.articleList = success.data.content.map(a => {
             a.cover = this.fileUrl + '/japi/filesystem/getFile?id=' + a.cover;
             return a;
           });
@@ -58,8 +58,8 @@ export class ArticleList2Component implements OnInit {
    * 导航信息
    */
   getNavigation(ID) {
-    this.articleApi.getChildrenTilesAnon({
-      typeID: ID
+    this.articleApi.getCategoryById({
+      id: ID
     }).subscribe(
       success => {
         this.navigation = success.data.name;

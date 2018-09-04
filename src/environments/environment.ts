@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://192.168.1.15:8881',
-  fileUrl: 'http://192.168.1.15:8879',
+  baseUrl: 'http://localhost:8881',
+  fileUrl: 'http://localhost:8882',
   ssoUrl: 'http://192.168.1.44:8889'
 
 };

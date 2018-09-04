@@ -18,9 +18,8 @@ export class HeadManageComponent implements OnInit {
   headerImgs: Array<HeaderImg>; // 背景图组
   fileUrl = environment.fileUrl; // 文件系统域名
   imgData: FormData = new FormData(); // 上传图片数据
-  imgIndex: any; // 选择图片位置
-
-  constructor(private  sanitizer: DomSanitizer, private logoApi: BackApiService, private  dialog: MatDialog) {
+  optionID: any; // 配置的id
+  constructor(private  sanitizer: DomSanitizer, private headImgApi: BackApiService, private  dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -31,10 +30,11 @@ export class HeadManageComponent implements OnInit {
    * 获取背景图
    */
   getHeaderImgs() {
-    this.logoApi.getHeaderImgs()
+    this.headImgApi.getOption()
       .subscribe(
         success => {
-          this.headerImgs = success.prop.headImg.map(value => {
+          this.optionID = success.data.id;
+          this.headerImgs = success.data.headimgs.map(value => {
             return {
               id: value,
               url: this.fileUrl + '/japi/filesystem/getFile?id=' + value
@@ -56,21 +56,20 @@ export class HeadManageComponent implements OnInit {
    * 打开文件对话框
    * @param index 图片位置索引
    */
-  openFileDialog(index?) {
-    this.imgIndex = index;
+  openFileDialog() {
     $('#browsefile').click();
-
   }
 
   /**
    * 删除
    * @param logo
    */
-  deleteHeaderImg(index) {
-    const params = {
-      pos: index
+  deleteHeaderImg(value) {
+    const data = {
+      id: this.optionID,
+      deleteImg: value
     };
-    this.logoApi.deleteHeaderImg(params).subscribe(
+    this.headImgApi.updateOption(data).subscribe(
       success => {
         this.dialog.open(AddConfirmDialogComponent, {
           width: '50%',
@@ -99,26 +98,20 @@ export class HeadManageComponent implements OnInit {
    */
   onchangeSelectFile(event) {
     const file: File = event.target.files[0];
-    this.imgData.append('file', file); // 文件保存至formdata
+    this.imgData.append('files', file); // 文件保存至formdata
     const params = { // 上传参数
-      viewByAnon: true,
-      maxFileSize: file.size,
-      longLife: true
     };
-    console.log('上传参数', params);
-    this.logoApi.uploadFile(this.imgData, params)
-      .switchMap((data) => {
-        const param = {
-          fileid: data.id,
-          pos: ''
-        };
-        if (this.imgIndex) {
-          param.pos = this.imgIndex;
-          return this.logoApi.updateHeaderImg(param); // 编辑背景图
-        } else {
-          return this.logoApi.addHeaderImg(param); // 新增背景图
-        }
-      })
+    console.log('文件上传参数', params);
+    this.headImgApi.uploadFile(this.imgData, params)
+      .switchMap(
+        res => {
+          const data = {
+            addImg: res.data[0].id,
+            id: this.optionID
+          };
+          console.log('更新配置参数', data);
+          return this.headImgApi.updateOption(data);
+        })
       .subscribe(
         success => {
           this.dialog.open(AddConfirmDialogComponent, {
@@ -141,7 +134,7 @@ export class HeadManageComponent implements OnInit {
         }
       );
     // this.logoImg = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
-    this.imgData.delete('file'); // 清除imgData
+    this.imgData.delete('files'); // 清除imgData
   }
 }
 

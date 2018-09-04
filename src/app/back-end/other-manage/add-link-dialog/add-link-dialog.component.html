@@ -2,7 +2,7 @@
 <mat-dialog-content class="post-form">
   <form [formGroup]="linkForm">
     <mat-form-field>
-      <mat-select formControlName="gid" placeholder="组名" required>
+      <mat-select formControlName="group" placeholder="组名" required>
         <mat-option *ngFor="let tag of linkGroup | async" [value]="tag.id">{{tag.name}}</mat-option>
       </mat-select>
     </mat-form-field>

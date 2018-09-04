@@ -20,11 +20,14 @@ export class BackApiService {
       placeholder: 'Edit Me',
       imageMaxSize: 1024 * 1024 * 3, // 图片限制3M
       // imageUploadMethod: 'POST',
-      imageUploadURL: this.fileUrl + '/japi/filesystem/richTextUpload',
+      imageUploadURL: this.fileUrl + '/japi/filesystem/richUpload',
+      imageUploadParam: 'files',
       fileMaxSize: 1024 * 1024 * 20, // 文件限制20M
-      fileUploadURL: this.fileUrl + '/japi/filesystem/richTextUpload',
+      fileUploadParam: 'files',
+      fileUploadURL: this.fileUrl + '/japi/filesystem/richUpload',
       videoMaxSize: 1024 * 1024 * 400, // 视频限制400M
-      videoUploadURL: this.fileUrl + '/japi/filesystem/richTextUpload',
+      videoUploadParam: 'files',
+      videoUploadURL: this.fileUrl + '/japi/filesystem/richUpload',
       // videoUploadParams: { // 上传参数
       //   viewByAnon: true,
       //   longLife: true,
@@ -61,9 +64,9 @@ export class BackApiService {
           console.log('src', src);
           const index = src.indexOf('?id='); // 获取文件id
           console.log('id', src.slice(index + 4));
-          const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
+          const deleteUrl = this.fileUrl + '/japi/filesystem/deleteBatch' + '?id=' + src.slice(index + 4);  // 拼接url
           $.ajax({
-            method: 'POST',
+            method: 'GET',
             url: deleteUrl
           })
             .done((data11) => {
@@ -78,9 +81,9 @@ export class BackApiService {
         'froalaEditor.file.unlink': (e, editor, link) => {
           const src = link.getAttribute('href');
           const index = src.indexOf('?id='); // 获取文件id
-          const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
+          const deleteUrl = this.fileUrl + '/japi/filesystem/deleteBatch' + '?id=' + src.slice(index + 4);  // 拼接url
           $.ajax({
-            method: 'POST',
+            method: 'GET',
             url: deleteUrl
           })
             .done(function (data1) {
@@ -93,9 +96,9 @@ export class BackApiService {
         'froalaEditor.video.removed': (e, editor, video) => {
           const src = video.getAttribute('src');
           const index = src.indexOf('?id='); // 获取文件id
-          const deleteUrl = this.fileUrl + '/japi/filesystem/delete' + '?fileid=' + src.slice(index + 4);  // 拼接url
+          const deleteUrl = this.fileUrl + '/japi/filesystem/deleteBatch' + '?id=' + src.slice(index + 4);  // 拼接url
           $.ajax({
-            method: 'POST',
+            method: 'GET',
             url: deleteUrl
           })
             .done(function (data2) {
@@ -144,123 +147,59 @@ export class BackApiService {
     });
   }
 
-  /**********************logo管理api******************************/
+  /**********************其他配置管理api******************************/
   /**
-   * 更新脚注
-   * @param data
+   * 获取配置
    * @returns {Observable<any>}
    */
-  updateFoot(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/portal/update', data);
+  getOption(): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/option/get');
   }
 
   /**
-   * 获取背景图
+   * 更新配置
+   * @param data
    * @returns {Observable<any>}
    */
-  getHeaderImgs(): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/portal/get');
+  updateOption(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/option/update', data);
   }
 
   /**
    * 匿名
-   * 获取背景图及脚注
+   * 获取配置
    * @returns {Observable<any>}
    */
-  getHeaderImgsAnon(): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/get');
-  }
-
-  /**
-   * 移除背景图
-   * @param params
-   * @returns {Observable<any>}
-   */
-  deleteHeaderImg(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/portal/removeBanner', null, {
-      params: params
-    });
-  }
-
-  /**
-   * 新增背景图
-   * @param params
-   * @returns {Observable<any>}
-   */
-  addHeaderImg(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/portal/addBanner', null, {
-      params: params
-    });
-  }
-
-  /**
-   * 更新背景图
-   * @param params
-   * @returns {Observable<any>}
-   */
-  updateHeaderImg(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/portal/changeBanner', null, {
-      params: params
-    });
+  getOptionAnon(): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/option/get');
   }
 
   /**********************栏目管理api******************************/
   /**
-   * 根据查询参数获取栏目信息
-   * @returns {Observable<any>}
-   */
-  getAllTitles(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/type/getBy', params);
-  }
-
-  /**
-   * 根据id查询栏目
-   * @param {string} id
+   * 根据id+查询栏目
+   * @param {any} params
    * @returns {Observable<Object>}
    */
-  getTitleById(id: string): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/article/type/getById', {
-      params: {
-        typeID: id,
-        showChilds: 'true'
-      }
-    });
-  }
-
-  /**
-   * 根据分类等级获取栏目
-   * @param {string} level
-   */
-  getTitlesByLevel(level: string): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/article/type/getByLevel', {
-      params: {
-        level: level
-      }
-    });
-  }
-
-  /**
-   * 匿名接口
-   * 根据分类等级获取栏目
-   * @param {string} level
-   */
-  getTitlesByLevelAnon(level: string): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/type/getByLevel', {
-      params: {
-        level: level
-      }
-    });
-  }
-
-  /**
-   * 获取父级栏目
-   * @param params
-   * @returns {Observable<any>}
-   */
-  getParentTitle(params: any): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/type/getFirstLevel', {
+  getCategoryById(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/category/findById', {
       params: params
     });
+  }
+
+  /**
+   * 获取分页栏目信息
+   * @returns {Observable<any>}
+   */
+  getCategoryPage(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/category/findByPage', data);
+  }
+
+  /**
+   * 普通条件查询栏目
+   * @param {any} data
+   */
+  getCategories(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/category/findAll', data);
   }
 
   /**
@@ -268,77 +207,79 @@ export class BackApiService {
    * @param params
    * @returns {Observable<any>}
    */
-  getTitlesTree(params: any): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/article/type/getTree', {
-      params: params
-    });
-  }
-
-  /**
-   * 匿名接口
-   * 查找子栏目信息
-   * @returns {Observable<any>}
-   */
-  getChildrenTilesAnon(params: any): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/type/getById', {
+  getCategoriesTree(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/category/findByTree', {
       params: params
     });
   }
 
   /**
    * 新增栏目
-   * @param {HttpParams} params
+   * @param {any} data
    * @returns {Observable<any>} 返回成功消息、栏目id等
    */
-  addTitle(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/type/newType', params);
+  addCategory(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/category/save', data);
   }
 
   /**
    * 更新栏目信息
-   * @param {HttpParams} params
+   * @param {any} data
    * @returns {Observable<any>}
    */
-  updateTitle(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/type/update', params);
+  updateCategory(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/category/update', data);
   }
 
   /**
-   * 删除对应栏目信息
-   * @param {any} params{typeID(栏目ID),toID(文章移动栏目ID)}
+   * 删除栏目信息
+   * 关联首页展区及文章删除
+   * 下级栏目升级
+   * @param {any} params
    * @returns {Observable<any>}
    */
-  deleteTitle(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/type/deleteAndMoveTo', params);
+  deleteCategory(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/category/delete', {
+      params: params
+    });
+  }
+
+  /**
+   * 匿名接口
+   * 普通条件查询栏目
+   * @param {any} data
+   */
+  getCategoriesAnon(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/category/findAll', data);
   }
 
   /**********************首页模块管理api******************************/
   /**
-   *多条件查询首页模块信息
-   * @param params
+   *条件查询首页展区信息
+   * @param data
    * @returns {Observable<any>}
    */
-  getModules(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/module/getBy', params);
+  getZones(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/zone/findAll', data);
   }
 
   /**
-   * 匿名
-   *多条件查询首页模块信息
-   * @param params
+   *分页查询首页展区信息
+   * @param data
    * @returns {Observable<any>}
    */
-  getModulesAnon(): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/module/getAll');
+  getZonesPage(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/zone/findByPage', data);
   }
 
+
   /**
-   * 根据id查询首页模块信息
+   * 根据id查询首页展区信息
    * @param {string} id
    * @returns {Observable<any>}
    */
-  getModuleByID(id: string): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/module/getById', {
+  getZoneByID(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/zone/findById', {
       params: {
         id: id
       }
@@ -346,43 +287,53 @@ export class BackApiService {
   }
 
   /**
-   * 新增首页模块
-   * @param params
+   * 新增首页展区
+   * @param data
    * @returns {Observable<any>}
    */
-  addModule(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/module/new', params);
+  addZone(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/zone/save', data);
   }
 
   /**
-   * 更新首页模块
-   * @param params
+   * 更新首页展区
+   * @param data
    * @returns {Observable<any>}
    */
-  updateModule(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/module/update', params);
+  updateZone(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/zone/update', data);
   }
 
   /**
-   * 根据id首页模块
+   * 根据id删除首页展区
    * @param {string} id
    * @returns {Observable<any>}
    */
-  deleteModule(id: string): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/module/delete', null, {
+  deleteZone(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/zone/delete', {
       params: {id: id}
     });
+  }
+
+  /**
+   * 匿名
+   * 条件查询首页展区信息
+   * @param data
+   * @returns {Observable<any>}
+   */
+  getZonesAnon(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/zone/findAll', data);
   }
 
   /**********************文章管理api******************************/
 
   /**
-   * 获取文章列表
-   * @param params
+   * 分页查询文章
+   * @param data
    * @returns {Observable<any>}
    */
-  getArticles(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/getBy', params);
+  getArticlesPage(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/article/findByPage', data);
   }
 
   /**
@@ -391,19 +342,50 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   getArticleById(id: string): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/article/get', {
-      params: {articleID: id}
+    return this.http.get(this.baseUrl + '/japi/backsystem/article/findById', {
+      params: {id: id}
+    });
+  }
+
+  /**
+   * 新增文章内容
+   * @param data
+   * @returns {Observable<any>}
+   */
+  addArticle(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/article/save', data);
+  }
+
+  /**
+   * 更新文章内容
+   * @param data
+   * @returns {Observable<any>}
+   */
+  updateArticle(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/article/update', data);
+  }
+
+  /**
+   * 根据id删除文章
+   * @param {string} id
+   * @returns {Observable<any>}
+   */
+  deleteArticleByID(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/article/delete', {
+      params: {
+        id: id
+      }
     });
   }
 
   /**
    * 匿名
    * 根据文章id获取对应文章信息
-   * @param {string} id
+   * @param {any} params
    * @returns {Observable<any>}
    */
   getArticleByIdAnon(params: any): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/article/get', {
+    return this.http.get(this.baseUrl + '/japi/backsystem/article/findById', {
       params: params
     });
   }
@@ -414,54 +396,22 @@ export class BackApiService {
    * @param parans
    * @returns {Observable<any>}
    */
-  getRelateArticlesAnon(params: any): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/article/getRelate', {
+  getArticlesRelatedAnon(params: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/article/findRelatedArticles', {
       params: params
     });
   }
 
   /**
    * 匿名接口
-   * 根据栏目id查询分页文章信息
-   * @param params
-   * @returns {Observable<any>}
-   */
-  getArticleByTitleIdAnon(params: any): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/article/getFromTypeRecu', {
-      params: params
-    });
-  }
-
-  /**
-   * 新增文章内容
+   * 分页获取文章信息
    * @param data
    * @returns {Observable<any>}
    */
-  addArticle(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/new', data);
+  getArticlesPageAnon(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/article/findByPage', data);
   }
 
-  /**
-   * 更新文章内容
-   * @param data
-   * @returns {Observable<any>}
-   */
-  updateArticle(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/update', data);
-  }
-
-  /**
-   * 根据id删除文章
-   * @param {string} id
-   * @returns {Observable<any>}
-   */
-  deleteArticleByID(id: string): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/article/delete', null, {
-      params: {
-        articleID: id
-      }
-    });
-  }
 
   /**********************脚注管理api******************************/
   /**
@@ -469,27 +419,17 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   getLinkGroup(): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/tailLinkGroup/getBy');
+    return this.http.post(this.baseUrl + '/japi/backsystem/linkgroup/findAll', {});
   }
 
-  /**
-   * 匿名
-   * 查询链接组
-   * @returns {Observable<any>}
-   */
-  getLinkGroupAnon(): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/portal/tailLinkGroup/get');
-  }
 
   /**
    * 新增链接组标签
-   * @param params
+   * @param data
    * @returns {Observable<any>}
    */
-  addLinkGroup(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/new', null, {
-      params: params
-    });
+  addLinkGroup(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/linkgroup/save', data);
   }
 
   /**
@@ -498,7 +438,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   deleteLinkGroup(id: string): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/delete', null, {
+    return this.http.get(this.baseUrl + '/japi/backsystem/linkgroup/delete', {
       params: {
         id: id
       }
@@ -506,12 +446,21 @@ export class BackApiService {
   }
 
   /**
-   * 多条件查询链接信息
-   * @param params
+   * 匿名
+   * 查询链接组
    * @returns {Observable<any>}
    */
-  getLinks(params: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/getPage', params);
+  getLinkGroupAnon(): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/linkgroup/findAllwithLinks',{});
+  }
+
+  /**
+   * 分页查询链接信息
+   * @param data
+   * @returns {Observable<any>}
+   */
+  getLinksPage(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/japi/backsystem/link/findByPage', data);
   }
 
   /**
@@ -520,7 +469,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   getLinkByID(id: string): Observable<any> {
-    return this.http.get(this.baseUrl + '/japi/cms/tailLinkGroup/getLinkById', {
+    return this.http.get(this.baseUrl + '/japi/backsystem/link/findById', {
       params: {
         id: id
       }
@@ -533,7 +482,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   addLink(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/addLink', data);
+    return this.http.post(this.baseUrl + '/japi/backsystem/link/save', data);
   }
 
   /**
@@ -542,7 +491,7 @@ export class BackApiService {
    * @returns {Observable<any>}
    */
   updateLink(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/updateLink', data);
+    return this.http.post(this.baseUrl + '/japi/backsystem/link/update', data);
   }
 
   /**
@@ -550,11 +499,12 @@ export class BackApiService {
    * @param {string} id
    * @returns {Observable<any>}
    */
-  deleteLinkByID(id?: string): Observable<any> {
-    return this.http.post(this.baseUrl + '/japi/cms/tailLinkGroup/deleteLink', null, {
+  deleteLinkByID(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/japi/backsystem/link/delete', {
       params: {
         id: id
       }
     });
   }
+
 }

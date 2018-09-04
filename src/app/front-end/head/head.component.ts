@@ -12,12 +12,12 @@ export class HeadComponent implements OnInit {
   headerImgs: Observable<any>; // 背景图片组
   fileUrl = environment.fileUrl; // 文件系统域名
 
-  constructor(private  logoApi: BackApiService) {
+  constructor(private  headApi: BackApiService) {
   }
 
   ngOnInit() {
-    this.headerImgs = this.logoApi.getHeaderImgsAnon().map(res => {
-      return res.prop.headImg.map(h => {
+    this.headerImgs = this.headApi.getOptionAnon().map(res => {
+      return res.data.headimgs.map(h => {
         return h = this.fileUrl + '/japi/filesystem/getFile?id=' + h;
       });
     });
