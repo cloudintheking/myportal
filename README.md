@@ -58,9 +58,9 @@ PS: 运行该命令前,请先克隆[myportal服务端项目](https://github.com/
 >前台页面最终展示效果根据添加数据的不同而产生变化，所以不多说了，自己去探索吧
 ## Build
 
-`run ng build -e test` //生成测试模式下站点文件
+run `ng build -e test` //生成测试模式下站点文件
 
-`run ng build -e prod` //生成生产模式下站点文件
+run `ng build -e prod` //生成生产模式下站点文件
 
 ## Further help
-如果安装或是启动过程中遇到什么问题，欢迎到issue里留言。最后,如果你觉着项目写的还可以,记得star额~
+如果安装或是启动过程中遇到什么问题，欢迎到**issue**或**huanghking@gmail.com**里留言。最后,如果你觉着项目写的还可以,记得star额~
