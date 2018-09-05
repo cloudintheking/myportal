@@ -19,7 +19,7 @@ export class BackMenuComponent implements OnInit {
   user: any; // 从localstorage取出用户信息
   menus: any[] = [
     {
-      name: 'logo管理',
+      name: '顶部图管理',
       route: './head',
       icon: faAngry
     },
@@ -39,7 +39,7 @@ export class BackMenuComponent implements OnInit {
       icon: faNewspaper
     },
     {
-      name: '脚注管理',
+      name: '其他管理',
       route: './footer',
       icon: faShoePrints
     }

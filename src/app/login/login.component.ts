@@ -39,7 +39,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
    */
   login() {
     console.log(this.loginForm);
-    this.router.navigate(['/backend/head']);
+    if (this.loginForm.value.username === 'admin' && this.loginForm.value.password === '123456') {
+      this.router.navigate(['/backend/head']);
+    } else {
+      this.dialog.open(AddConfirmDialogComponent, {
+        width: '50%',
+        data: {
+          message: '用户名或密码错误'
+        }
+      });
+    }
     // this.loginApi.loginIn(this.loginForm.value).subscribe(
     //   success => {
     //     if (success.status === 1) {
@@ -63,7 +72,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     //     });
     //   }
     // );
-    //  window.location.href = 'http://112.16.169.54:8025/neibu.html';
   }
 
 }
