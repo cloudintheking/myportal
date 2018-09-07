@@ -1,5 +1,5 @@
 # Myportal
-##Description
+## Description
 **动态门户网站**
 - 框架： Angular 5.2
 - 初始化工具：[angular-cli 1.7.3](https://github.com/angular/angular-cli)
@@ -37,17 +37,17 @@ run  `ng serve -e prod` //启动生产模式
 then open [http://localhost:4200](http://localhost:4200)
 
 PS: 运行该命令前,请先克隆[myportal服务端项目](https://github.com/Cloudintheking/myportal_server)并启动后端服务
-##Page Introduction
-###前台首页
+## Page Introduction
+### 前台首页
 ![](./readMe/front.png)
 >现在数据还都是空的
-###登录页
+### 登录页
 ![](./readMe/login.png)
 >用户名：admin 密码：123456
 
 >登录接口被我注释了，实际开发中登录是要经过服务器验证的，这里只作演示
 
-###后台管理页
+### 后台管理页
 ![](./readMe/back.png)
 >目前只写了6个管理功能
 - 顶部图管理：控制前台页面顶部轮播图的crd
