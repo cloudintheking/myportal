@@ -26,6 +26,26 @@
 
     
   <url>
+    <loc>https://fatboa.co/2019/03/22/rabbitmq%E6%B6%88%E6%81%AF%E5%8E%BB%E9%87%8D%E5%8F%8A%E9%98%B2%E4%B8%A2%E5%A4%B1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2019-05-10T10:53:39.744Z</lastmod>
+    <data>
+        <display>
+        <title>rabbitmq消息去重及防丢失解决方案</title>
+        <pubTime>2019-03-22T03:38:54.000Z</pubTime>
+        
+        <tag>rabbitmq</tag>
+         
+         
+           
+             
+              <breadCrumb title="后端笔记" url="https://fatboa.co/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fatboa.co/2019/03/21/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E5%8C%96%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B/</loc>
     <lastmod>2019-05-10T10:53:39.744Z</lastmod>
     <data>
@@ -46,19 +66,19 @@
 
     
   <url>
-    <loc>https://fatboa.co/2019/03/22/rabbitmq%E6%B6%88%E6%81%AF%E5%8E%BB%E9%87%8D%E5%8F%8A%E9%98%B2%E4%B8%A2%E5%A4%B1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
-    <lastmod>2019-05-10T10:53:39.744Z</lastmod>
+    <loc>https://fatboa.co/2018/08/25/%E5%AE%89%E8%A3%85rabbitmq%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF/</loc>
+    <lastmod>2019-05-10T10:53:39.743Z</lastmod>
     <data>
         <display>
-        <title>rabbitmq消息去重及防丢失解决方案</title>
-        <pubTime>2019-03-22T03:38:54.000Z</pubTime>
+        <title>安装rabbitmq碰到的一些错误</title>
+        <pubTime>2018-08-25T07:25:44.000Z</pubTime>
         
         <tag>rabbitmq</tag>
          
          
            
              
-              <breadCrumb title="后端笔记" url="https://fatboa.co/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
+              <breadCrumb title="问题总结篇" url="https://fatboa.co/categories/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93%E7%AF%87/"/>
           
         </display>
     </data>
@@ -86,19 +106,19 @@
 
     
   <url>
-    <loc>https://fatboa.co/2018/08/25/%E5%AE%89%E8%A3%85rabbitmq%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF/</loc>
-    <lastmod>2019-05-10T10:53:39.743Z</lastmod>
+    <loc>https://fatboa.co/2018/08/15/mongodb%E6%93%8D%E4%BD%9C%E4%B9%8B-slice/</loc>
+    <lastmod>2019-05-10T10:53:39.742Z</lastmod>
     <data>
         <display>
-        <title>安装rabbitmq碰到的一些错误</title>
-        <pubTime>2018-08-25T07:25:44.000Z</pubTime>
+        <title>mongodb操作之$slice</title>
+        <pubTime>2018-08-15T13:50:29.000Z</pubTime>
         
-        <tag>rabbitmq</tag>
+        <tag>mongodb</tag>
          
          
            
              
-              <breadCrumb title="问题总结篇" url="https://fatboa.co/categories/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93%E7%AF%87/"/>
+              <breadCrumb title="翻译篇" url="https://fatboa.co/categories/%E7%BF%BB%E8%AF%91%E7%AF%87/"/>
           
         </display>
     </data>
@@ -128,19 +148,19 @@
 
     
   <url>
-    <loc>https://fatboa.co/2018/08/15/mongodb%E6%93%8D%E4%BD%9C%E4%B9%8B-slice/</loc>
-    <lastmod>2019-05-10T10:53:39.742Z</lastmod>
+    <loc>https://fatboa.co/2018/08/09/oracle%E4%B9%8B%E5%A4%9A%E8%A1%A8%E7%BB%9F%E8%AE%A1%E6%9F%A5%E8%AF%A2/</loc>
+    <lastmod>2019-05-10T10:53:39.741Z</lastmod>
     <data>
         <display>
-        <title>mongodb操作之$slice</title>
-        <pubTime>2018-08-15T13:50:29.000Z</pubTime>
+        <title>oracle之多表统计查询</title>
+        <pubTime>2018-08-09T13:58:40.000Z</pubTime>
         
-        <tag>mongodb</tag>
+        <tag>sql</tag>
          
          
            
              
-              <breadCrumb title="翻译篇" url="https://fatboa.co/categories/%E7%BF%BB%E8%AF%91%E7%AF%87/"/>
+              <breadCrumb title="数据库" url="https://fatboa.co/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
           
         </display>
     </data>
@@ -168,14 +188,14 @@
 
     
   <url>
-    <loc>https://fatboa.co/2018/08/09/oracle%E4%B9%8B%E5%A4%9A%E8%A1%A8%E7%BB%9F%E8%AE%A1%E6%9F%A5%E8%AF%A2/</loc>
-    <lastmod>2019-05-10T10:53:39.741Z</lastmod>
+    <loc>https://fatboa.co/2018/08/07/mongodb%E4%B9%8B%E4%B8%BB%E4%BB%8E%E3%80%81%E9%9B%86%E7%BE%A4%E3%80%81%E5%88%86%E7%89%87/</loc>
+    <lastmod>2019-05-10T10:53:39.740Z</lastmod>
     <data>
         <display>
-        <title>oracle之多表统计查询</title>
-        <pubTime>2018-08-09T13:58:40.000Z</pubTime>
+        <title>mongodb之主从、集群、分片</title>
+        <pubTime>2018-08-07T14:04:05.000Z</pubTime>
         
-        <tag>sql</tag>
+        <tag>mongodb</tag>
          
          
            
@@ -208,19 +228,19 @@
 
     
   <url>
-    <loc>https://fatboa.co/2018/08/07/mongodb%E4%B9%8B%E4%B8%BB%E4%BB%8E%E3%80%81%E9%9B%86%E7%BE%A4%E3%80%81%E5%88%86%E7%89%87/</loc>
-    <lastmod>2019-05-10T10:53:39.740Z</lastmod>
+    <loc>https://fatboa.co/2018/08/04/Flex-Layout%E4%B9%8B%E5%A3%B0%E6%98%8E%E5%BC%8FAPI%E6%A6%82%E8%BF%B0/</loc>
+    <lastmod>2019-05-10T10:53:39.739Z</lastmod>
     <data>
         <display>
-        <title>mongodb之主从、集群、分片</title>
-        <pubTime>2018-08-07T14:04:05.000Z</pubTime>
+        <title>Flex-Layout之声明式API概述</title>
+        <pubTime>2018-08-04T13:24:09.000Z</pubTime>
         
-        <tag>mongodb</tag>
+        <tag>flex-layout</tag>
          
          
            
              
-              <breadCrumb title="数据库" url="https://fatboa.co/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+              <breadCrumb title="翻译篇" url="https://fatboa.co/categories/%E7%BF%BB%E8%AF%91%E7%AF%87/"/>
           
         </display>
     </data>
@@ -241,26 +261,6 @@
            
              
               <breadCrumb title="后端笔记" url="https://fatboa.co/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fatboa.co/2018/08/04/Flex-Layout%E4%B9%8B%E5%A3%B0%E6%98%8E%E5%BC%8FAPI%E6%A6%82%E8%BF%B0/</loc>
-    <lastmod>2019-05-10T10:53:39.739Z</lastmod>
-    <data>
-        <display>
-        <title>Flex-Layout之声明式API概述</title>
-        <pubTime>2018-08-04T13:24:09.000Z</pubTime>
-        
-        <tag>flex-layout</tag>
-         
-         
-           
-             
-              <breadCrumb title="翻译篇" url="https://fatboa.co/categories/%E7%BF%BB%E8%AF%91%E7%AF%87/"/>
           
         </display>
     </data>
@@ -330,26 +330,6 @@
 
     
   <url>
-    <loc>https://fatboa.co/2018/07/12/windows%E4%B8%8B%E5%AE%89%E8%A3%85nvm%E5%8F%8Anrm/</loc>
-    <lastmod>2019-05-10T10:53:39.736Z</lastmod>
-    <data>
-        <display>
-        <title>windows下安装nvm及nrm</title>
-        <pubTime>2018-07-12T01:14:12.000Z</pubTime>
-        
-        <tag>nodejs</tag>
-         
-         
-           
-             
-              <breadCrumb title="环境安装篇" url="https://fatboa.co/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E7%AF%87/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fatboa.co/2018/07/14/npm-%E5%8D%87%E7%BA%A7%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
     <lastmod>2019-05-10T10:53:39.736Z</lastmod>
     <data>
@@ -363,6 +343,26 @@
            
              
               <breadCrumb title="问题总结篇" url="https://fatboa.co/categories/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93%E7%AF%87/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fatboa.co/2018/07/12/windows%E4%B8%8B%E5%AE%89%E8%A3%85nvm%E5%8F%8Anrm/</loc>
+    <lastmod>2019-05-10T10:53:39.736Z</lastmod>
+    <data>
+        <display>
+        <title>windows下安装nvm及nrm</title>
+        <pubTime>2018-07-12T01:14:12.000Z</pubTime>
+        
+        <tag>nodejs</tag>
+         
+         
+           
+             
+              <breadCrumb title="环境安装篇" url="https://fatboa.co/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E7%AF%87/"/>
           
         </display>
     </data>
